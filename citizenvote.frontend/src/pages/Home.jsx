@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="h-fit w-screen flex justify-start items-center flex-col">
       <img
-        className="h-auto max-h-[88vh]  w-screen flex justify-center items-center object-cover border-b-2 border-gray-600"
+        className="h-auto max-h-[88vh]  w-screen flex justify-center items-center object-cover"
         src={banner}
         alt=""
       />
