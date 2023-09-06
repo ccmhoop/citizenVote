@@ -10,14 +10,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-    <Header />
     <Navbar />
-    <div className="app">
-      <div className="app-white-page horizontal-center">
+    <div className="flex h-fit justify-center w-screen m-auto">
         <Routes>
           <Route index element={<Home />} />
         </Routes>
-      </div>
     </div>
     <Footer />
   </BrowserRouter>
