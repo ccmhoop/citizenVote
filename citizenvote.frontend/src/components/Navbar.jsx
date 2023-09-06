@@ -3,31 +3,33 @@ import { Link } from "react-router-dom";
 import logo from "../assets/logoAmersfoort.png";
 import menu from "../assets/menu.png";
 
-
 export default function Navbar() {
   return (
-    <nav className="h-14 w-screen left-0 top-0 sticky flex items-center border-b-2 border-gray-600 shadow-lg bg-slate-900">
-      <div className="flex justify-center items-center text-gray-200 w-[90vw] h-9 gap-6 m-auto">
-        <button className="flex justify-center items-center bg-blue-300 h-9 w-9 rounded-[100%]">
-          {" "}
-          <img
-            className="h-6 w-3 flex justify-center items-center object-cover"
-            src={menu}
-            alt=""
-          />
-        </button>
-        <div className="flex justify-center items-center rounded-2xl overflow-hidden h-9 w-28 max-w-[20vw] bg-blue-300">
-          {" "}
-          <img
-            className="h-auto w-auto flex justify-center items-center object-cover"
-            src={logo}
-            alt=""
-          />
+    <nav className="h-14 w-screen left-0 top-0 sticky flex items-center  shadow-lg bg-slate-900">
+      <div className="flex justify-between items-center text-gray-200 w-screen h-9 gap-1 m-auto">
+        <div className="flex justify-start items-center gap-2">
+          <button className="flex justify-center items-center h-14 w-14">
+            {" "}
+            <img
+              className="h-10 w-10 flex justify-center items-center object-cover"
+              src={menu}
+              alt=""
+            />
+            <div className="h-10 w-0 border-r-2 border-slate-600 ml-1"></div>
+          </button>
+          <div className="flex justify-center items-center rounded-2xl overflow-hidden h-9 w-28 max-w-[20vw] bg-blue-300">
+            {" "}
+            <img
+              className="h-auto w-auto flex justify-center items-center"
+              src={logo}
+              alt=""
+            />
+          </div>
         </div>
         <div className="flex justify-center items-center h-9">
           <input
             type="search"
-            className="max-w-[22vw] min-w-24 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
+            className="max-w-[35vw] w-96 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
             placeholder="Search"
             aria-label="Search"
             aria-describedby="button-addon1"
@@ -53,12 +55,10 @@ export default function Navbar() {
             </svg>
           </button>
         </div>
-          <Link
-            className="flex justify-center items-center bg-blue-300 h-9 w-9 rounded-[100%]  text-center text-base"
-            to="/shop"
-          >
-          </Link>
- 
+        <Link
+          className="flex justify-center items-center bg-blue-300 h-9 w-9 rounded-[100%]  text-center text-base mr-4"
+          to="/shop"
+        ></Link>
       </div>
     </nav>
   );
