@@ -1,14 +1,25 @@
 import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logoAmersfoort.png";
 import menu from "../assets/menu.png";
 
 export default function Navbar() {
+
+  const [burgMenu,setBurgMenu] = useState(false);
+  const handleMenu = () =>{
+    setBurgMenu(!burgMenu);
+    console.log(burgMenu);
+    if(burgMenu === true){
+      console.log("test true");
+    }
+  }
+
   return (
     <nav className="h-14 w-screen left-0 top-0 sticky flex items-center  shadow-lg bg-slate-900">
       <div className="flex justify-between items-center text-gray-200 w-screen h-9 gap-1 m-auto">
         <div className="flex justify-start items-center gap-2">
-          <button className="flex justify-center items-center h-14 w-14">
+          <button onClick={handleMenu} className="flex justify-center items-center h-14 w-14">
             {" "}
             <img
               className="h-10 w-10 flex justify-center items-center object-cover"
