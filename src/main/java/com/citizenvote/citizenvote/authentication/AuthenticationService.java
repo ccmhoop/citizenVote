@@ -28,6 +28,10 @@ public class AuthenticationService {
                 .phoneNumber(request.getPhonenumber())
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
+                .email(request.getEmail())
+                .adress(request.getAdress())
+                .points(0)
+                .postPrivilege(false)
                 .role(Role.CITIZEN)
                 .build();
         userRepository.save(user);

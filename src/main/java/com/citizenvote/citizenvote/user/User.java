@@ -26,6 +26,10 @@ public class User implements UserDetails {
     private String username;
     private String phoneNumber;
     private String password;
+    private String adress;
+    private String email;
+    private Integer points;
+    private Boolean postPrivilege;
 
     @Enumerated(EnumType.STRING)
     private Role role;
