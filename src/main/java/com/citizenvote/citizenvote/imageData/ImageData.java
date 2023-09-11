@@ -1,10 +1,13 @@
-package com.citizenvote.citizenvote.file.data;
+package com.citizenvote.citizenvote.imageData;
 
+import com.citizenvote.citizenvote.product.Product;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "ImageData")
@@ -18,11 +21,15 @@ public class ImageData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String imageName;
+    private String name;
     private String type;
 
     @Lob
     @Column(name = "imageData")
     private byte[] imageData;
+
+    @JsonIgnore
+    @ManyToOne
+    private Product product;
 
 }
