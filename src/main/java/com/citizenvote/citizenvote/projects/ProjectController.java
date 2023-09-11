@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
 @CrossOrigin
-@RequestMapping("api/v1/project")
+@RequestMapping("/api/v1/project")
 public class ProjectController {
 
     private final ProjectRepository projectRepository;

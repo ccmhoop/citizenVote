@@ -19,7 +19,7 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String title;
-    // user_id, hoe moet dit, want dit komt van de user...
+    // @manytomany user_id, hoe moet dit, want dit komt van de user...
     private String description;
     // project image, needs to be added but have to figure it out
     private Integer requiredVotes;
