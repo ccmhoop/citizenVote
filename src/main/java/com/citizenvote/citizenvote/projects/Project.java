@@ -17,14 +17,16 @@ public class Project {
     // project image, needs to be added but have to figure it out
     @Enumerated(EnumType.STRING)
     private Progress progress;
-    // enum  progress, needs to be added but have to figure it out
+
     private int requiredVotes;
     private int amountVotes;
 
     private LocalDate startDate;
     private LocalDate endDate;
 
-    // enum category, needs to be added but have to figure it out
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
 
 
 
