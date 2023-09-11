@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import './index.css'
 import "./css/main.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from './pages/Login';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -14,6 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <div className="flex h-fit justify-center w-screen m-auto">
         <Routes>
           <Route index element={<Home />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
     </div>
     <Footer />
