@@ -2,10 +2,17 @@ package com.citizenvote.citizenvote.projects;
 
 import com.citizenvote.citizenvote.user.Role;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(name = "project")
 
 public class Project {
     @Id
@@ -15,15 +22,12 @@ public class Project {
     // user_id, hoe moet dit, want dit komt van de user...
     private String description;
     // project image, needs to be added but have to figure it out
-    @Enumerated(EnumType.STRING)
-    private Progress progress;
-
-    private int requiredVotes;
-    private int amountVotes;
-
+    private Integer requiredVotes;
+    private Integer amountVotes;
     private LocalDate startDate;
     private LocalDate endDate;
-
+    @Enumerated(EnumType.STRING)
+    private Progress progress;
     @Enumerated(EnumType.STRING)
     private Category category;
 
