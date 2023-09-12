@@ -26,7 +26,7 @@ public class DatabaseSeeder {
         LocalDate endDate2 = LocalDate. of(2023, 10, 20);
         LocalDate startDate3 = LocalDate. of(2023, 7, 25);
         LocalDate endDate3 = LocalDate. of(2023, 8, 25);
-        Project project1 = new Project(,"title","description", 50, 0, startDate1, endDate1, Progress.APPROVED,Category.SPORTS);
+        Project project1 = new Project(,"title","description", 50, 0, startDate1, endDate1, ProjectProgress.APPROVED, ProjectCategory.SPORTS);
         Project project2 = new Project();
         Project project3 = new Project();
 

@@ -1,6 +1,6 @@
 package com.citizenvote.citizenvote.projects;
 
-public enum Progress {
+public enum ProjectProgress {
     // Is proposed by citizen.
     PROPOSED,
     // Is approved by municipality, or proposed by municipality.

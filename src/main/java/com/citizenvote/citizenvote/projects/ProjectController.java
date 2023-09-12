@@ -8,19 +8,24 @@ import java.util.List;
 @RequestMapping("/api/v1/project")
 public class ProjectController {
 
-    private final ProjectRepository projectRepository;
     @Autowired
-    public ProjectController(ProjectRepository projectRepository) {
-        this.projectRepository = projectRepository;
+    private ProjectRepository projectRepository;
+
+    @PostMapping
+    public ProjectDTO postProject(@RequestBody ProjectDTO project) {
+        return QuestionDTO.Mapper.toDto(questionRepository.save(question));
     }
-    @GetMapping("/hello")
-    public ResponseEntity<String> helloProject() {
-        return ResponseEntity.ok("hello project!");
+
+    @GetMapping("{id}")
+    public Optional<QuestionDTO> getById(@PathVariable("id") long id) {
+        return questionRepository.findById(id).map(QuestionDTO.Mapper::toDto);
     }
+
     @GetMapping
-    public ResponseEntity<List<Project>> getAllRecipes() {
-        List<Project> projects = projectRepository.findAll();
-        return ResponseEntity.ok(projects);
+    public List<QuestionDTO> getItems() {
+        return QuestionDTO.Mapper.toDto(questionRepository.findAll());
+    }
+}
 }
 
     @GetMapping("/{id}")

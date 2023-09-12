@@ -1,6 +1,5 @@
 package com.citizenvote.citizenvote.projects;
 
-import com.citizenvote.citizenvote.user.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,9 +26,9 @@ public class Project {
     private LocalDate startDate;
     private LocalDate endDate;
     @Enumerated(EnumType.STRING)
-    private Progress progress;
+    private ProjectProgress progress;
     @Enumerated(EnumType.STRING)
-    private Category category;
+    private ProjectCategory category;
 
 
 

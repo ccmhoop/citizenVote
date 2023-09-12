@@ -1,5 +1,5 @@
 package com.citizenvote.citizenvote.projects;
 
-public enum Category {
+public enum ProjectCategory {
     CULTURE, SPORTS, INFRASTRUCTURE, LIVING_ENVIRONMENT, EDUCATION, SUSTAINABILITY
 }
