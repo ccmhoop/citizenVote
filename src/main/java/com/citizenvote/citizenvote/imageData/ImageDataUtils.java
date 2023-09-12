@@ -6,6 +6,7 @@ import java.util.zip.Inflater;
 
 public class ImageDataUtils {
 
+    //Compresses image before stored in Database
     public static byte[] compressImage(byte[] data){
         Deflater deflater = new Deflater();
         deflater.setLevel(Deflater.BEST_COMPRESSION);
@@ -24,6 +25,7 @@ public class ImageDataUtils {
         return outputStream.toByteArray();
     }
 
+    //decompresses image when fetched from database
     public static byte[] decompressImage(byte[] data){
         Inflater inflater = new Inflater();
         inflater.setInput(data);

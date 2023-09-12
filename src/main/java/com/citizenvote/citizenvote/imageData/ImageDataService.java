@@ -1,5 +1,7 @@
 package com.citizenvote.citizenvote.imageData;
 
+import com.citizenvote.citizenvote.product.Product;
+import com.citizenvote.citizenvote.product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,11 +16,26 @@ public class ImageDataService {
     @Autowired
     private ImageDataRepository imageDataRepository;
 
-    public String uploadImage(MultipartFile file) throws IOException {
+    @Autowired
+    private ProductRepository productRepository;
+
+    /*
+     * UploadImage is being developed to create a full data package.
+     * Need to be tested to work properly with table relations
+     */
+
+
+    public String uploadImage(MultipartFile file,Product product) throws IOException {
+        //being tested
+        productRepository.save(product);
+
         ImageData imageData = imageDataRepository.save(ImageData.builder()
                 .name(file.getOriginalFilename())
                 .type(file.getContentType())
-                .imageData(ImageDataUtils.compressImage(file.getBytes())).build());
+                .product(product)
+                .imageData(ImageDataUtils.compressImage(file.getBytes()))
+                .build());
+
         if (imageData != null){
             return "file uploaded successfully : " +  file.getOriginalFilename();
         }

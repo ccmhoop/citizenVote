@@ -1,12 +1,14 @@
 package com.citizenvote.citizenvote.imageData;
 
 import com.citizenvote.citizenvote.product.Product;
+import com.citizenvote.citizenvote.user.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.Type;
 
 @Entity
@@ -24,12 +26,18 @@ public class ImageData {
     private String name;
     private String type;
 
+    //Testing Category with enums if needed
+    @Enumerated(EnumType.STRING)
+    private ImageDataCategory category;
+
     @Lob
     @Column(name = "imageData")
     private byte[] imageData;
 
+
     @JsonIgnore
     @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product product;
 
 }
