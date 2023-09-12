@@ -19,7 +19,7 @@ public class DatabaseSeeder {
     }
 
     private void seedDatabase(ProjectRepository projectRepository) {
-        Project project1 = new Project();
+        Project project1 = new Project("",);
         Project project2 = new Project();
         Project project3 = new Project();
 
