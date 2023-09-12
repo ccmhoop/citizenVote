@@ -9,6 +9,7 @@ import "./css/main.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from './pages/Login';
 import { AuthProvider } from 'react-auth-kit';
+import Register from './pages/Register';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 <AuthProvider authType='cookie' authName='_auth' cookieDomain={window.location.hostname} cookieSecure={false}>
@@ -18,6 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Routes>
           <Route index element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           {/* voorbeeld protected Route
            <Route path="/{beveiligde path}" element={<RequireAuth loginPath="/login"><Pagina/></RequireAuth>}></Route> */}
         </Routes>
