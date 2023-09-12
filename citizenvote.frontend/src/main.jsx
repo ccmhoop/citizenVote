@@ -16,8 +16,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <div className="flex h-fit justify-center w-screen m-auto">
       <Routes>
         <Route index element={<Home />} />
-        <Route index element={<Projects />} />
-        <Route index element={<ProposeProject />} />
+        <Route path="/projects" index element={Projects} />
+        <Route path="/ProposeProject" element={ProposeProject} />
       </Routes>
     </div>
     <Footer />
