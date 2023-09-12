@@ -32,6 +32,7 @@ export default function BurgerMenu() {
           <div className=" border-2 border-white rounded mt-2"></div>
           <Link to="/shop">Shop</Link>
           <Link to="/projects">projects</Link>
+          <Link to="/ProposeProject">Propose project</Link>
         </div>
       </div>
     </div>
