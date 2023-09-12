@@ -17,7 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Routes>
         <Route index element={<Home />} />
         <Route path="/projects" element={<Projects />} />
-        <Route path="/ProposeProject" element={ProposeProject} />
+        <Route path="/ProposeProject" element={<ProposeProject />} />
       </Routes>
     </div>
     <Footer />
