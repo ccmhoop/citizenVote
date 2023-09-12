@@ -41,8 +41,20 @@ public class ProjectSeeder implements CommandLineRunner {
                 .category(ProjectCategory.EDUCATION)
                 .build();
 
+        Project project3 = Project.builder()
+                .title("Project 3")
+                .description("Beschrijving van Project 3")
+                .requiredVotes(50)
+                .amountVotes(50)
+                .startDate(LocalDate.of(2023,7,3))
+                .endDate(LocalDate.of(2023,7,3).plusMonths(1))
+                .progress(ProjectProgress.HAVE_ENOUGH_VOTES)
+                .category(ProjectCategory.SUSTAINABILITY)
+                .build();
+
         // Voeg de projecten toe aan de database.
         projectRepository.save(project1);
         projectRepository.save(project2);
+        projectRepository.save(project3);
     }
 }
