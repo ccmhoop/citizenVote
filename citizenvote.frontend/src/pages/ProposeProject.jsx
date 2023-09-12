@@ -1,9 +1,10 @@
 import React from "react";
+import ProposeProjectMenu from "../components/ProposeProjectMenu";
 
 export default function ProposeProject() {
   return (
     <div>
-      <H1>Hallo dit is een test -propose Project-</H1>
+      <ProposeProjectMenu />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import React from "react";
 export default function Projects() {
   return (
     <div>
-      <H1>Hallo dit is een test -Projects-</H1>
+      <h1>Hallo dit is een test -Projects-</h1>
     </div>
   );
 }
