@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/v1/auth/auth/projects")
+@RequestMapping("api/v1/auth/auth/projects")
 public class ProjectController {
 
     private final ProjectRepository projectRepository;

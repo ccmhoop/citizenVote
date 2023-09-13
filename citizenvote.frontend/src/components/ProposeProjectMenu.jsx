@@ -1,49 +1,40 @@
 import { useState } from "react";
-import axios from "axios"; // Importeer Axios
+import axios from "axios";
 
 function ProposeProjectMenu() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [image, setImage] = useState(null);
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    requiredVotes: 50,
+    amountVotes: 0,
+    startDate: null,
+    endDate: null,
+    progress: "PROPOSED",
+    category: null,
+  });
 
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value);
-  };
-
-  const handleDescriptionChange = (e) => {
-    setDescription(e.target.value);
-  };
-
-  const handleImageChange = (e) => {
-    const selectedImage = e.target.files[0];
-    setImage(selectedImage);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Maak een FormData-object om de gegevens in te pakken, inclusief de afbeelding
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("image", image);
-
     try {
-      // Gebruik Axios om de gegevens naar je backend te verzenden
-      await axios.post("http://localhost:8080/api/projects", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data", // Belangrijk voor het verwerken van FormData
-        },
-      });
+      // Voer de POST-request uit met Axios
+      await axios.post(
+        "http://localhost:8080/api/v1/auth/auth/projects",
+        formData
+      );
 
-      // Reset de staat van de component na succesvolle verzending
-      setTitle("");
-      setDescription("");
-      setImage(null);
-
-      console.log("Data successfully submitted to the server.");
+      // Het formulier is succesvol verzonden, je kunt hier eventueel een succesbericht tonen
+      console.log("Formulier succesvol verzonden");
     } catch (error) {
-      console.error("Error submitting data:", error);
+      console.error("Fout bij het posten van het formulier:", error);
     }
   };
 
@@ -63,8 +54,9 @@ function ProposeProjectMenu() {
           <input
             type="text"
             id="title"
-            value={title}
-            onChange={handleTitleChange}
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
             className="bg-slate-100 max-w-[35vw] w-96 flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
           />
         </div>
@@ -77,8 +69,9 @@ function ProposeProjectMenu() {
           </label>
           <textarea
             id="description"
-            value={description}
-            onChange={handleDescriptionChange}
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
             className="bg-slate-100 max-w-[35vw] w-96 flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
           />
         </div>
@@ -93,7 +86,7 @@ function ProposeProjectMenu() {
             type="file"
             id="image"
             accept="image/*"
-            onChange={handleImageChange}
+            onChange={handleChange}
             className="mt-1 p-2 rounded-md border w-full  text-gray-200"
           />
         </div>
