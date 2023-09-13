@@ -1,57 +1,56 @@
 package com.citizenvote.citizenvote.projects;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
-@RequestMapping("/projects")
+@CrossOrigin
+@RequestMapping("/api/v1/auth/auth/projects")
 public class ProjectController {
 
-    private final ProjectService projectService;
+    private final ProjectRepository projectRepository;
 
     @Autowired
-    public ProjectController(ProjectService projectService) {
-        this.projectService = projectService;
+    public ProjectController(ProjectRepository projectRepository) {
+        this.projectRepository = projectRepository;
     }
-
+    @GetMapping("/hello")
+    public ResponseEntity<String> helloProject() {
+        return ResponseEntity.ok("hello projects!");
+    }
     @GetMapping
     public ResponseEntity<List<Project>> getAllProjects() {
-        List<Project> projects = projectService.getAllProjects();
-        return new ResponseEntity<>(projects, HttpStatus.OK);
+        List<Project> projects = projectRepository.findAll();
+        return ResponseEntity.ok(projects);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Project> getProjectById(@PathVariable long id) {
-        Optional<Project> project = projectService.getProjectById(id);
-        return project.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<Project> getRecipeById(@PathVariable Long id) {
+        Project project = projectRepository.findById(id).orElse(null);
+        if (project != null) {
+            return ResponseEntity.ok(project);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
     public ResponseEntity<Project> createProject(@RequestBody Project project) {
-        Project createdProject = projectService.createProject(project);
-        return new ResponseEntity<>(createdProject, HttpStatus.CREATED);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Project> updateProject(@PathVariable long id, @RequestBody Project project) {
-        Optional<Project> updatedProject = projectService.updateProject(id, project);
-        return updatedProject.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Project savedProject = projectRepository.save(project);
+        return ResponseEntity.ok(savedProject);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProject(@PathVariable long id) {
-        boolean deleted = projectService.deleteProject(id);
-        if (deleted) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
+        if (projectRepository.existsById(id)) {
+            projectRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
     }
 }

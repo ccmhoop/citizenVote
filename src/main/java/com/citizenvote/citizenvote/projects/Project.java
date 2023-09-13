@@ -13,13 +13,14 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "project")
+@Table(name = "projects")
 
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Getter
     @JsonIgnore
     @ManyToOne
     @JoinColumn( name= "user_id")
@@ -39,8 +40,6 @@ public class Project {
 
     @Enumerated(EnumType.STRING)
     private ProjectCategory category;
-
-
 
 
 }

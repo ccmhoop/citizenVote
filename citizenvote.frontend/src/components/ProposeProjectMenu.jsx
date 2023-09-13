@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios"; // Importeer Axios
 
 function ProposeProjectMenu() {
   const [title, setTitle] = useState("");
@@ -18,12 +19,32 @@ function ProposeProjectMenu() {
     setImage(selectedImage);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted Data:");
-    console.log("Title:", title);
-    console.log("Description:", description);
-    console.log("Image:", image);
+
+    // Maak een FormData-object om de gegevens in te pakken, inclusief de afbeelding
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("image", image);
+
+    try {
+      // Gebruik Axios om de gegevens naar je backend te verzenden
+      await axios.post("http://localhost:8080/api/projects", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data", // Belangrijk voor het verwerken van FormData
+        },
+      });
+
+      // Reset de staat van de component na succesvolle verzending
+      setTitle("");
+      setDescription("");
+      setImage(null);
+
+      console.log("Data successfully submitted to the server.");
+    } catch (error) {
+      console.error("Error submitting data:", error);
+    }
   };
 
   return (
