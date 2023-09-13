@@ -27,6 +27,11 @@ function Login() {
             iter++
         }
         console.log(`username: ${username} , password: ${password} , iter: ${iter}`)
+
+        // const cfg = {
+        //     headers: {authorisation: {`Bearer ${token}`}}
+        // }
+
         if(iter == 2){
            await axios.post("http://localhost:8082/api/v1/auth/auth", {
                 username: username,
@@ -38,7 +43,7 @@ function Login() {
                     token: response.data.token,
                     expiresIn: 3600,
                     tokenType: "Bearer",
-                    authState: {username: username}
+                    authState: {username: response.data.name, role: response.data.role}
                 })
                 window.location.pathname = ''
             })
@@ -46,6 +51,9 @@ function Login() {
                 console.log(error)
                 if(error.response.status === 403){
                     document.getElementById("auth_error").innerHTML = "Your username or password is incorrect"
+                }
+                else if(error.response.status > 499){
+                    document.getElementById("auth_error").innerHTML = "Internal Server Error"
                 }
             })
         }
