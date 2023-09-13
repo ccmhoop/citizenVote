@@ -19,27 +19,22 @@ public class ImageDataService {
     @Autowired
     private ProductRepository productRepository;
 
-    /*
-     * UploadImage is being developed to create a full data package.
-     * Need to be tested to work properly with table relations
-     */
-
-
-    public String uploadImage(MultipartFile file,Product product) throws IOException {
-        //being tested
-        productRepository.save(product);
-
-        ImageData imageData = imageDataRepository.save(ImageData.builder()
-                .name(file.getOriginalFilename())
-                .type(file.getContentType())
-                .product(product)
-                .imageData(ImageDataUtils.compressImage(file.getBytes()))
-                .build());
-
-        if (imageData != null){
-            return "file uploaded successfully : " +  file.getOriginalFilename();
+    public String uploadImage(MultipartFile[] file,Product product) throws IOException {
+        if (file != null && product != null) {
+            if (product.getId() == null) {
+                productRepository.save(product);
+            }
+            for (MultipartFile image : file) {
+                imageDataRepository.save(ImageData.builder()
+                        .name(image.getOriginalFilename())
+                        .type(image.getContentType())
+                        .product(product)
+                        .imageData(ImageDataUtils.compressImage(image.getBytes()))
+                        .build());
+            }
+            return "file uploaded successfully";
         }
-        return null;
+        return "uploaded failed";
     }
 
     @Transactional

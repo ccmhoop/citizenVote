@@ -1,7 +1,6 @@
 package com.citizenvote.citizenvote.product;
 
 import com.citizenvote.citizenvote.imageData.ImageData;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,7 +19,6 @@ public class Product {
     private Long id;
 
     private String productName;
-
 
     @OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
     private List<ImageData> imageData;
