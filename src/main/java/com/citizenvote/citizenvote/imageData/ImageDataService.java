@@ -19,11 +19,9 @@ public class ImageDataService {
     @Autowired
     private ProductRepository productRepository;
 
-    public String uploadImage(MultipartFile[] file,Product product) throws IOException {
+    public String uploadImage(MultipartFile[] file, Product product) throws IOException {
         if (file != null && product != null) {
-            if (product.getId() == null) {
-                productRepository.save(product);
-            }
+            productRepository.save(product);
             for (MultipartFile image : file) {
                 imageDataRepository.save(ImageData.builder()
                         .name(image.getOriginalFilename())

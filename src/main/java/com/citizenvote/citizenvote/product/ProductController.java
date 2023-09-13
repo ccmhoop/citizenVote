@@ -26,14 +26,14 @@ public class ProductController {
     ProductRepository productRepository;
 
     @PostMapping(value = "/product/image", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<?> postProduct(@RequestPart("product") Product request, @RequestPart("image") MultipartFile[] file) throws IOException {
-        String dto = service.uploadImage(file,request);
+    public ResponseEntity<?> postProduct(@RequestPart("product") Product product, @RequestPart("image") MultipartFile[] file) throws IOException {
+        String status = service.uploadImage(file,product);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(dto);
+                .body(status);
     }
 
-    @GetMapping ("/ptest/{id}")
-    public ResponseEntity<ProductResponse> getPackage(@PathVariable("id") Long id){
+    @GetMapping ("/product/{id}")
+    public ResponseEntity<ProductResponse> fetchProducts(@PathVariable("id") Long id){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(productService.productPackage(id));
     }

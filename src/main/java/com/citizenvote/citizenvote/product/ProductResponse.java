@@ -1,7 +1,6 @@
 
 package com.citizenvote.citizenvote.product;
 
-
 import lombok.*;
 
 import java.util.ArrayList;

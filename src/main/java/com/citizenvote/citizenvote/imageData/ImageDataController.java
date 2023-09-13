@@ -19,15 +19,13 @@ public class ImageDataController {
     @Autowired
     ImageDataRepository imageDataRepository;
 
-    //Json fetch
     @GetMapping("/id/{id}")
     public Optional<ImageData> findById(@PathVariable("id") Long id) {
         return imageDataRepository.findById(id);
     }
 
-    //Visual Image
     @GetMapping("/image/{fileName}")
-    public ResponseEntity<?> downloadImage(@PathVariable("fileName") String fileName){
+    public ResponseEntity<?> fetchImage(@PathVariable("fileName") String fileName){
         byte[] imageData = service.downloadImage(fileName);
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.valueOf("image/png"))

@@ -3,7 +3,7 @@ import { useEffect,useState } from "react";
 import axios from "axios";
 
 
-export default function Store (){
+export default function Shop (){
 
     const [products,setProducts] = useState({
         id: "",
@@ -13,7 +13,7 @@ export default function Store (){
 
     useEffect(()=>{
         async function getStoreData(){
-            const response = await axios.get('http://localhost:8080/api/v1/auth/auth/ptest/26')
+            const response = await axios.get('http://localhost:8080/api/v1/auth/auth/product/29')
             .then((res) => setProducts(res.data))
         }
          getStoreData();
@@ -28,7 +28,6 @@ export default function Store (){
     return (
         <div>
             <button onClick={handleClick}>Products</button>
-            {/* <img src={img}/> */}
             <img src={products.image[0]}  alt="logo"/>
             <img src={products.image[1]}  alt="logo"/>
         </div>

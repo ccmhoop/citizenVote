@@ -7,7 +7,7 @@ import Navbar from "./components/Navbar";
 import './index.css'
 import "./css/main.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Store from './pages/Store';
+import Shop from './pages/Shop';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <div className="flex h-fit justify-center w-screen m-auto">
         <Routes>
           <Route index element={<Home />} />
-          <Route path="/store" element={<Store/>}/>
+          <Route path="/shop" element={<Shop/>}/>
         </Routes>
     </div>
     <Footer />

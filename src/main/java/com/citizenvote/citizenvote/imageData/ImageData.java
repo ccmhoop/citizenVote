@@ -31,7 +31,6 @@ public class ImageData {
     @Column(name = "imageData")
     private byte[] imageData;
 
-
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "product_id")
