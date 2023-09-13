@@ -1,5 +1,6 @@
 package com.citizenvote.citizenvote.user;
 
+import com.citizenvote.citizenvote.projects.Project;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,6 +31,9 @@ public class User implements UserDetails {
     private String email;
     private Integer points;
     private Boolean postPrivilege;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<Project> projects;
 
     @Enumerated(EnumType.STRING)
     private Role role;

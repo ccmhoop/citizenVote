@@ -32,6 +32,7 @@ public class ProjectSeeder implements CommandLineRunner {
                     .endDate(LocalDate.of(2023, 9, 12).plusMonths(1))
                     .progress(ProjectProgress.APPROVED)
                     .category(ProjectCategory.SPORTS)
+//                    .user();
                     .build();
 
             Project project2 = Project.builder()
@@ -42,18 +43,20 @@ public class ProjectSeeder implements CommandLineRunner {
                     .startDate(LocalDate.of(2023, 10, 20))
                     .endDate(LocalDate.of(2023, 10, 20).plusMonths(2))
                     .progress(ProjectProgress.PROPOSED)
-                    .category(ProjectCategory.EDUCATION)
+                    .category(ProjectCategory.SUSTAINABILITY)
+//                    .user();
                     .build();
 
             Project project3 = Project.builder()
                     .title("Project 3")
-                    .description("Beschrijving van Project 3")
+                    .description("How do you introduce children to municipal politics and democratic decision-making in their own city in a fun and educational way? By letting them play the role-playing game Democracy at city hall.")
                     .requiredVotes(50)
                     .amountVotes(50)
                     .startDate(LocalDate.of(2023, 7, 3))
                     .endDate(LocalDate.of(2023, 7, 3).plusMonths(1))
                     .progress(ProjectProgress.HAVE_ENOUGH_VOTES)
-                    .category(ProjectCategory.SUSTAINABILITY)
+                    .category(ProjectCategory.EDUCATION)
+//                    .user();
                     .build();
 
             // Voeg de projecten toe aan de database.
