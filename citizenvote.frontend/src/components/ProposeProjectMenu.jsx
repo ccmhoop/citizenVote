@@ -5,7 +5,7 @@ function ProposeProjectMenu() {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    requiredVotes: 50,
+    requiredVotes: "",
     amountVotes: 0,
     startDate: "",
     endDate: "",
@@ -132,6 +132,17 @@ function ProposeProjectMenu() {
             <option value="">none of these</option>
             {/* Voeg hier meer categorieën toe indien nodig */}
           </select>
+        </div>
+        <div className="mb-4 mt-1 p-2 rounded-md border w-full  text-gray-200">
+          <label htmlFor="requiredVotes">Required votes:</label>
+          <input
+            type="number"
+            id="requiredVotes"
+            name="requiredVotes"
+            value={formData.requiredVotes}
+            onChange={handleChange}
+            className="bg-slate-100 rounded-md border mx-2 text-gray-700"
+          />
         </div>
 
         <button
