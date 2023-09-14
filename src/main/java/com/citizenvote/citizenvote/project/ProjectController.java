@@ -1,4 +1,4 @@
-package com.citizenvote.citizenvote.projects;
+package com.citizenvote.citizenvote.project;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

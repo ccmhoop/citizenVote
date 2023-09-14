@@ -1,6 +1,6 @@
 package com.citizenvote.citizenvote.product;
 
-import com.citizenvote.citizenvote.imageData.ImageData;
+import com.citizenvote.citizenvote.imageData.ProductImageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +13,13 @@ public class ProductService{
     private ProductRepository productRepository;
 
     public ProductResponse productPackage(Long productId){
+        ArrayList<String> imgLink = new ArrayList<>();
         var product = Product.builder()
                 .id(productId)
                 .productName(productRepository.findById(productId).get().getProductName())
-                .imageData(productRepository.findById(productId).get().getImageData())
+                .ProductImageData(productRepository.findById(productId).get().getProductImageData())
                 .build();
-        ArrayList<String> imgLink = new ArrayList<>();
-        for(ImageData pro : product.getImageData()){
+        for(ProductImageData pro : product.getProductImageData()){
           imgLink.add("http://localhost:8080/api/v1/auth/auth/image/"+pro.getId());
         }
         return ProductResponse.builder()

@@ -1,6 +1,6 @@
 package com.citizenvote.citizenvote.user;
 
-import com.citizenvote.citizenvote.projects.Project;
+import com.citizenvote.citizenvote.project.Project;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

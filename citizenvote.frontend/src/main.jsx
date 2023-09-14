@@ -11,6 +11,9 @@ import Login from './pages/Login';
 import { AuthProvider } from 'react-auth-kit';
 import Register from './pages/Register';
 import {RequireAuth} from 'react-auth-kit';
+import Shop from './pages/Shop';
+import Projects from './pages/Projects';
+import ProposeProject from './pages/ProposeProject';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 <AuthProvider authType='cookie' authName='_auth' cookieDomain={window.location.hostname} cookieSecure={false}>
@@ -24,6 +27,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/manicipality_registry" element={<RequireAuth loginPath="/login"><Register registryType="manicipality"/></RequireAuth>} />
           {/* voorbeeld protected Route
            <Route path="/{beveiligde path}" element={<RequireAuth loginPath="/login"><Pagina/></RequireAuth>}></Route> */}
+          <Route path="/shop" element={<Shop/>}/>
+          <Route path="/projects" element={<Projects/>}/>
+          <Route path="/ProposeProject" element={<ProposeProject/>}/>
         </Routes>
     </div>
     <Footer />

@@ -13,7 +13,7 @@ export default function Shop (){
 
     useEffect(()=>{
         async function getStoreData(){
-            const response = await axios.get('http://localhost:8080/api/v1/auth/auth/product/29')
+            const response = await axios.get('http://localhost:8080/api/v1/auth/auth/product/1')
             .then((res) => setProducts(res.data))
         }
          getStoreData();

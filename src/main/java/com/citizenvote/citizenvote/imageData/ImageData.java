@@ -1,39 +1,32 @@
 package com.citizenvote.citizenvote.imageData;
 
-import com.citizenvote.citizenvote.product.Product;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
-@Table(name = "ImageData")
+//@Table(name = "ImageData")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class ImageData {
+@Setter
+@Getter
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+abstract class ImageData {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue()
     private Long id;
 
     private String name;
+
     private String type;
 
-    //Testing Category with enums if needed
-    @Enumerated(EnumType.STRING)
-    private ImageDataCategory category;
+    private String url;
 
     @Lob
     @Column(name = "imageData")
     private byte[] imageData;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    abstract void setLink (Object object);
 
 }

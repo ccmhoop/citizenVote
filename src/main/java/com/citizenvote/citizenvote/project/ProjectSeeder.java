@@ -1,4 +1,4 @@
-package com.citizenvote.citizenvote.projects;
+package com.citizenvote.citizenvote.project;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

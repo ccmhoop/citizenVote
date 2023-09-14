@@ -27,6 +27,7 @@ public class ProductController {
 
     @PostMapping(value = "/product/image", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> postProduct(@RequestPart("product") Product product, @RequestPart("image") MultipartFile[] file) throws IOException {
+        productRepository.save(product);
         String status = service.uploadImage(file,product);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(status);

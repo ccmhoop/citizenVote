@@ -1,6 +1,6 @@
 package com.citizenvote.citizenvote.product;
 
-import com.citizenvote.citizenvote.imageData.ImageData;
+import com.citizenvote.citizenvote.imageData.ProductImageData;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,6 +21,6 @@ public class Product {
     private String productName;
 
     @OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
-    private List<ImageData> imageData;
+    private List<ProductImageData> ProductImageData;
 
 }

@@ -1,4 +1,4 @@
-package com.citizenvote.citizenvote.projects;
+package com.citizenvote.citizenvote.project;
 
 public enum ProjectProgress {
     // Is proposed by citizen.
