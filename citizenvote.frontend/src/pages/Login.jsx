@@ -41,7 +41,7 @@ function Login() {
                 console.log(response)
                 signIn({
                     token: response.data.token,
-                    expiresIn: 3600,
+                    expiresIn: 60,
                     tokenType: "Bearer",
                     authState: {username: response.data.name, role: response.data.role}
                 })

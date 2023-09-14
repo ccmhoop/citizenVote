@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {useAuthUser} from 'react-auth-kit'
+import { useToken } from "../js/Hooks";
 
 export default function BurgerMenu() {
   const auth = useAuthUser()
   if(auth()){
     console.log(`hamburger name: ${auth().username}, role: ${auth().role}`)
+    console.log(useToken())
   }
   
 

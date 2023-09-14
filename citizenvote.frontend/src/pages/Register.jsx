@@ -1,9 +1,12 @@
 import axios from "axios";
 import { useSignIn } from "react-auth-kit";
 import {useIsAuthenticated} from 'react-auth-kit'
+import { useToken } from "../js/Hooks";
+
 
 function Register(props) {
 
+    const token = useToken();
     const signIn = useSignIn()
     const isAuthenticated = useIsAuthenticated()
 
@@ -38,10 +41,6 @@ function Register(props) {
 
         if(iter === 5){
             var url = null;
-            var token = "";
-            if(auth()){
-                token = auth()
-            }
             
             if(props.registryType === "manicipality"){
                 url = "http://localhost:8082/api/v1/manicipalityRegistry"
@@ -50,7 +49,7 @@ function Register(props) {
             else if(props.registryType === "citizen"){
                 url = "http://localhost:8082/api/v1/auth/register"
             }
-            const cfg = {headers: { Authorization: `Bearer ${token}` }}
+            const cfg = {headers: { Authorization: `Bearer ${token ? token : ""}` }}
 
 
             await axios.post(url, {
@@ -61,18 +60,42 @@ function Register(props) {
                 password: password,
                 adress: adress,
                 email: email
-            })
+            }, cfg)
             .then(response => {
                 console.log(response)
-                document.getElementById("auth_error").style.color = "green"
-                document.getElementById("auth_error").innerHTML = "Internal Server Error"
+                
+                if(props.registryType === "manicipality"){
+                    document.getElementById("auth_error").style.color = "green"
+                    document.getElementById("auth_error").innerHTML = "User Succesfully created"
+
+                    document.getElementById("reg_username").value = ""
+                    document.getElementById("reg_password").value = ""
+                    document.getElementById("reg_password2").value = ""
+                    document.getElementById("reg_email").value = ""
+                    document.getElementById("reg_phonenumber").value = ""
+                    document.getElementById("reg_adress").value = ""
+                    document.getElementById("reg_firstname").value = ""
+                    document.getElementById("reg_lastname").value = ""
+                }
+                else if(props.registryType === "citizen"){
+                    signIn({
+                        token: response.data.token,
+                        expiresIn: 60,
+                        tokenType: "Bearer",
+                        authState: {username: response.data.name, role: response.data.role}
+                    })
+                    window.location.pathname = ''
+                }
+                
             })
             .catch(error => {
                 console.log(error)
                 if(error.response.status === 403){
-                    document.getElementById("auth_error").innerHTML = "Your username or password is incorrect"
+                    document.getElementById("auth_error").style.color = "red"
+                    document.getElementById("auth_error").innerHTML = "No Authorization!"
                 }
                 else if(error.response.status > 499){
+                    document.getElementById("auth_error").style.color = "red"
                     document.getElementById("auth_error").innerHTML = "Internal Server Error"
                 }
             })
@@ -130,11 +153,11 @@ function Register(props) {
             <div className="flex flex-col sm:flex-row gap-3">
                 <div>
                     <label>password: <p id="reg_password_error" className=" text-red-600 font-normal"></p></label>
-                    <input id="reg_password" className="sm:w-64 border border-solid border-neutral-300 bg-transparent  bg-clip-padding px-3 text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"/>
+                    <input type="password" id="reg_password" className="sm:w-64 border border-solid border-neutral-300 bg-transparent  bg-clip-padding px-3 text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"/>
                 </div>
                 <div>
                     <label>repeat password: <p id="reg_password2_error" className=" text-red-600 font-normal"></p></label>
-                    <input id="reg_password2" className="sm:w-64 border border-solid border-neutral-300 bg-transparent  bg-clip-padding px-3 text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"/>
+                    <input type="password" id="reg_password2" className="sm:w-64 border border-solid border-neutral-300 bg-transparent  bg-clip-padding px-3 text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"/>
                 </div>                
             </div>
             <div className="border-2 border-white rounded mt-1"/>
