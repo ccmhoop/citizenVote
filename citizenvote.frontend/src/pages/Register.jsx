@@ -168,9 +168,10 @@ function Register(props) {
                 <div className="flex w-full justify-center">
                     <button onClick={() => RegisterButton()} className="w-48 h-9 rounded-md bg-blue-300">Sign Up</button>
                 </div>
+                {props.registryType === "citizen" && 
                 <div className="flex justify-center font-normal">
                     <a href="/login" className="hover:underline">Already have an account? Login</a>
-                </div>
+                </div>}
         </div>
     </div>
  )
