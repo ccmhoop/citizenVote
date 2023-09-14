@@ -43,11 +43,11 @@ function Register(props) {
             var url = null;
             
             if(props.registryType === "manicipality"){
-                url = "http://localhost:8082/api/v1/manicipalityRegistry"
+                url = "http://localhost:8080/api/v1/manicipalityRegistry"
                 
             }
             else if(props.registryType === "citizen"){
-                url = "http://localhost:8082/api/v1/auth/register"
+                url = "http://localhost:8080/api/v1/auth/register"
             }
             const cfg = {headers: { Authorization: `Bearer ${token ? token : ""}` }}
 
