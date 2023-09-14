@@ -166,7 +166,12 @@ function Register(props) {
                 </div>
                 
                 <div className="flex w-full justify-center">
+                {props.registryType === "manicipality" && 
+                    <button onClick={() => RegisterButton()} className="w-48 h-9 rounded-md bg-blue-300">Create Account</button>
+                }
+                {props.registryType === "citizen" && 
                     <button onClick={() => RegisterButton()} className="w-48 h-9 rounded-md bg-blue-300">Sign Up</button>
+                }
                 </div>
                 {props.registryType === "citizen" && 
                 <div className="flex justify-center font-normal">
