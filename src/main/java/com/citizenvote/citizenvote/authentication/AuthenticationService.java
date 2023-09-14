@@ -38,7 +38,27 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(new HashMap<>(), user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .name(request.getUsername())
+                .role(Role.CITIZEN)
                 .build();
+    }
+
+    public String registerManicipality(RegisterRequest request) {
+        var user = User.builder()
+                .firstname(request.getFirstname())
+                .lastname(request.getLastname())
+                .phoneNumber(request.getPhonenumber())
+                .username(request.getUsername())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .email(request.getEmail())
+                .adress(request.getAdress())
+                .points(0)
+                .postPrivilege(false)
+                .role(Role.MANICIPALITY)
+                .build();
+        userRepository.save(user);
+        var jwtToken = jwtService.generateToken(new HashMap<>(), user);
+        return "Manicipality Created";
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -48,6 +68,10 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(new HashMap<>(), user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .name(user.getUsername())
+                .role(user.getRole())
                 .build();
     }
+
+
 }

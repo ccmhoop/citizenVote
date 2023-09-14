@@ -1,8 +1,10 @@
 package com.citizenvote.citizenvote.product;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
+import com.citizenvote.citizenvote.imageData.ProductImageData;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,9 +14,13 @@ import lombok.*;
 @Entity
 public class Product {
 
-    @GeneratedValue
-    Long id;
-    String productName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    private String productName;
+
+    @OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
+    private List<ProductImageData> ProductImageData;
 
 }
