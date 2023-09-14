@@ -1,5 +1,6 @@
 package com.citizenvote.citizenvote.authentication;
 
+import com.citizenvote.citizenvote.user.Role;
 import lombok.*;
 
 @Getter
@@ -10,4 +11,9 @@ import lombok.*;
 public class AuthenticationResponse {
 
     private String token;
+    private String name;
+
+    private Role role;
+
+    //private MultipartFile avatar;
 }
