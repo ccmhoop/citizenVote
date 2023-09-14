@@ -7,10 +7,10 @@ function ProposeProjectMenu() {
     description: "",
     requiredVotes: 50,
     amountVotes: 0,
-    startDate: null,
-    endDate: null,
+    startDate: "",
+    endDate: "",
     progress: "PROPOSED",
-    category: null,
+    category: "",
   });
 
   const handleChange = (e) => {
@@ -90,12 +90,55 @@ function ProposeProjectMenu() {
             className="mt-1 p-2 rounded-md border w-full  text-gray-200"
           />
         </div>
+        <div className="mb-4 mt-1 p-2 rounded-md border w-full  text-gray-200">
+          <label htmlFor="startDate">Start date project:</label>
+          <input
+            type="date"
+            id="startDate"
+            name="startDate"
+            value={formData.startDate}
+            onChange={handleChange}
+            className="rounded-md border mx-12 text-gray-700"
+          />
+        </div>
+        <div className="mb-4 mt-1 p-2 rounded-md border w-full  text-gray-200">
+          <label htmlFor="endDate">End date project:</label>
+          <input
+            type="date"
+            id="endDate"
+            name="endDate"
+            value={formData.endDate}
+            onChange={handleChange}
+            className="rounded-md border mx-14 text-gray-700"
+          />
+        </div>
+        <div className="mb-4 mt-1 p-2 rounded-md border w-full  text-gray-200">
+          <label htmlFor="category">Category:</label>
+          <select
+            id="category"
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            className="bg-slate-100 rounded-md border mx-12 text-gray-700"
+          >
+            <option value="">Selecteer een categorie</option>
+            <option value="CULTURE">culture</option>
+            <option value="SPORTS">sports</option>
+            <option value="INFRASTRUCTURE">infrastructure</option>
+            <option value="LIVING_ENVIRONMENT">living environment</option>
+            <option value="EDUCATION">education</option>
+            <option value="SUSTAINABILITY">sustainability</option>
+            <option value="ART">art</option>
+            <option value="">none of these</option>
+            {/* Voeg hier meer categorieën toe indien nodig */}
+          </select>
+        </div>
 
         <button
           type="submit"
           className="w-16 max-w-[10vw] h-9 flex items-center justify-center rounded bg-blue-300  text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
         >
-          Submit
+          Propose
         </button>
       </form>
     </div>
