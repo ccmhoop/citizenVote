@@ -59,6 +59,7 @@ export default function BurgerMenu() {
            {auth() && auth().role === "ADMIN" &&
            <>
               <Link to="/manicipality_registry">Manicipality Registration</Link>
+              <Link to="/shop">shop</Link>
            </>}
           
         </div>

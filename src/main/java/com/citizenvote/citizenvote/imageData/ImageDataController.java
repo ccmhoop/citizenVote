@@ -24,9 +24,9 @@ public class ImageDataController {
         return imageDataRepository.findById(id);
     }
 
-    @GetMapping("/image/{fileName}")
-    public ResponseEntity<?> fetchImage(@PathVariable("fileName") String fileName){
-        byte[] imageData = service.downloadImage(fileName);
+    @GetMapping("/image/{type}/{id}")
+    public ResponseEntity<?> fetchImage(@PathVariable("type") String type,@PathVariable("id")String id){
+        byte[] imageData = service.downloadImage(type,id);
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.valueOf("image/png"))
                 .body(imageData);
