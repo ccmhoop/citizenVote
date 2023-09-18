@@ -22,15 +22,12 @@ import java.util.List;
 public class ProjectController {
 
     @Autowired
-    private final ProjectRepository projectRepository;
-    @Autowired
     private ImageDataService service;
 
     @Autowired
     private ProjectService projectService;
-
-
-
+    @Autowired
+    private final ProjectRepository projectRepository;
     @Autowired
     public ProjectController(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
@@ -44,18 +41,18 @@ public class ProjectController {
                 .body(status);
     }
 
-    @GetMapping("/hello")
-    public ResponseEntity<String> helloProject() {
-        return ResponseEntity.ok("hello projects!");
+    @GetMapping ("/project/all/{progress}")
+    public List<ProjectResponse> fetchAllProducts(@PathVariable("progress") String progress ) {
+        return projectService.projectPackage(progress);
     }
-    @GetMapping
+    @GetMapping("/project/all")
     public ResponseEntity<List<Project>> getAllProjects() {
         List<Project> projects = projectRepository.findAll();
         return ResponseEntity.ok(projects);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Project> getRecipeById(@PathVariable Long id) {
+    @GetMapping("/project/{id}")
+    public ResponseEntity<Project> getProjectById(@PathVariable Long id) {
         Project project = projectRepository.findById(id).orElse(null);
         if (project != null) {
             return ResponseEntity.ok(project);
@@ -80,8 +77,5 @@ public class ProjectController {
         }
     }
 
-    @GetMapping ("/project/all/{progress}")
-    public List<ProjectResponse> fetchAllProducts(@PathVariable("progress") String progress ) {
-        return projectService.projectPackage(progress);
-    }
+
 }
