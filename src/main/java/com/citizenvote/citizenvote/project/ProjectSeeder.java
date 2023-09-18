@@ -17,9 +17,9 @@ public class ProjectSeeder implements CommandLineRunner {
     private final ProjectRepository projectRepository;
     private final ImageDataService service;
 
-    public ProjectSeeder(ProjectRepository projectRepository) {
-        this.projectRepository = projectRepository;
-    }
+//    public ProjectSeeder(ProjectRepository projectRepository) {
+//        this.projectRepository = projectRepository;
+//    }
 
     @Override
     public void run(String... args) throws Exception {
@@ -45,7 +45,7 @@ public class ProjectSeeder implements CommandLineRunner {
             image = new MultipartFile[]{
                    service.seedImage("src\\main\\resources\\ProjectImages\\project1\\sport.jpg")
             };
-
+            projectRepository.save(project1);
             service.uploadImage(image, project1, "project");
 
             Project project2 = Project.builder()
@@ -62,6 +62,7 @@ public class ProjectSeeder implements CommandLineRunner {
             image = new MultipartFile[]{
                     service.seedImage("src\\main\\resources\\ProjectImages\\project2\\sustainability.jpg")
             };
+            projectRepository.save(project2);
             service.uploadImage(image, project2, "project");
 
             Project project3 = Project.builder()
@@ -78,12 +79,13 @@ public class ProjectSeeder implements CommandLineRunner {
             image = new MultipartFile[]{
                     service.seedImage("src\\main\\resources\\ProjectImages\\project3\\education.jpg")
             };
+            projectRepository.save(project3);
             service.uploadImage(image, project3, "project");
 
             // Voeg de projecten toe aan de database.
-            projectRepository.save(project1);
-            projectRepository.save(project2);
-            projectRepository.save(project3);
+
+
+
         }
     }
 }
