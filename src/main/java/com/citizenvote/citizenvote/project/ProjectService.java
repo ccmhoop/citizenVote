@@ -27,7 +27,6 @@ public class ProjectService {
                 .id(projectId.toString())
                 .title(projectRepository.findById(projectId).get().getTitle())
                 .category(projectRepository.findById(projectId).get().getCategory())
-                .points(projectRepository.findById(projectId).get().getPoints())
                 .description(projectRepository.findById(projectId).get().getDescription())
                 .image(imgLink)
                 .build();
