@@ -8,5 +8,6 @@ import java.util.Optional;
 @Repository
 public interface ImageDataRepository<T extends ImageData> extends JpaRepository<T,Long> {
     Optional<T> findById(Long id);
+    Optional<ImageData> findByUrlContaining(String url);
 
 }

@@ -18,7 +18,13 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String productName;
+    private String name;
+
+    private String description;
+
+    private String category;
+
+    private String points;
 
     @OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
     private List<ProductImageData> ProductImageData;
