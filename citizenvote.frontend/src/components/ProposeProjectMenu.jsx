@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { useState} from "react";
 import axios from "axios";
+import FormData from 'form-data';
+import uploadFileData from '../js/uploadFileData';
+
+
 
 function ProposeProjectMenu() {
+  const apiUrl = "http://localhost:8080/api/v1/auth/auth/project/image";
+  const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -11,33 +17,27 @@ function ProposeProjectMenu() {
     endDate: "",
     progress: "PROPOSED",
     category: "",
-    image: null,
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData({...formData,[name]: value});
+  };
+
+  const handleFileChange = (event) => {
+    setFiles([...event.target.files]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try{
+      const result = await uploadFileData(formData, files,apiUrl,"project");
+    }catch(error){
 
-    try {
-      // Voer de POST-request uit met Axios
-      await axios.post(
-        "http://localhost:8080/api/v1/auth/auth/project",
-        formData
-      );
-
-      // Het formulier is succesvol verzonden, je kunt hier eventueel een succesbericht tonen
-      console.log("Formulier succesvol verzonden");
-    } catch (error) {
-      console.error("Fout bij het posten van het formulier:", error);
     }
-  };
+  }
+
+  
 
   return (
     <div className="max-w-md mx-auto mt-8 mb-8 p-4 border rounded-lg shadow-lg bg-slate-900">
@@ -85,10 +85,10 @@ function ProposeProjectMenu() {
           </label>
           <input
             type="file"
-            id="image"
-            accept="image/*"
-            value={formData.image}
-            onChange={handleChange}
+            // id="image"
+            // accept="image/*"
+            // value={item[0]}
+            onChange={handleFileChange}
             className="mt-1 p-2 rounded-md border w-full  text-gray-200"
           />
         </div>

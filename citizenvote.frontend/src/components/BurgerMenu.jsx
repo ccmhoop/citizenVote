@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import {useAuthUser, useSignOut} from 'react-auth-kit'
 import { useToken } from "../js/Hooks";
 
-
 export default function BurgerMenu() {
   const auth = useAuthUser();
   const logout = useSignOut()
@@ -68,8 +67,9 @@ export default function BurgerMenu() {
             <>
               <Link to="/manicipality_registry">Manicipality Registration</Link>
               <Link to="/shop">shop</Link>
-            </>}
+              <Link to="/propose_project">Suggest Project</Link>
 
+            </>}
            {auth() &&
            <>
               <a onClick={() => onLogout()} className=" hover:underline">Logout</a>
