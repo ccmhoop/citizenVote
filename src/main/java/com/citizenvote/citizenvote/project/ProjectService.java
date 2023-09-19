@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ProjectService {
@@ -31,10 +32,11 @@ public class ProjectService {
                 .image(imgLink)
                 .build();
     }
+
     public List<ProjectResponse> projectPackage(String progress) {
         List<ProjectResponse> response = new ArrayList<>();
         for (Project project : projectRepository.findAll()) {
-            if(project.getProgress().equals(progress)) {
+            if (project.getProgress().equals(progress)) {
                 response.add(ProjectResponse.builder()
                         .id(project.getId().toString())
                         .title(project.getTitle())
@@ -52,19 +54,12 @@ public class ProjectService {
             }
         }
         return response;
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+    }
 
-import java.util.Set;
 
-@Service
-@Transactional
-@RequiredArgsConstructor
-public class ProjectService {
-
-    private final ProjectRepository projectRepository;
-    public Set<Project> getProjectByProgress(ProjectProgress progress){
+    public Set<Project> getProjectByProgress(ProjectProgress progress) {
         return projectRepository.findByProgress(progress);
     }
 }
+
+

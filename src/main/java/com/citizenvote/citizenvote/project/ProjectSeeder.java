@@ -84,8 +84,6 @@ public class ProjectSeeder implements CommandLineRunner {
 
             // Voeg de projecten toe aan de database.
 
-
-
         }
     }
 }

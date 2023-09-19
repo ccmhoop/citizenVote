@@ -1,5 +1,6 @@
 package com.citizenvote.citizenvote.project;
 
+import com.citizenvote.citizenvote.imageData.ImageDataService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,22 +16,16 @@ import java.util.Set;
 
 @RestController
 @CrossOrigin
-@RequestMapping("api/v1/projects")
 @RequiredArgsConstructor
 @RequestMapping("api/v1/auth/auth")
 public class ProjectController {
 
     @Autowired
     private ImageDataService service;
-
     @Autowired
     private ProjectService projectService;
     @Autowired
     private final ProjectRepository projectRepository;
-    @Autowired
-    public ProjectController(ProjectRepository projectRepository) {
-        this.projectRepository = projectRepository;
-    }
 
     @PostMapping(value = "/project/image", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> postProject(@RequestPart("project") Project project, @RequestPart("image") MultipartFile[] file) throws IOException {
@@ -43,8 +38,7 @@ public class ProjectController {
     public ResponseEntity<Project> createProject(@RequestBody Project project) {
         Project savedProject = projectRepository.save(project);
         return ResponseEntity.ok(savedProject);
-
-    private final ProjectService projectService;
+    }
 
     @GetMapping("/hello")
     public ResponseEntity<String> helloProject() {
@@ -76,11 +70,6 @@ public class ProjectController {
         return ResponseEntity.ok(projectService.getProjectByProgress(progress));
     }
 
-    @PostMapping
-    public ResponseEntity<Project> createProject(@RequestBody Project project) {
-        Project savedProject = projectRepository.save(project);
-        return ResponseEntity.ok(savedProject);
-    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
