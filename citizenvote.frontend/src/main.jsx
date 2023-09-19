@@ -13,6 +13,14 @@ import { RequireAuth } from "react-auth-kit";
 import Shop from "./pages/Shop";
 import Projects from "./pages/Projects";
 import ProposeProject from "./pages/ProposeProject";
+import Login from './pages/Login';
+import { AuthProvider } from 'react-auth-kit';
+import Register from './pages/Register';
+import {RequireAuth} from 'react-auth-kit';
+import Shop from './pages/Shop';
+import Projects from './pages/Projects';
+import ProposeProject from './pages/ProposeProject';
+import ProjectList from './pages/ProjectList';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <AuthProvider
@@ -27,6 +35,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Routes>
           <Route index element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register registryType="citizen"/>} />
+          <Route path="/manicipality_registry" element={<RequireAuth loginPath="/login"><Register registryType="manicipality"/></RequireAuth>} />
+          <Route path="/project_list" element={<RequireAuth loginPath="/login"><ProjectList/></RequireAuth>} />
           <Route
             path="/register"
             element={<Register registryType="citizen" />}

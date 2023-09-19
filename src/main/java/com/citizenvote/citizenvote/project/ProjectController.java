@@ -1,10 +1,6 @@
 package com.citizenvote.citizenvote.project;
 
-import com.citizenvote.citizenvote.product.Product;
-import com.citizenvote.citizenvote.imageData.ImageDataService;
-import com.citizenvote.citizenvote.product.ProductRepository;
-import com.citizenvote.citizenvote.product.ProductResponse;
-import com.citizenvote.citizenvote.product.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,10 +10,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 
 @RestController
 @CrossOrigin
+@RequestMapping("api/v1/projects")
+@RequiredArgsConstructor
 @RequestMapping("api/v1/auth/auth")
 public class ProjectController {
 
@@ -44,6 +43,12 @@ public class ProjectController {
     public ResponseEntity<Project> createProject(@RequestBody Project project) {
         Project savedProject = projectRepository.save(project);
         return ResponseEntity.ok(savedProject);
+
+    private final ProjectService projectService;
+
+    @GetMapping("/hello")
+    public ResponseEntity<String> helloProject() {
+        return ResponseEntity.ok("hello projects!");
     }
     @GetMapping ("/project/all/{progress}")
     public List<ProjectResponse> fetchAllProducts(@PathVariable("progress") String progress ) {
@@ -66,6 +71,16 @@ public class ProjectController {
     }
 
 
+    @GetMapping("/progress/{progress}")
+    public ResponseEntity<Set<Project>> getProjectByProgress(@PathVariable(name = "progress") ProjectProgress progress){
+        return ResponseEntity.ok(projectService.getProjectByProgress(progress));
+    }
+
+    @PostMapping
+    public ResponseEntity<Project> createProject(@RequestBody Project project) {
+        Project savedProject = projectRepository.save(project);
+        return ResponseEntity.ok(savedProject);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
