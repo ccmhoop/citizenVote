@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("api/v1/auth/auth/projects")
+@RequestMapping("api/v1/auth/auth")
 public class ProjectController {
 
     @Autowired
@@ -40,7 +40,11 @@ public class ProjectController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(status);
     }
-
+    @PostMapping("/project")
+    public ResponseEntity<Project> createProject(@RequestBody Project project) {
+        Project savedProject = projectRepository.save(project);
+        return ResponseEntity.ok(savedProject);
+    }
     @GetMapping ("/project/all/{progress}")
     public List<ProjectResponse> fetchAllProducts(@PathVariable("progress") String progress ) {
         return projectService.projectPackage(progress);
@@ -61,11 +65,7 @@ public class ProjectController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<Project> createProject(@RequestBody Project project) {
-        Project savedProject = projectRepository.save(project);
-        return ResponseEntity.ok(savedProject);
-    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProject(@PathVariable Long id) {

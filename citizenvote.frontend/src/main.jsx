@@ -43,7 +43,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
            <Route path="/{beveiligde path}" element={<RequireAuth loginPath="/login"><Pagina/></RequireAuth>}></Route> */}
           <Route path="/shop" element={<Shop />} />
           <Route path="/projects" element={<Projects />} />
-          <Route path="/ProposeProject" element={<ProposeProject />} />
+          <Route path="/propose_project" element={<ProposeProject />} />
         </Routes>
       </div>
       <Footer />

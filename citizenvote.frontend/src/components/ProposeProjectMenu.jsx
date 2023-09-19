@@ -11,6 +11,7 @@ function ProposeProjectMenu() {
     endDate: "",
     progress: "PROPOSED",
     category: "",
+    image: null,
   });
 
   const handleChange = (e) => {
@@ -27,7 +28,7 @@ function ProposeProjectMenu() {
     try {
       // Voer de POST-request uit met Axios
       await axios.post(
-        "http://localhost:8080/api/v1/auth/auth/projects",
+        "http://localhost:8080/api/v1/auth/auth/project",
         formData
       );
 
@@ -86,6 +87,7 @@ function ProposeProjectMenu() {
             type="file"
             id="image"
             accept="image/*"
+            value={formData.image}
             onChange={handleChange}
             className="mt-1 p-2 rounded-md border w-full  text-gray-200"
           />
