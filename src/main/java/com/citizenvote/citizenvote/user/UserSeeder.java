@@ -96,6 +96,32 @@ public class UserSeeder implements CommandLineRunner {
                 .password(passwordEncoder.encode("admin"))
                 .build();
         userRepository.save(admin);
+        User user = User.builder()
+                .firstname("Meneer")
+                .lastname("test")
+                .email("test@citizen-vote.nl")
+                .phoneNumber("0699581934")
+                .role(Role.CITIZEN)
+                .adress("Serverkast 73")
+                .username("user")
+                .points(0)
+                .postPrivilege(false)
+                .password(passwordEncoder.encode("user"))
+                .build();
+        userRepository.save(user);
+        User ambtenaar = User.builder()
+                .firstname("Meneer")
+                .lastname("test2")
+                .email("test2@citizen-vote.nl")
+                .phoneNumber("0699581933")
+                .role(Role.MANICIPALITY)
+                .adress("Serverkast 73")
+                .username("ambtenaar")
+                .points(0)
+                .postPrivilege(false)
+                .password(passwordEncoder.encode("ambtenaar"))
+                .build();
+        userRepository.save(ambtenaar);
     }
 
 }

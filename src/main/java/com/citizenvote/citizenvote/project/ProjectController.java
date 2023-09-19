@@ -1,23 +1,24 @@
 package com.citizenvote.citizenvote.project;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 
 @RestController
 @CrossOrigin
-@RequestMapping("api/v1/auth/auth/projects")
+@RequestMapping("api/v1/projects")
+@RequiredArgsConstructor
 public class ProjectController {
 
     private final ProjectRepository projectRepository;
 
-    @Autowired
-    public ProjectController(ProjectRepository projectRepository) {
-        this.projectRepository = projectRepository;
-    }
+    private final ProjectService projectService;
+
     @GetMapping("/hello")
     public ResponseEntity<String> helloProject() {
         return ResponseEntity.ok("hello projects!");
@@ -36,6 +37,11 @@ public class ProjectController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/progress/{progress}")
+    public ResponseEntity<Set<Project>> getProjectByProgress(@PathVariable(name = "progress") ProjectProgress progress){
+        return ResponseEntity.ok(projectService.getProjectByProgress(progress));
     }
 
     @PostMapping
