@@ -18,8 +18,10 @@ public class ProductResponse {
 
     private String name;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String description;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String category;
 
     private String points;

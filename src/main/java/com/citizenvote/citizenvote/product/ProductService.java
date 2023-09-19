@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -32,6 +33,7 @@ public class ProductService {
                 .image(imgLink)
                 .build();
     }
+
     public List<ProductResponse> productPackage() {
         List<ProductResponse> response = new ArrayList<>();
         for (Product pro : productRepository.findAll()) {
@@ -42,6 +44,20 @@ public class ProductService {
                     .points(pro.getPoints())
                     .category(pro.getCategory())
                     .name(pro.getName())
+                    .build());
+        }
+        return response;
+    }
+
+    public List<ProductResponse> shoppingCartResponse(Long[] id) {
+        List<ProductResponse> response = new ArrayList<>();
+        for (Long pId : id) {
+            Optional<Product> pro = productRepository.findById(pId);
+            response.add(ProductResponse.builder()
+                    .id(pro.get().getId().toString())
+                    .labelImage(pro.get().getProductImageData().get(0).getUrl())
+                    .name(pro.get().getName())
+                    .points(pro.get().getPoints())
                     .build());
         }
         return response;

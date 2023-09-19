@@ -40,6 +40,11 @@ public class ProductController {
                 .body(productService.productInfoPackage(id));
     }
 
+    @GetMapping ("/product/cart")
+    public List<ProductResponse> fetchShoppingCart(@PathVariable("id") Long[] id){
+        return productService.shoppingCartResponse(id);
+    }
+
     @GetMapping ("/shop/all")
     public List<ProductResponse> fetchAllProducts() {
         return productService.productPackage();
