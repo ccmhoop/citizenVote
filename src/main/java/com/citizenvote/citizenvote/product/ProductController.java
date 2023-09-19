@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -28,16 +29,27 @@ public class ProductController {
     @PostMapping(value = "/product/image", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> postProduct(@RequestPart("product") Product product, @RequestPart("image") MultipartFile[] file) throws IOException {
         productRepository.save(product);
-        String status = service.uploadImage(file,product);
+        String status = service.uploadImage(file,product,"product");
         return ResponseEntity.status(HttpStatus.OK)
                 .body(status);
     }
 
     @GetMapping ("/product/{id}")
-    public ResponseEntity<ProductResponse> fetchProducts(@PathVariable("id") Long id){
+    public ResponseEntity<ProductResponse> fetchProductInfo(@PathVariable("id") Long id){
         return ResponseEntity.status(HttpStatus.OK)
-                .body(productService.productPackage(id));
+                .body(productService.productInfoPackage(id));
     }
+
+    @GetMapping ("/product/cart")
+    public List<ProductResponse> fetchShoppingCart(@PathVariable("id") Long[] id){
+        return productService.shoppingCartResponse(id);
+    }
+
+    @GetMapping ("/shop/all")
+    public List<ProductResponse> fetchAllProducts() {
+        return productService.productPackage();
+    }
+
 
     @GetMapping("/{id}")
     public Optional<Product> findById(@PathVariable("id") Long id) {

@@ -1,18 +1,25 @@
 package com.citizenvote.citizenvote.project;
 
+import com.citizenvote.citizenvote.imageData.ImageDataService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.time.LocalDate;
 
 
 @Component
+@RequiredArgsConstructor
 public class ProjectSeeder implements CommandLineRunner {
 
-    private final ProjectRepository projectRepository; // Injecteer de ProjectRepository.
+    private final ProjectRepository projectRepository;
+    private final ImageDataService service;
 
-    public ProjectSeeder(ProjectRepository projectRepository) {
-        this.projectRepository = projectRepository;
-    }
+//    public ProjectSeeder(ProjectRepository projectRepository) {
+//        this.projectRepository = projectRepository;
+//    }
 
     @Override
     public void run(String... args) throws Exception {
@@ -21,8 +28,9 @@ public class ProjectSeeder implements CommandLineRunner {
     // Hier voeg je de code toe om projecten aan de database toe te voegen.
     // Je kunt hier zoveel Project-entiteiten toevoegen als nodig is.
 
-    private void seedProjects() {
+    private void seedProjects() throws IOException {
         if (projectRepository.count() == 0) {
+            MultipartFile[] image;
             Project project1 = Project.builder()
                     .title("Project 1")
                     .description("Beschrijving van Project 1")
@@ -34,6 +42,11 @@ public class ProjectSeeder implements CommandLineRunner {
                     .category(ProjectCategory.SPORTS)
 //                    .user();
                     .build();
+            image = new MultipartFile[]{
+                   service.seedImage("src\\main\\resources\\ProjectImages\\project1\\sport.jpg")
+            };
+            projectRepository.save(project1);
+            service.uploadImage(image, project1, "project");
 
             Project project2 = Project.builder()
                     .title("Project 2")
@@ -46,6 +59,11 @@ public class ProjectSeeder implements CommandLineRunner {
                     .category(ProjectCategory.SUSTAINABILITY)
 //                    .user();
                     .build();
+            image = new MultipartFile[]{
+                    service.seedImage("src\\main\\resources\\ProjectImages\\project2\\sustainability.jpg")
+            };
+            projectRepository.save(project2);
+            service.uploadImage(image, project2, "project");
 
             Project project3 = Project.builder()
                     .title("Project 3")
@@ -58,11 +76,14 @@ public class ProjectSeeder implements CommandLineRunner {
                     .category(ProjectCategory.EDUCATION)
 //                    .user();
                     .build();
+            image = new MultipartFile[]{
+                    service.seedImage("src\\main\\resources\\ProjectImages\\project3\\education.jpg")
+            };
+            projectRepository.save(project3);
+            service.uploadImage(image, project3, "project");
 
             // Voeg de projecten toe aan de database.
-            projectRepository.save(project1);
-            projectRepository.save(project2);
-            projectRepository.save(project3);
+
         }
     }
 }

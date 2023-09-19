@@ -1,35 +1,12 @@
 import React from "react";
-import { useEffect,useState } from "react";
-import axios from "axios";
-
+import { StoreProducts } from "../components/StoreProducts";
 
 export default function Shop (){
-
-    const [products,setProducts] = useState({
-        id: "",
-        name: "",
-        image: []
-    })
-
-    useEffect(()=>{
-        async function getStoreData(){
-            const response = await axios.get('http://localhost:8080/api/v1/auth/auth/product/1')
-            .then((res) => setProducts(res.data))
-        }
-         getStoreData();
-    },[]);
-
-
-    const handleClick = () =>{
-        console.log(products)
-        console.log(products.image)
-    }
-
     return (
-        <div>
-            <button onClick={handleClick}>Products</button>
-            <img src={products.image[0]}  alt="logo"/>
-            <img src={products.image[1]}  alt="logo"/>
+        <div className="w-[100%] min-h-[88vh] flex justify-center items-start flex-wrap gap-2 bg-gradient-to-br from-indigo-800 to-rose-600">
+            <div className="w-[100%] h-fit flex justify-center items-start flex-wrap">
+                <StoreProducts/>
+            </div>
         </div>
     )
-    }
+}

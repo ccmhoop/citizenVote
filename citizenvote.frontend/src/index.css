@@ -7,7 +7,13 @@
     @apply rotate-45 translate-y-1.5;
 }
 .hamburger div:last-child{
-    @apply -rotate-45 -translate-y-1
+    @apply -rotate-45 -translate-y-1;
+}
+
+@layer utilities{
+    .clip-rect-1{
+      clip-path: rect(0px, 50px, 100px, 0px);
+    }
 }
 
 }
