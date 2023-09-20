@@ -18,6 +18,8 @@ public class OrderDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Double total;
+
     @OneToMany(mappedBy = "orderDetails",fetch = FetchType.EAGER)
     private List<OrderItems> orderItems;
 

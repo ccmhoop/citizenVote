@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {useAuthUser, useSignOut} from 'react-auth-kit'
-import { useToken } from "../js/Hooks";
+import { getToken } from "../js/getToken";
 
 export default function BurgerMenu() {
   const auth = useAuthUser();
@@ -9,7 +9,7 @@ export default function BurgerMenu() {
   const navigate = useNavigate()
   if (auth()) {
     console.log(`hamburger name: ${auth().username}, role: ${auth().role}`);
-    console.log(useToken());
+    console.log(getToken());
   }
 
   function onLogout(){
@@ -68,6 +68,7 @@ export default function BurgerMenu() {
               <Link to="/manicipality_registry">Manicipality Registration</Link>
               <Link to="/shop">shop</Link>
               <Link to="/propose_project">Suggest Project</Link>
+              <Link to="/basket">Basket</Link>
 
             </>}
            {auth() &&

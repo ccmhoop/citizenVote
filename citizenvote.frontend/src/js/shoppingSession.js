@@ -61,6 +61,7 @@ function saveCartToSessionStorage() {
   function displayTotalCost() {
     const totalCost = cart.reduce((total, item) => total + item.points * item.quantity, 0);
     console.log(`Total Cost: $${totalCost.toFixed(2)}`);
+    return (totalCost);
   }
 
   function displayQuantity(id){

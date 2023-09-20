@@ -14,6 +14,7 @@ import Shop from "./pages/Shop";
 import Projects from "./pages/Projects";
 import ProposeProject from "./pages/ProposeProject";
 import ProjectList from "./pages/ProjectList";
+import Basket from "./pages/Basket";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <AuthProvider
@@ -48,6 +49,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/shop" element={<Shop />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/propose_project" element={<ProposeProject />} />
+          <Route path="/basket" element={<Basket />} />
         </Routes>
       </div>
       <Footer />
