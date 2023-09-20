@@ -17,7 +17,7 @@ import java.util.Set;
 @RestController
 @CrossOrigin
 @RequiredArgsConstructor
-@RequestMapping("api/v1/auth/auth")
+@RequestMapping("api/v1")
 public class ProjectController {
 
     @Autowired
@@ -40,11 +40,7 @@ public class ProjectController {
         return ResponseEntity.ok(savedProject);
     }
 
-    @GetMapping("/hello")
-    public ResponseEntity<String> helloProject() {
-        return ResponseEntity.ok("hello projects!");
-    }
-    @GetMapping ("/project/all/{progress}")
+      @GetMapping ("/project/all/{progress}")
     public List<ProjectResponse> fetchAllProducts(@PathVariable("progress") String progress ) {
         return projectService.projectPackage(progress);
     }

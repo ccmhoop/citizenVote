@@ -69,6 +69,7 @@ export default function BurgerMenu() {
             <>
               <Link to="/manicipality_registry">Manicipality Registration</Link>
               <Link to="/shop">shop</Link>
+              <Link to="/propose_project">propose project</Link>
             </>
           )}
 

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getToken } from "./getToken";
 
 const uploadFileData = async (formData, files, apiUrl, type) => {
   // eslint-disable-next-line no-useless-catch
@@ -18,6 +19,7 @@ const uploadFileData = async (formData, files, apiUrl, type) => {
     const response = await axios.post(apiUrl, formDataObject, {
       headers: {
         "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${getToken().token}`,
       },
     });
     return response.data;

@@ -2,7 +2,7 @@ import { useState } from "react";
 import uploadFileData from "../js/uploadFileData";
 
 function ProposeProjectMenu() {
-  const apiUrl = "http://localhost:8080/api/v1/auth/auth/project/image";
+  const apiUrl = "http://localhost:8080/api/v1/project/image";
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
@@ -32,6 +32,13 @@ function ProposeProjectMenu() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Voer de validatie uit voordat je het formulier verzendt
+    if (new Date(formData.startDate) >= new Date(formData.endDate)) {
+      alert("Start date must be before end date.");
+      return; // Stop het verzenden van het formulier als de validatie mislukt
+    }
+
     try {
       await uploadFileData(formData, files, apiUrl, "project");
       setFormData({
