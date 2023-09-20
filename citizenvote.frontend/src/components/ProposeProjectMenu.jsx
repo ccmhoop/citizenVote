@@ -1,7 +1,9 @@
 import { useState } from "react";
-import axios from "axios";
+import uploadFileData from "../js/uploadFileData";
 
 function ProposeProjectMenu() {
+  const apiUrl = "http://localhost:8080/api/v1/auth/auth/project/image";
+  const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -11,7 +13,6 @@ function ProposeProjectMenu() {
     endDate: "",
     progress: "PROPOSED",
     category: "",
-    image: null,
   });
 
   const handleChange = (e) => {
@@ -21,21 +22,37 @@ function ProposeProjectMenu() {
       [name]: value,
     });
   };
+  const handleFileChange = (event) => {
+    const newFiles = [...files];
+    for (let i = 0; i < event.target.files.length; i++) {
+      newFiles.push(event.target.files[i]);
+    }
+    setFiles(newFiles);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      // Voer de POST-request uit met Axios
-      await axios.post(
-        "http://localhost:8080/api/v1/auth/auth/project",
-        formData
-      );
+      await uploadFileData(formData, files, apiUrl, "project");
+      setFormData({
+        title: "",
+        description: "",
+        requiredVotes: "",
+        amountVotes: 0,
+        startDate: "",
+        endDate: "",
+        progress: "PROPOSED",
+        category: "",
+      });
 
-      // Het formulier is succesvol verzonden, je kunt hier eventueel een succesbericht tonen
-      console.log("Formulier succesvol verzonden");
+      // Reset de geselecteerde bestanden
+      setFiles([]);
+      const fileInputs = document.querySelectorAll('input[type="file"]');
+      fileInputs.forEach((input) => {
+        input.value = ""; // Leeg het bestandselement
+      });
     } catch (error) {
-      console.error("Fout bij het posten van het formulier:", error);
+      console.log(error);
     }
   };
 
@@ -58,7 +75,7 @@ function ProposeProjectMenu() {
             name="title"
             value={formData.title}
             onChange={handleChange}
-            className="bg-slate-100 max-w-[35vw] w-96 flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
+            className="bg-slate-100 max-w-[35vw] w-96 flex-auto rounded border border-solid border-neutral-300  bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
           />
         </div>
         <div className="mb-4">
@@ -85,10 +102,21 @@ function ProposeProjectMenu() {
           </label>
           <input
             type="file"
-            id="image"
             accept="image/*"
-            value={formData.image}
-            onChange={handleChange}
+            onChange={handleFileChange}
+            className="mt-1 p-2 rounded-md border w-full  text-gray-200"
+          />
+
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="mt-1 p-2 rounded-md border w-full  text-gray-200"
+          />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
             className="mt-1 p-2 rounded-md border w-full  text-gray-200"
           />
         </div>
