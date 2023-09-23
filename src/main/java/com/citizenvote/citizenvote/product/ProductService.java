@@ -2,6 +2,7 @@ package com.citizenvote.citizenvote.product;
 
 import com.citizenvote.citizenvote.imageData.ImageDataRepository;
 import com.citizenvote.citizenvote.imageData.ProductImageData;
+import com.citizenvote.citizenvote.orderDetails.OrderDetailsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,10 +50,10 @@ public class ProductService {
         return response;
     }
 
-    public List<ProductResponse> shoppingCartResponse(Long[] id) {
+    public List<ProductResponse> shoppingCartResponse(OrderDetailsResponse[] cart) {
         List<ProductResponse> response = new ArrayList<>();
-        for (Long pId : id) {
-            Optional<Product> pro = productRepository.findById(pId);
+        for (OrderDetailsResponse items : cart) {
+            Optional<Product> pro = productRepository.findById(items.getId());
             response.add(ProductResponse.builder()
                     .id(pro.get().getId().toString())
                     .labelImage(pro.get().getProductImageData().get(0).getUrl())

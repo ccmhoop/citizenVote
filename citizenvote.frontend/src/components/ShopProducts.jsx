@@ -35,7 +35,7 @@ const session = (e) =>{
 function handleAdd (id,points) {
   addItem(id,points);
   setQuantity(displayQuantity(id));
-};
+}
 
  function handleRemove (id) {
   removeItem(id);

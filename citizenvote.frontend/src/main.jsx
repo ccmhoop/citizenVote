@@ -15,6 +15,9 @@ import Projects from "./pages/Projects";
 import ProposeProject from "./pages/ProposeProject";
 import ProjectList from "./pages/ProjectList";
 import Basket from "./pages/Basket";
+import Manicipality from "./pages/Manicipality";
+import ShopManagment from "./pages/ShopManagment";
+import ProductToShop from "./components/ProductToShop";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <AuthProvider
@@ -50,6 +53,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/projects" element={<Projects />} />
           <Route path="/propose_project" element={<ProposeProject />} />
           <Route path="/basket" element={<Basket />} />
+          <Route path="/manici" element={<Manicipality/>}/>
+          <Route path="/shop_managment" element={<ShopManagment/>}/>
+          <Route path="/add_product_to_shop" element={<ProductToShop/>}/>
         </Routes>
       </div>
       <Footer />

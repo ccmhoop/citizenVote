@@ -3,14 +3,14 @@ import {  cart,returnIndex,addItem,removeItem,displayCart,displayTotalCost,displ
 
 
 
-export default function ListBasket(){
+export default function ListBasket({product}){
 const basket = sessionStorage.getItem("cart") 
 console.log(basket);
 return(
     cart.map((item,index) => {
         return(  
-             <div key={index} className="flex justify-start items-center overflow-hidden rounded-lg w-96 max-w-[50vw] h-44 bg-white pl-4 mb-4 mr-4">
-             <img className="flex justify-center items-center overflow-hidden object-contain rounded-lg w-36 h-40 bg-transparent" src={""} alt="logo"/>
+             <div key={index} className="flex justify-start items-center overflow-hidden rounded-lg w-[100%] max-w-[55vw] h-24 bg-white pl-4 mb-1  border-2">
+             <img className="flex justify-center items-center overflow-hidden object-contain rounded-lg w-36 h-40 bg-transparent" src={product[index].labelImage} alt="logo"/>
              <div className="flex flex-col justify-start items-start overflow-hidden border-l w-52 h-44 bg-white m-4 pl-4 pt-2"> 
                <h1 className=" w-full h-6 text-center text-lg font-extrabold leading-none border-b-2 tracking-tight  text-black">{item.id}</h1>
                <p className=" w-full h-24 text-start text-lg leading-none tracking-tight border-b-2 text-black"></p>

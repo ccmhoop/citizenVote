@@ -69,6 +69,7 @@ export default function BurgerMenu() {
               <Link to="/shop">shop</Link>
               <Link to="/propose_project">Suggest Project</Link>
               <Link to="/basket">Basket</Link>
+              <Link to="/manici">manici</Link>
 
             </>}
            {auth() &&
