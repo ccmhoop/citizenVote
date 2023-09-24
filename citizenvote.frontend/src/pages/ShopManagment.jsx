@@ -22,25 +22,13 @@ export default function ShopManagment() {
             <button onClick={handleSelected}>
               <ButtonDesign
                 title="Add Product to shop"
-                width="80"
-                height="20"
-                labelWidth="full"
-                labelHeight="[80%]"
-                labelPx={"4"}
-                my="1"
-                mx="0"
+                 width="96" height="24" labelWidth="full" labelHeight="[60%]" labelPx="8" my="1" mx="0"
               />
             </button>
             <button onClick={handleSelected}>
               <ButtonDesign
                 title="Remove Product from shop"
-                width="80"
-                height="20"
-                labelWidth="full"
-                labelHeight="[80%]"
-                labelPx={"4"}
-                my="1"
-                mx="0"
+                width="96" height="24" labelWidth="full" labelHeight="[60%]" labelPx="8" my="1" mx="0"
               />
             </button>
           </div>
