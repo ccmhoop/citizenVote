@@ -15,7 +15,7 @@ function saveCartToSessionStorage() {
 }
 
 // Function to add an item to the cart
-function addItem(id, points) {
+function addItem(id, points, labelImage, name) {
   console.log("id ", id);
   if (typeof id !== "string" || isNaN(points) || points <= 0) {
     console.log(
@@ -32,6 +32,8 @@ function addItem(id, points) {
       id: id,
       points: points,
       quantity: 1,
+      labelImage: labelImage,
+      name: name
     };
     cart.push(item);
   }

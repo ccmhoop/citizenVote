@@ -7,13 +7,8 @@ export default function ProductToShop() {
   const [files, setFiles] = useState([null,null,null,null]);
   const [labelImage, setLabelImage] = useState();
   const [formData, setFormData] = useState({
-    title: "",
+    name: "",
     description: "",
-    requiredVotes: "",
-    amountVotes: 0,
-    startDate: "",
-    endDate: "",
-    progress: "PROPOSED",
     category: "",
     points: ""
   });
@@ -29,7 +24,7 @@ export default function ProductToShop() {
 
   const handleFileChange = (event) => {
     var newString = event.target.id.split(/([0-9]+)/);
-    files[newString[1]]=event.target.files
+    files[newString[1]]=event.target.files[0];
     console.log(files);
   };
 
@@ -50,7 +45,6 @@ export default function ProductToShop() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(files);
     try {
       await uploadFileData(formData, files, apiUrl, "product");
     } catch (error) {
@@ -68,7 +62,7 @@ export default function ProductToShop() {
         />
         <div className="flex flex-col justify-start items-start overflow-hidden border-l w-60 h-40 bg-white m-4 pl-4 pt-2">
           <h1 className=" w-full h-6 text-center text-lg font-extrabold leading-none border-b-2 tracking-tight  text-black">
-            {formData.title}
+            {formData.name}
           </h1>
           <p className=" w-full h-24 text-start text-lg leading-none tracking-tight text-black">
             {formData.description}
@@ -103,9 +97,9 @@ export default function ProductToShop() {
           Title:
           <input
             type="text"
-            id="title"
-            name="title"
-            value={formData.title}
+            id="name"
+            name="name"
+            value={formData.name}
             onChange={handleChange}
             className=" focus:outline-none w-full bg-white  rounded-2xl border border-solid border-neutral-300  px-2 py-1 font-normal leading-[1.6] text-black"
           />
@@ -232,7 +226,7 @@ export default function ProductToShop() {
               mx="0"
             />
           </button>
-          <button className="" type="submit">
+          <button onClick={handleSubmit} className="" type="submit">
             <ButtonDesign
               title="accept"
               width="40"

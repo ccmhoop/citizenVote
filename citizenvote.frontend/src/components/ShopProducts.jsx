@@ -32,8 +32,8 @@ const session = (e) =>{
   axios .post("/api/v1/auth/auth/shop/session")
 }
 
-function handleAdd (id,points) {
-  addItem(id,points);
+function handleAdd (id,points,labelImage,name) {
+  addItem(id,points,labelImage,name);
   setQuantity(displayQuantity(id));
 }
 
@@ -57,7 +57,7 @@ function handleAdd (id,points) {
                 <div className="flex w-20 h-9 justify-center items-center rounded-lg ml-1 text-slate-800  bg-amber-400">
                   <button onClick={()=> (handleRemove(product.id))} className="flex justify-center items-center text-2xl font-extrabold w-7 h-9 rounded-lg ml-auto text-slate-800 pb-1 bg-amber-400">-</button>
                   <div className="flex justify-center items-center font-bold w-10 h-7 bg-white rounded-md">{quantity!==0? displayQuantity(product.id):0}</div>
-                  <button onClick={()=> (handleAdd(product.id,product.points))} className="flex justify-center items-center text-2xl font-extrabold w-7 h-9 rounded-lg ml-auto text-slate-800 pb-1 bg-amber-400">+</button>
+                  <button onClick={()=> (handleAdd(product.id,product.points,product.labelImage,product.name))} className="flex justify-center items-center text-2xl font-extrabold w-7 h-9 rounded-lg ml-auto text-slate-800 pb-1 bg-amber-400">+</button>
               </div> 
              </div>
             </div> 
