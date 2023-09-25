@@ -32,10 +32,10 @@ public class Project {
     @JoinColumn( name= "user_id")
     private User user;
 
-    @Nullable
+
     private String title;
 
-    @Nullable
+
     private String description;
 
     @Nullable
