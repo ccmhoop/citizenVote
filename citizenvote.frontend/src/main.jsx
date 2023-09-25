@@ -14,6 +14,7 @@ import Shop from "./pages/Shop";
 import Projects from "./pages/Projects";
 import ProposeProject from "./pages/ProposeProject";
 import ProjectList from "./pages/ProjectList";
+import ProjectOverview from "./pages/ProjectOverview";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <AuthProvider
@@ -46,6 +47,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           {/* voorbeeld protected Route
            <Route path="/{beveiligde path}" element={<RequireAuth loginPath="/login"><Pagina/></RequireAuth>}></Route> */}
           <Route path="/shop" element={<Shop />} />
+          <Route path="/project_overview" element={<ProjectOverview />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/propose_project" element={<ProposeProject />} />
         </Routes>

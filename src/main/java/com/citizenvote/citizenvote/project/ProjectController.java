@@ -65,8 +65,8 @@ public class ProjectController {
     }
 
 
-    @GetMapping("/progress/{progress}")
-    public ResponseEntity<Set<Project>> getProjectByProgress(@PathVariable(name = "progress") ProjectProgress progress){
+    @GetMapping("/project/progress/{progress}")
+    public ResponseEntity<Set<ProjectResponse>> getProjectByProgress(@PathVariable(name = "progress") String progress){
         return ResponseEntity.ok(projectService.getProjectByProgress(progress));
     }
 

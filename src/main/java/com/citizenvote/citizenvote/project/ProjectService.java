@@ -2,14 +2,17 @@ package com.citizenvote.citizenvote.project;
 
 import com.citizenvote.citizenvote.imageData.ImageDataRepository;
 import com.citizenvote.citizenvote.imageData.ProjectImageData;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Service
+@Transactional
 public class ProjectService {
 
     @Autowired
@@ -57,8 +60,28 @@ public class ProjectService {
     }
 
 
-    public Set<Project> getProjectByProgress(ProjectProgress progress) {
-        return projectRepository.findByProgress(progress);
+    public Set<ProjectResponse> getProjectByProgress(String progress) {
+
+        Set<ProjectResponse> response = new HashSet<>();
+        List<Project> projects = new ArrayList<>();
+
+        if(progress.equals("ALL")){
+            projects = projectRepository.findAll();
+        }
+        else{
+            projects = projectRepository.findByProgress(ProjectProgress.valueOf(progress));
+        }
+
+        for (Project project : projects){
+            response.add(ProjectResponse.builder()
+                    .id(project.getId().toString())
+                    .title(project.getTitle())
+                    .labelImage(projectRepository.findById(project.getId()).get().getProjectImageData().get(0).getUrl())
+                    .requiredVotes(project.getRequiredVotes())
+                    .amountVotes(project.getAmountVotes())
+                    .build());
+        }
+        return response;
     }
 }
 

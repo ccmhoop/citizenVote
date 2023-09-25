@@ -1,14 +1,13 @@
 import axios from "axios";
 import { useSignIn } from "react-auth-kit";
-import {useIsAuthenticated} from 'react-auth-kit'
-import { useToken } from "../js/Hooks";
+import { getToken } from "../js/getToken";
 
 
 function Register(props) {
 
-    const token = useToken();
+    const token = getToken();
     const signIn = useSignIn()
-    const isAuthenticated = useIsAuthenticated()
+
 
     async function RegisterButton(){
         const username = document.getElementById("reg_username").value
@@ -49,18 +48,18 @@ function Register(props) {
             else if(props.registryType === "citizen"){
                 url = "http://localhost:8080/api/v1/auth/register"
             }
-            const cfg = {headers: { Authorization: `Bearer ${token ? token : ""}` }}
+            
 
 
             await axios.post(url, {
-                firstname: firstname,
-                lastname: lastname,
-                phonenumber: phonenumber,
-                username: username,
-                password: password,
-                adress: adress,
-                email: email
-            }, cfg)
+                firstname,
+                lastname,
+                phonenumber,
+                username,
+                password,
+                adress,
+                email
+            }, token.cfg)
             .then(response => {
                 console.log(response)
                 

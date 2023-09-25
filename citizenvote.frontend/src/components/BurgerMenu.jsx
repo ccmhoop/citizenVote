@@ -1,17 +1,13 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {useAuthUser, useSignOut} from 'react-auth-kit'
-import { useToken } from "../js/Hooks";
 
 
 export default function BurgerMenu() {
   const auth = useAuthUser();
   const logout = useSignOut()
   const navigate = useNavigate()
-  if (auth()) {
-    console.log(`hamburger name: ${auth().username}, role: ${auth().role}`);
-    console.log(useToken());
-  }
+
 
   function onLogout(){
     logout()
@@ -51,20 +47,20 @@ export default function BurgerMenu() {
             </>
           )}
           <div className=" border-2 border-white rounded mt-2"></div>
-          {auth() && auth().role === "CITIZEN" &&
+          {auth()?.role === "CITIZEN" &&
            <>
             <Link to="/shop">Shop</Link>
             <Link to="/projects">test Project</Link>
             <Link to="/project_list">projects</Link>
            </>}
-           {auth() && auth().role === "MANICIPALITY" &&
+           {auth()?.role === "MANICIPALITY" &&
            <>
             <Link to="/shop">Shop</Link>
             <Link to="/projects">test Project</Link>
             <Link to="/project_list">projects</Link>
            </>}
 
-          {auth() && auth().role === "ADMIN" && 
+          {auth()?.role === "ADMIN" && 
             <>
               <Link to="/manicipality_registry">Manicipality Registration</Link>
               <Link to="/shop">shop</Link>

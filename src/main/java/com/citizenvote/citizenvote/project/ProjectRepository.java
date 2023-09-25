@@ -11,5 +11,5 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     @Override
     List<Project> findAll();
-    Set<Project> findByProgress(ProjectProgress progress);
+    List<Project> findByProgress(ProjectProgress progress);
 }

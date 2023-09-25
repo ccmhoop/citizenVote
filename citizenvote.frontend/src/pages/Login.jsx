@@ -34,8 +34,8 @@ function Login() {
 
         if(iter == 2){
            await axios.post("http://localhost:8080/api/v1/auth/auth", {
-                username: username,
-                password: password
+                username,
+                password
             })
             .then(response => {
                 console.log(response)
