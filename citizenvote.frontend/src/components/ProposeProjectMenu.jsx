@@ -67,7 +67,7 @@ function ProposeProjectMenu() {
       startDate: "",
       endDate: "",
       progress: "PROPOSED",
-      category: "",
+      category: "EMPTY",
     });
   };
 
