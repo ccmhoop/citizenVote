@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
+@Nullable
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,7 +22,7 @@ import java.util.List;
 
 public class Project {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Getter
@@ -35,24 +36,24 @@ public class Project {
     private String description;
 
     @OneToMany(mappedBy = "project",fetch = FetchType.EAGER)
-    @Nullable
     private List<ProjectImageData> ProjectImageData;
 
-    @Nullable
+
     private Integer requiredVotes;
 
-    @Nullable
+
     private Integer amountVotes;
-    @Nullable
+
+
     private LocalDate startDate;
 
-    @Nullable
+
     private LocalDate endDate;
 
     @Enumerated(EnumType.STRING)
     private ProjectProgress progress;
 
-    @Nullable
+
     @Enumerated(EnumType.STRING)
     private ProjectCategory category;
 

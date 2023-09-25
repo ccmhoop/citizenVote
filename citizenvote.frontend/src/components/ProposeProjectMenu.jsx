@@ -46,21 +46,30 @@ function ProposeProjectMenu() {
     e.preventDefault();
     try {
       await uploadFileData(formData, files, apiUrl, "project");
+      resetForm();
     } catch (error) {
       console.log(error);
     }
   };
 
-  // Reset de geselecteerde bestanden
-  // setFiles([null, null, null, null]);
-  // const fileInputs = document.querySelectorAll('input[type="file"]');
-  // fileInputs.forEach((input) => {
-  //   input.value = null; // Leeg het bestandselement
-  // });
-  // } catch (error) {
-  //   console.log(error);
-  //   // }
-  // };
+  const resetForm = () => {
+    setFiles([null, null, null, null]);
+    const fileInputs = document.querySelectorAll('input[type="file"]');
+    fileInputs.forEach((input) => {
+      input.value = null;
+    });
+    setProjectImage(null);
+    setFormData({
+      title: "",
+      description: "",
+      requiredVotes: "",
+      amountVotes: 0,
+      startDate: "",
+      endDate: "",
+      progress: "PROPOSED",
+      category: "",
+    });
+  };
 
   return (
     <div className="max-w-md mx-auto mt-8 mb-8 p-4 border rounded-lg shadow-lg bg-slate-900">
