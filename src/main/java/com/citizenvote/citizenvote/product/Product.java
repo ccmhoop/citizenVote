@@ -26,6 +26,8 @@ public class Product {
 
     private String points;
 
+    private Boolean softDelete;
+
     @OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
     private List<ProductImageData> ProductImageData;
 

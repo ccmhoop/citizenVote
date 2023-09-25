@@ -3,12 +3,12 @@ import axios from "axios";
 
 let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
 
-const shopSession = {
-  user_id: "",
-  total: "",
-  created_at: Date.now(),
-  modified_at: Date.now(),
-};
+// const shopSession = {
+//   user_id: "",
+//   total: "",
+//   created_at: Date.now(),
+//   modified_at: Date.now(),
+// };
 
 function saveCartToSessionStorage() {
   sessionStorage.setItem("cart", JSON.stringify(cart));

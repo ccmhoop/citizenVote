@@ -25,11 +25,9 @@ export default function ProductToShop() {
   const handleFileChange = (event) => {
     var newString = event.target.id.split(/([0-9]+)/);
     files[newString[1]]=event.target.files[0];
-    console.log(files);
   };
 
   const handleLabelImage = (e) => {
-    
     const file = e.target.files[0];
     const reader = new FileReader();
     if (file) {

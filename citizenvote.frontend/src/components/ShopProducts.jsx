@@ -1,6 +1,5 @@
-import React from "react";
 import { useEffect,useState } from "react";
-import {  cart,returnIndex,addItem,removeItem,displayCart,displayTotalCost,displayQuantity} from "../js/shoppingSession";
+import {  cart,addItem,removeItem,displayQuantity} from "../js/shoppingSession";
 import axios from "axios";
 
 
@@ -15,7 +14,7 @@ export function ShopProducts() {
 }]
 )
 
-const [totalCost,setTotalCost] = useState("")
+// const [totalCost,setTotalCost] = useState("")
 const [quantity,setQuantity] = useState(cart)
 
 useEffect(()=>{
@@ -27,10 +26,10 @@ useEffect(()=>{
 },[]);
 
 
-const session = (e) =>{
-  e.preventDefault();
-  axios .post("/api/v1/auth/auth/shop/session")
-}
+// const session = (e) =>{
+//   e.preventDefault();
+//   axios .post("/api/v1/auth/auth/shop/session")
+// }
 
 function handleAdd (id,points,labelImage,name) {
   addItem(id,points,labelImage,name);

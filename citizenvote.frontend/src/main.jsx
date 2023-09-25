@@ -49,13 +49,15 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           />
           {/* voorbeeld protected Route
            <Route path="/{beveiligde path}" element={<RequireAuth loginPath="/login"><Pagina/></RequireAuth>}></Route> */}
+           <Route path="/basket" element={<RequireAuth loginPath="/login"><Basket/></RequireAuth>}></Route>
+           <Route path="/shop_managment" element={<RequireAuth loginPath="/login"><ShopManagment/></RequireAuth>}></Route>
+           <Route path="/manicipality_menu" element={<RequireAuth loginPath="/login"><Manicipality/></RequireAuth>}></Route>
+           <Route path="/shop" element={<RequireAuth loginPath="/login"><Shop/></RequireAuth>}></Route>
+         
           <Route path="/shop" element={<Shop />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/propose_project" element={<ProposeProject />} />
-          <Route path="/basket" element={<Basket />} />
-          <Route path="/manici" element={<Manicipality/>}/>
-          <Route path="/shop_managment" element={<ShopManagment/>}/>
-          <Route path="/add_product_to_shop" element={<ProductToShop/>}/>
+          {/* <Route path="/add_product_to_shop" element={<ProductToShop/>}/> */}
         </Routes>
       </div>
       <Footer />

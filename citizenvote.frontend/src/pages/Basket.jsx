@@ -43,8 +43,8 @@ export default function Basket() {
 
   return (
     <div className="w-[100%] min-h-[88vh] flex justify-center items-start p-4 flex-wrap bg-gradient-to-br from-indigo-800 to-rose-600">
-      <div className=" min-w-[35vw] max-w-[100vw]  h-[88vh] flex flex-col justify-start items-start rounded-xl bg-white/80 overflow-y-scroll p-2">
-        <div className="flex justify-center items-start overflow-y-scroll flex-col w-full h-fit gap-y-1 mb-1">
+      <div className=" min-w-[35vw] max-w-[100vw]  h-[88vh] flex flex-col justify-start items-start rounded-xl bg-white/80  p-2">
+        <div className="flex justify-start flex-col w-full  h-fit overflow-y-scroll  gap-y-1 mb-1 ">
           {" "}
           <ListBasket product={products} />
         </div>
