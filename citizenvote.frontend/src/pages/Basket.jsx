@@ -3,6 +3,7 @@ import ListBasket from "../components/ListBasket";
 import axios from "axios";
 import { getToken } from "../js/getToken";
 import { cart, displayTotalCost, fetchTotalCost } from "../js/shoppingSession";
+import completeOrder from "../js/completeOrder";
 
 export default function Basket() {
   const totalPoints = displayTotalCost();
@@ -16,13 +17,22 @@ export default function Basket() {
   ]);
   const [all, setAll] = useState(0);
 
-  const getTotal = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const tot = await fetchTotalCost();
-    console.log(tot);
-    console.log(products);
-    setAll(tot);
+    try {
+      await completeOrder();
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  // const getTotal = async (e) => {
+  //   e.preventDefault();
+  //   const tot = await fetchTotalCost();
+  //   console.log(tot);
+  //   console.log(products);
+  //   setAll(tot);
+  // };
 
   useEffect(() => {
     console.log(cart);
@@ -80,7 +90,7 @@ export default function Basket() {
                 {totalPoints} points{" "}
               </div>{" "}
               <button
-                onClick={getTotal}
+                onClick={handleSubmit}
                 className="flex justify-center text-center items-center text-lg font-extrabold text-white rounded-lg w-28  h-9 bg-slate-800"
               >
                 Checkout

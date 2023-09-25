@@ -12,26 +12,10 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin
 @RequestMapping("/api/v1/auth/auth")
 public class OrderItemsController {
 
-
-//   private final OrderItemsRepository orderItemsRepository;
-//
-//   private final OrderItemsService service;
-
-//    @PostMapping("shop/session")
-//    public ResponseEntity<?> saveSession(OrderItems orderItems){
-//        String status = service.saveSessionResponse(orderItems);
-//        return ResponseEntity.status(HttpStatus.OK)
-//                .body(status);
-//    }
-
-//    @GetMapping("shop/total")
-//    public ResponseEntity<OrderItemsResponse> fetchProductInfo(@RequestPart("total") Long id){
-//        return ResponseEntity.status(HttpStatus.OK)
-//                .body(service.fetchTotal(id));
-//    }
 
 }
 

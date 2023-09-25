@@ -1,6 +1,7 @@
 package com.citizenvote.citizenvote.product;
 
 import com.citizenvote.citizenvote.imageData.ProductImageData;
+import com.citizenvote.citizenvote.orderItems.OrderItems;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,6 +28,9 @@ public class Product {
     private String points;
 
     private Boolean softDelete;
+
+    @OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
+    private List<OrderItems> orderItems;
 
     @OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
     private List<ProductImageData> ProductImageData;

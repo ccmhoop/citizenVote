@@ -1,8 +1,10 @@
 package com.citizenvote.citizenvote.orderDetails;
 
 import com.citizenvote.citizenvote.orderItems.OrderItems;
+import com.citizenvote.citizenvote.user.User;
 import jakarta.persistence.*;
 import lombok.*;
+
 
 import java.util.List;
 
@@ -18,7 +20,10 @@ public class OrderDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Double total;
+    private Integer total;
+
+    @ManyToOne
+    private User user;
 
     @OneToMany(mappedBy = "orderDetails",fetch = FetchType.EAGER)
     private List<OrderItems> orderItems;

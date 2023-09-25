@@ -13,18 +13,21 @@ public class OrderDetailsService {
 
     @Autowired
     ProductRepository productRepository;
+
         public OrderDetailsResponse fetchTotal(OrderDetailsResponse[] items){
 
             int total =0;
             System.out.println(items[0].getId());
 
-        for(OrderDetailsResponse calculate : items){
-          int cost = Integer.parseInt(productRepository.findById(calculate.getId()).get().getPoints())*calculate.getQuantity();
-          total += cost;
+            for(OrderDetailsResponse calculate : items){
+                int cost = Integer.parseInt(productRepository.findById(calculate.getId()).get().getPoints())*calculate.getQuantity();
+                total += cost;
         }
         return OrderDetailsResponse.builder()
-                .totalCost(total)
+                .total(total)
                 .build();
     }
+
+
 
 }

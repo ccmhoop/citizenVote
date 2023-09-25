@@ -1,5 +1,6 @@
 package com.citizenvote.citizenvote.user;
 
+import com.citizenvote.citizenvote.orderDetails.OrderDetails;
 import com.citizenvote.citizenvote.project.Project;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,6 +32,9 @@ public class User implements UserDetails {
     private String email;
     private Integer points;
     private Boolean postPrivilege;
+
+    @OneToMany(mappedBy = "user")
+    private List<OrderDetails> orderDetails;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Project> projects;

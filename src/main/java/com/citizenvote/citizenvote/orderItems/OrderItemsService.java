@@ -1,29 +1,29 @@
 package com.citizenvote.citizenvote.orderItems;
 
-import com.citizenvote.citizenvote.orderDetails.OrderDetailsService;
-import com.citizenvote.citizenvote.product.Product;
-import com.citizenvote.citizenvote.product.ProductService;
+import com.citizenvote.citizenvote.orderDetails.OrderDetails;
+import com.citizenvote.citizenvote.orderDetails.OrderDetailsResponse;
+import com.citizenvote.citizenvote.product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class OrderItemsService {
 
     @Autowired
     OrderItemsRepository orderItemsRepository;
 
     @Autowired
-    OrderDetailsService service;
+    ProductRepository productRepository;
 
-    @Autowired
-    ProductService productService;
-//    public String saveSessionResponse(OrderItems orderItems){
-//        if(orderItems.getId() != null){
-//            orderItemsRepository.save(orderItems);
-//            return "success";
-//        }else{
-//            return "failed";
-//        }
-//    }
-
+    public void saveOrder (OrderDetailsResponse details,OrderDetails order) {
+        for (OrderItems item : details.getOrderItems()) {
+            orderItemsRepository.save(OrderItems.builder()
+                    .orderDetails(order)
+                    .product(productRepository.getById(item.getId()))
+                    .quantity(item.getQuantity())
+                    .build());
+        }
+    }
 
 
 //    public Double fetchTotal(s){
