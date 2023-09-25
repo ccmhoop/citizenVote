@@ -13,7 +13,7 @@ function ProposeProjectMenu() {
     startDate: "",
     endDate: "",
     progress: "PROPOSED",
-    category: "",
+    category: "EMPTY",
   });
 
   const handleChange = (e) => {
@@ -244,7 +244,7 @@ function ProposeProjectMenu() {
             <option value="EDUCATION">education</option>
             <option value="SUSTAINABILITY">sustainability</option>
             <option value="ART">art</option>
-            <option value="">none of these</option>
+            <option value="EMPTY">none of these</option>
             {/* Voeg hier meer categorieën toe indien nodig */}
           </select>
         </div>
