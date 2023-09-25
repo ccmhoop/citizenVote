@@ -13,7 +13,10 @@ const uploadFileData = async (formData, files, apiUrl, type) => {
     );
 
     for (let i = 0; i < files.length; i++) {
-      formDataObject.append("image", files[i]);
+      console.log(files[i]);
+      if (files[i] !== null) {
+        formDataObject.append("image", files[i]);
+      }
     }
 
     const response = await axios.post(apiUrl, formDataObject, {

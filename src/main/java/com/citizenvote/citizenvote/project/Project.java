@@ -1,6 +1,6 @@
 package com.citizenvote.citizenvote.project;
 
-import com.citizenvote.citizenvote.imageData.ProductImageData;
+
 import com.citizenvote.citizenvote.imageData.ProjectImageData;
 import com.citizenvote.citizenvote.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class Project {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Getter
@@ -30,8 +30,8 @@ public class Project {
     @JoinColumn( name= "user_id")
     private User user;
 
-    @Nullable
     private String title;
+
     private String description;
 
     @OneToMany(mappedBy = "project",fetch = FetchType.EAGER)
