@@ -4,6 +4,7 @@ import com.citizenvote.citizenvote.imageData.ProductImageData;
 import com.citizenvote.citizenvote.imageData.ProjectImageData;
 import com.citizenvote.citizenvote.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,21 +30,29 @@ public class Project {
     @JoinColumn( name= "user_id")
     private User user;
 
+    @Nullable
     private String title;
     private String description;
 
     @OneToMany(mappedBy = "project",fetch = FetchType.EAGER)
+    @Nullable
     private List<ProjectImageData> ProjectImageData;
 
+    @Nullable
     private Integer requiredVotes;
-    private Integer amountVotes;
 
+    @Nullable
+    private Integer amountVotes;
+    @Nullable
     private LocalDate startDate;
+
+    @Nullable
     private LocalDate endDate;
 
     @Enumerated(EnumType.STRING)
     private ProjectProgress progress;
 
+    @Nullable
     @Enumerated(EnumType.STRING)
     private ProjectCategory category;
 
