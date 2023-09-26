@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 function ProjectList(){
 
     const [projectList, setProjectList] = useState([]);
-    const token = getToken();
     const navigate = useNavigate();
     useEffect(() => {
         getProjects("HAVE_ENOUGH_VOTES")
@@ -18,10 +17,12 @@ function ProjectList(){
 
 
     async function getProjects(progress){
-        await axios.get(`http://localhost:8080/api/v1/auth/auth/project/progress/${progress}`, {}).then(response => {
+        await axios.get(`http://localhost:8080/api/v1/project/progress/${progress}`,getToken().cfg)
+        .then(response => {
             console.log(response)
             setProjectList(response.data)
-        })
+        },)
+        .catch((er)=> console.log(er))
     }
 
     function onClickItem(id){

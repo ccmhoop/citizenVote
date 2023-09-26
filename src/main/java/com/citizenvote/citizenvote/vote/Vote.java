@@ -18,10 +18,10 @@ public class Vote {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "user")
     private User user;
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "project")
     private Project project;
     @Enumerated(EnumType.STRING)
     private VoteType voteType;

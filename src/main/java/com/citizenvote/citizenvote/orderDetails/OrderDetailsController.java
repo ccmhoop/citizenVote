@@ -37,15 +37,15 @@ public class OrderDetailsController {
         return service.fetchTotal(orderTotal);
     }
 
-    @PostMapping(value = "/checkout/complete")
-    public void completeOrder(@RequestBody OrderDetailsResponse[] orderDetails) throws IOException {
-        var order = OrderDetails.builder()
-               .total(orderDetails[0].getTotal())
-               .user(userRepository.getById(orderDetails[0].getUserId()))
-               .build();
-       orderDetailsRepository.save(order);
-        orderItemsService.saveOrderedItem(orderDetails[0],order);
-    }
+//    @PostMapping(value = "/checkout/complete")
+//    public void completeOrder(@RequestBody OrderDetailsResponse[] orderDetails) throws IOException {
+//        var order = OrderDetails.builder()
+//               .total(orderDetails[0].getTotal())
+//               .user(userRepository.getById(orderDetails[0].getUserId()))
+//               .build();
+//       orderDetailsRepository.save(order);
+//        orderItemsService.saveOrderedItem(orderDetails[0],order);
+//    }
 
 
 

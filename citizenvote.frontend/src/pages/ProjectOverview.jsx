@@ -19,7 +19,7 @@ function ProjectOverview(props) {
 
     async function getProject(id) {
         console.log(getToken().cfg)
-        await axios.post(`http://localhost:8080/api/v1/auth/auth/project/id`,
+        await axios.post(`http://localhost:8080/api/v1/project/id`,
          {
             id,
             token: token.token

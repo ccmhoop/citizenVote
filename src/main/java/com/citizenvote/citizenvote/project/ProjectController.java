@@ -72,6 +72,7 @@ public class ProjectController {
     }
 
 
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
         if (projectRepository.existsById(id)) {
