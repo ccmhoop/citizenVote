@@ -1,7 +1,8 @@
 package com.citizenvote.citizenvote.user;
 
-import com.citizenvote.citizenvote.orderDetails.OrderDetails;
 import com.citizenvote.citizenvote.project.Project;
+import com.citizenvote.citizenvote.vote.Vote;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -34,7 +35,9 @@ public class User implements UserDetails {
     private Boolean postPrivilege;
 
     @OneToMany(mappedBy = "user")
-    private List<OrderDetails> orderDetails;
+    @JsonManagedReference
+    private List<Vote> votes;
+
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Project> projects;

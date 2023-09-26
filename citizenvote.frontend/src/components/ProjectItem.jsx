@@ -5,8 +5,8 @@ function ProjectItem(props){
     return (
         <div className='border h-32 w-32 border-black' style={{backgroundImage: `url(${props.url})`, backgroundSize: "contain"}}>
              {/* <img className="top-10 h-32 w-32 object-none bg-slate-600" src={banner}alt=""/> */}
-             <ProgressBar/>
-             <div className="relative bg-slate-600 bg-opacity-80 h-8 w-full top-10 flex justify-center items-center">Title</div>         
+             <ProgressBar percentage={props.percentage}/>
+             <div className="relative bg-slate-600 bg-opacity-80 h-8 w-full top-10 flex justify-center items-center">{props.title}</div>         
         </div>
     )
 }

@@ -14,10 +14,7 @@ import Shop from "./pages/Shop";
 import Projects from "./pages/Projects";
 import ProposeProject from "./pages/ProposeProject";
 import ProjectList from "./pages/ProjectList";
-import Basket from "./pages/Basket";
-import Manicipality from "./pages/Manicipality";
-import ShopManagment from "./pages/ShopManagment";
-import ProductToShop from "./components/ProductToShop";
+import ProjectOverview from "./pages/ProjectOverview";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <AuthProvider
@@ -49,15 +46,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           />
           {/* voorbeeld protected Route
            <Route path="/{beveiligde path}" element={<RequireAuth loginPath="/login"><Pagina/></RequireAuth>}></Route> */}
-           <Route path="/basket" element={<RequireAuth loginPath="/login"><Basket/></RequireAuth>}></Route>
-           <Route path="/shop_managment" element={<RequireAuth loginPath="/login"><ShopManagment/></RequireAuth>}></Route>
-           <Route path="/manicipality_menu" element={<RequireAuth loginPath="/login"><Manicipality/></RequireAuth>}></Route>
-           <Route path="/shop" element={<RequireAuth loginPath="/login"><Shop/></RequireAuth>}></Route>
-         
           <Route path="/shop" element={<Shop />} />
+          <Route path="/project_overview" element={<ProjectOverview />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/propose_project" element={<ProposeProject />} />
-          {/* <Route path="/add_product_to_shop" element={<ProductToShop/>}/> */}
         </Routes>
       </div>
       <Footer />

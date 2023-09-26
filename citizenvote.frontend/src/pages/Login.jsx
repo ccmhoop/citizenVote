@@ -34,8 +34,8 @@ function Login() {
 
         if(iter == 2){
            await axios.post("http://localhost:8080/api/v1/auth/auth", {
-                username: username,
-                password: password
+                username,
+                password
             })
             .then(response => {
                 console.log(response)
@@ -43,7 +43,12 @@ function Login() {
                     token: response.data.token,
                     expiresIn: 60,
                     tokenType: "Bearer",
-                    authState: {username: response.data.name, role: response.data.role}
+                    authState: {
+                        username: response.data.name,
+                        role: response.data.role,
+                        id: response.data.id,
+                        points: response.data.points
+                    }
                 })
                 window.location.pathname = ''
             })

@@ -3,7 +3,9 @@ package com.citizenvote.citizenvote.project;
 import com.citizenvote.citizenvote.imageData.ProductImageData;
 import com.citizenvote.citizenvote.imageData.ProjectImageData;
 import com.citizenvote.citizenvote.user.User;
+import com.citizenvote.citizenvote.vote.Vote;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,6 +36,10 @@ public class Project {
 
     @OneToMany(mappedBy = "project",fetch = FetchType.EAGER)
     private List<ProjectImageData> ProjectImageData;
+
+    @OneToMany(mappedBy = "project")
+    @JsonManagedReference
+    private List<Vote> votes;
 
     private Integer requiredVotes;
     private Integer amountVotes;
