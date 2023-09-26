@@ -1,72 +1,102 @@
 import axios from "axios";
 import { useSignIn } from "react-auth-kit";
-import {useIsAuthenticated} from 'react-auth-kit'
-import { useToken } from "../js/Hooks";
+import { getToken } from "../js/getToken";
 
 
 function Register(props) {
 
-    const token = useToken();
+    const token = getToken();
     const signIn = useSignIn()
-    const isAuthenticated = useIsAuthenticated()
-
-    async function RegisterButton(){
-        const username = document.getElementById("reg_username").value
-        const password = document.getElementById("reg_password").value
-        const password2 = document.getElementById("reg_password2").value
-        const email = document.getElementById("reg_email").value
-        const phonenumber = document.getElementById("reg_phonenumber").value
-        const adress = document.getElementById("reg_adress").value
-        const firstname = document.getElementById("reg_firstname").value
-        const lastname = document.getElementById("reg_lastname").value
-        var iter = 0;
 
 
-        iter += CheckFormErrors("reg_username_error", username, "Username Required", "reg_email_error", email, "Email Required")
-        iter += CheckFormErrors("reg_firstname_error", firstname, "Firstname Required", "reg_lastname_error", lastname, "Lastname Required")
-        iter += CheckFormErrors("reg_adress_error", adress, "Adress Required", "reg_phonenumber_error", phonenumber, "Phonenumber Required")
-        iter += CheckFormErrors("reg_password_error", password, "Password Required", "reg_password2_error", password2, "Repeat Password Required") 
-        if(password !== password2 && password.length !== 0 && password2.length !== 0){
-            document.getElementById("reg_password_error").innerHTML = "Passwords not Matching"
-            document.getElementById("reg_password2_error").innerHTML = "<br>"
-        }
-        else{
-            document.getElementById("reg_password_error").innerHTML = ""
-            document.getElementById("reg_password2_error").innerHTML = ""
-            iter++
-        }
-        //passwords
+  async function RegisterButton() {
+    const username = document.getElementById("reg_username").value;
+    const password = document.getElementById("reg_password").value;
+    const password2 = document.getElementById("reg_password2").value;
+    const email = document.getElementById("reg_email").value;
+    const phonenumber = document.getElementById("reg_phonenumber").value;
+    const adress = document.getElementById("reg_adress").value;
+    const firstname = document.getElementById("reg_firstname").value;
+    const lastname = document.getElementById("reg_lastname").value;
+    var iter = 0;
 
-       
+    iter += CheckFormErrors(
+      "reg_username_error",
+      username,
+      "Username Required",
+      "reg_email_error",
+      email,
+      "Email Required"
+    );
+    iter += CheckFormErrors(
+      "reg_firstname_error",
+      firstname,
+      "Firstname Required",
+      "reg_lastname_error",
+      lastname,
+      "Lastname Required"
+    );
+    iter += CheckFormErrors(
+      "reg_adress_error",
+      adress,
+      "Adress Required",
+      "reg_phonenumber_error",
+      phonenumber,
+      "Phonenumber Required"
+    );
+    iter += CheckFormErrors(
+      "reg_password_error",
+      password,
+      "Password Required",
+      "reg_password2_error",
+      password2,
+      "Repeat Password Required"
+    );
+    if (
+      password !== password2 &&
+      password.length !== 0 &&
+      password2.length !== 0
+    ) {
+      document.getElementById("reg_password_error").innerHTML =
+        "Passwords not Matching";
+      document.getElementById("reg_password2_error").innerHTML = "<br>";
+    } else {
+      document.getElementById("reg_password_error").innerHTML = "";
+      document.getElementById("reg_password2_error").innerHTML = "";
+      iter++;
+    }
+    //passwords
 
-        if(iter === 5){
-            var url = null;
-            
-            if(props.registryType === "manicipality"){
-                url = "http://localhost:8080/api/v1/manicipalityRegistry"
-                
-            }
-            else if(props.registryType === "citizen"){
-                url = "http://localhost:8080/api/v1/auth/register"
-            }
-            const cfg = {headers: { Authorization: `Bearer ${token ? token : ""}` }}
+    if (iter === 5) {
+      var url = null;
 
+      if (props.registryType === "manicipality") {
+        url = "http://localhost:8080/api/v1/manicipalityRegistry";
+      } else if (props.registryType === "citizen") {
+        url = "http://localhost:8080/api/v1/auth/register";
+      }
 
-            await axios.post(url, {
-                firstname: firstname,
-                lastname: lastname,
-                phonenumber: phonenumber,
-                username: username,
-                password: password,
-                adress: adress,
-                email: email
-            }, cfg)
-            .then(response => {
-                console.log(response)
-                
-                if(props.registryType === "manicipality"){
-                    document.getElementById("auth_error").style.color = "green"
-                    document.getElementById("auth_error").innerHTML = "User Succesfully created"
+      await axios
+        .post(
+          url,
+          {
+            firstname: firstname,
+            lastname: lastname,
+            phonenumber: phonenumber,
+            username: username,
+            password: password,
+            adress: adress,
+            email: email,
+          },
+          token.cfg
+        )
+        .then((response) => {
+          console.log(response);
+
+          if (props.registryType === "manicipality") {
+            document.getElementById("auth_error").style.color = "green";
+            document.getElementById("auth_error").innerHTML =
+              "User Succesfully created";
 
                     document.getElementById("reg_username").value = ""
                     document.getElementById("reg_password").value = ""
@@ -179,28 +209,32 @@ function Register(props) {
                 </div>}
         </div>
     </div>
- )
+  );
 }
 
-
-function CheckFormErrors(form1errId, form1errvalue,form1errMsg,form2errId,form2errvalue,form2errMsg){
-    if(form1errvalue.length < 1 || form2errvalue.length < 1){
-        document.getElementById(form1errId).innerHTML = form1errMsg
-        document.getElementById(form2errId).innerHTML = form2errMsg
-        if(form1errvalue.length >= 1){
-            document.getElementById(form1errId).innerHTML = "<br>"
-            
-        }
-        if(form2errvalue.length >= 1){
-            document.getElementById(form2errId).innerHTML = "<br>"
-        }
-        return 0;
+function CheckFormErrors(
+  form1errId,
+  form1errvalue,
+  form1errMsg,
+  form2errId,
+  form2errvalue,
+  form2errMsg
+) {
+  if (form1errvalue.length < 1 || form2errvalue.length < 1) {
+    document.getElementById(form1errId).innerHTML = form1errMsg;
+    document.getElementById(form2errId).innerHTML = form2errMsg;
+    if (form1errvalue.length >= 1) {
+      document.getElementById(form1errId).innerHTML = "<br>";
     }
-    else{
-        document.getElementById(form1errId).innerHTML = ""
-        document.getElementById(form2errId).innerHTML = ""
-        return 1;
+    if (form2errvalue.length >= 1) {
+      document.getElementById(form2errId).innerHTML = "<br>";
     }
+    return 0;
+  } else {
+    document.getElementById(form1errId).innerHTML = "";
+    document.getElementById(form2errId).innerHTML = "";
+    return 1;
+  }
 }
 
 export default Register;

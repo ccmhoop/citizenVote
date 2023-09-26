@@ -1,10 +1,9 @@
-import React from "react";
 import { useEffect,useState } from "react";
-import {  cart,returnIndex,addItem,removeItem,displayCart,displayTotalCost,displayQuantity} from "../js/shoppingSession";
+import {  cart,addItem,removeItem,displayQuantity} from "../js/shoppingSession";
 import axios from "axios";
 
 
-export function StoreProducts() {
+export function ShopProducts() {
   const [products,setProducts] = useState([{
     id: "",
     name : "",
@@ -15,7 +14,7 @@ export function StoreProducts() {
 }]
 )
 
-const [totalCost,setTotalCost] = useState("")
+// const [totalCost,setTotalCost] = useState("")
 const [quantity,setQuantity] = useState(cart)
 
 useEffect(()=>{
@@ -26,10 +25,16 @@ useEffect(()=>{
      getStoreData();
 },[]);
 
-function handleAdd (id,points) {
-  addItem(id,points);
+
+// const session = (e) =>{
+//   e.preventDefault();
+//   axios .post("/api/v1/auth/auth/shop/session")
+// }
+
+function handleAdd (id,points,labelImage,name) {
+  addItem(id,points,labelImage,name);
   setQuantity(displayQuantity(id));
-};
+}
 
  function handleRemove (id) {
   removeItem(id);
@@ -38,9 +43,9 @@ function handleAdd (id,points) {
 
 
   return (
-    products.map((product)=>{
+    products.map((product,index)=>{
       return(
-          <div className="flex justify-start items-center overflow-hidden rounded-lg w-96 h-44 bg-white pl-4 my-4 mx-2">
+          <div key={index} className="flex justify-start items-center overflow-hidden rounded-xl w-96 h-44 bg-white pl-4 my-4 mx-2">
             <img className="flex justify-center items-center overflow-hidden object-contain rounded-lg w-36 h-40 bg-transparent" src={product.labelImage} alt="logo"/>
             <div className="flex flex-col justify-start items-start overflow-hidden border-l w-52 h-44 bg-white m-4 pl-4 pt-2"> 
               <h1 className=" w-full h-6 text-center text-lg font-extrabold leading-none border-b-2 tracking-tight  text-black">{product.name}</h1>
@@ -51,7 +56,7 @@ function handleAdd (id,points) {
                 <div className="flex w-20 h-9 justify-center items-center rounded-lg ml-1 text-slate-800  bg-amber-400">
                   <button onClick={()=> (handleRemove(product.id))} className="flex justify-center items-center text-2xl font-extrabold w-7 h-9 rounded-lg ml-auto text-slate-800 pb-1 bg-amber-400">-</button>
                   <div className="flex justify-center items-center font-bold w-10 h-7 bg-white rounded-md">{quantity!==0? displayQuantity(product.id):0}</div>
-                  <button onClick={()=> (handleAdd(product.id,product.points))} className="flex justify-center items-center text-2xl font-extrabold w-7 h-9 rounded-lg ml-auto text-slate-800 pb-1 bg-amber-400">+</button>
+                  <button onClick={()=> (handleAdd(product.id,product.points,product.labelImage,product.name))} className="flex justify-center items-center text-2xl font-extrabold w-7 h-9 rounded-lg ml-auto text-slate-800 pb-1 bg-amber-400">+</button>
               </div> 
              </div>
             </div> 

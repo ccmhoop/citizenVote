@@ -1,6 +1,7 @@
 package com.citizenvote.citizenvote.product;
 
 import com.citizenvote.citizenvote.imageData.ImageDataService;
+import com.citizenvote.citizenvote.orderDetails.OrderDetailsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -40,9 +41,9 @@ public class ProductController {
                 .body(productService.productInfoPackage(id));
     }
 
-    @GetMapping ("/product/cart")
-    public List<ProductResponse> fetchShoppingCart(@PathVariable("id") Long[] id){
-        return productService.shoppingCartResponse(id);
+    @PostMapping ("/product/cart/cart")
+    public List<ProductResponse> fetchShoppingCart(@RequestBody OrderDetailsResponse[] cart){
+        return productService.shoppingCartResponse(cart);
     }
 
     @GetMapping ("/shop/all")

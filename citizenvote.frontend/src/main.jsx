@@ -11,9 +11,12 @@ import { AuthProvider } from "react-auth-kit";
 import Register from "./pages/Register";
 import { RequireAuth } from "react-auth-kit";
 import Shop from "./pages/Shop";
+import Basket from "./pages/Basket";
 import Projects from "./pages/Projects";
 import ProposeProject from "./pages/ProposeProject";
 import ProjectList from "./pages/ProjectList";
+import ProjectOverview from "./pages/ProjectOverview";
+import ShopManagment from "./pages/ShopManagment";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <AuthProvider
@@ -46,6 +49,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           {/* voorbeeld protected Route
            <Route path="/{beveiligde path}" element={<RequireAuth loginPath="/login"><Pagina/></RequireAuth>}></Route> */}
           <Route path="/shop" element={<Shop />} />
+          <Route path="/basket" element={<Basket />} />
+          <Route path="/ShopManagment" element={<ShopManagment />} />
+          <Route path="/project_overview" element={<ProjectOverview />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/propose_project" element={<ProposeProject />} />
         </Routes>

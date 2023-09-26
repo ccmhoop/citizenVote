@@ -12,6 +12,8 @@ public class AuthenticationResponse {
 
     private String token;
     private String name;
+    private Long id;
+    private Integer points;
 
     private Role role;
 
