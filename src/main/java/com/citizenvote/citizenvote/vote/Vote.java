@@ -23,5 +23,7 @@ public class Vote {
     @ManyToOne
     @JsonBackReference
     private Project project;
+    @Enumerated(EnumType.STRING)
+    private VoteType voteType;
 
 }

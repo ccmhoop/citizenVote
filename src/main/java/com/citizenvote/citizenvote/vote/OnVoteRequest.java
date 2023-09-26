@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class OnVoteRequest {
     private String username;
     private Long projectId;
+    private String voteType;
 }

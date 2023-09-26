@@ -43,7 +43,12 @@ function Login() {
                     token: response.data.token,
                     expiresIn: 60,
                     tokenType: "Bearer",
-                    authState: {username: response.data.name, role: response.data.role}
+                    authState: {
+                        username: response.data.name,
+                        role: response.data.role,
+                        id: response.data.id,
+                        points: response.data.points
+                    }
                 })
                 window.location.pathname = ''
             })

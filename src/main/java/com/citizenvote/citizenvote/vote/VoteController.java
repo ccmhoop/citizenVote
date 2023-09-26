@@ -11,30 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 @CrossOrigin
-@RequestMapping("/api/v1/vote")
+@RequestMapping("/api/v1")
 public class VoteController {
 
     private final VoteService voteService;
 
-    @PostMapping("/yes")
+    @PostMapping("/vote")
     private ResponseEntity<String> onVoting(@RequestBody OnVoteRequest request){
-//        try {
+            System.out.println("test");
             voteService.onVoting(request);
             return ResponseEntity.ok("Voted");
-//        }
-//        catch (Exception e){
-//            return ResponseEntity.ok("Error, not voted");
-//        }
+
     }
 
-    @PostMapping("/decline")
-    private ResponseEntity<String> onVoteDeclining(@RequestBody OnVoteRequest request){
-        try {
-            voteService.onVoteDeclining(request);
-            return ResponseEntity.ok("Vote Removed");
-        }
-        catch (Exception e){
-            return ResponseEntity.internalServerError().build();
-        }
-    }
+
 }

@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -54,11 +57,13 @@ public class ProjectController {
         return ResponseEntity.ok(projects);
     }
 
-    @GetMapping("/project/{id}")
-    public ResponseEntity<Project> getProjectById(@PathVariable Long id) {
-        Project project = projectRepository.findById(id).orElse(null);
-        if (project != null) {
-            return ResponseEntity.ok(project);
+    @PostMapping("/project/id")
+    public ResponseEntity<ProjectResponse> getProjectById(@RequestBody ProjectRequest request) {
+
+       ProjectResponse response = projectService.getProjectOverviewDetails(request.getId(), request.getToken());
+        System.out.println("id: " + request.getId() + "");
+        if (response != null) {
+            return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.notFound().build();
         }
