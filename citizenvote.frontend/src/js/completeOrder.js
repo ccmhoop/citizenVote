@@ -7,7 +7,7 @@ const completeOrder = async () => {
   try {
     const details = [{
       total: 20000,
-      userId: 307,
+      userId: getToken().token,
       orderItems: []
     }];
 

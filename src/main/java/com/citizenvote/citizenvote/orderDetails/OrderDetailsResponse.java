@@ -29,7 +29,7 @@ public class OrderDetailsResponse {
     private List<OrderItems> orderItems;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private  Long userId;
+    private  String userId;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private User user;
