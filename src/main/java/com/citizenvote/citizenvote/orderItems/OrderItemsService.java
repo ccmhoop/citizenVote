@@ -15,7 +15,7 @@ public class OrderItemsService {
     @Autowired
     ProductRepository productRepository;
 
-    public void saveOrder (OrderDetailsResponse details,OrderDetails order) {
+    public void saveOrderedItem (OrderDetailsResponse details,OrderDetails order) {
         for (OrderItems item : details.getOrderItems()) {
             orderItemsRepository.save(OrderItems.builder()
                     .orderDetails(order)

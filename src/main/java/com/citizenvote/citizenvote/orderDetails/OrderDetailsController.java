@@ -44,7 +44,7 @@ public class OrderDetailsController {
                .user(userRepository.getById(orderDetails[0].getUserId()))
                .build();
        orderDetailsRepository.save(order);
-        orderItemsService.saveOrder(orderDetails[0],order);
+        orderItemsService.saveOrderedItem(orderDetails[0],order);
     }
 
 

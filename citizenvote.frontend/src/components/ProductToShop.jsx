@@ -187,14 +187,11 @@ export default function ProductToShop() {
               className="bg-slate-800 w-full h-9 rounded-xl text-white text-center font-bold border-none"
             >
               <option value="">Select category</option>
-              <option value="CULTURE">culture</option>
+              <option value="CLOTHS">cloths</option>
               <option value="SPORTS">sports</option>
-              <option value="INFRASTRUCTURE">infrastructure</option>
-              <option value="LIVING_ENVIRONMENT">living environment</option>
-              <option value="EDUCATION">education</option>
-              <option value="SUSTAINABILITY">sustainability</option>
+              <option value="ENTERTAINMENT">entertainment</option>
               <option value="ART">art</option>
-              <option value="">none of these</option>
+              <option value="FOOD">food</option>
             </select>
           </div>
           <div className="flex justify-start items-center flex-row px-2 gap-x-2  w-40 h-12 rounded-2xl bg-white ">
