@@ -3,6 +3,7 @@ package com.citizenvote.citizenvote.project;
 
 import com.citizenvote.citizenvote.imageData.ProjectImageData;
 import com.citizenvote.citizenvote.user.User;
+import com.citizenvote.citizenvote.vote.VoteType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import java.time.LocalDate;
@@ -40,5 +41,7 @@ public class ProjectResponse {
     private ProjectProgress progress;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private ProjectCategory category;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private VoteType voteType;
 
 }

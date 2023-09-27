@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getToken } from "./getToken";
 
+
 const uploadFileData = async (formData, files, apiUrl, type) => {
   // eslint-disable-next-line no-useless-catch
   try {
@@ -13,12 +14,12 @@ const uploadFileData = async (formData, files, apiUrl, type) => {
     );
 
     for (let i = 0; i < files.length; i++) {
-      console.log(files[i]);
-      if (files[i] !== null) {
-        formDataObject.append("image", files[i]);
+      console.log(files[i])
+      if(files[i] !== null){
+         formDataObject.append("image", files[i]);
       }
     }
-
+    
     const response = await axios.post(apiUrl, formDataObject, {
       headers: {
         "Content-Type": "multipart/form-data",

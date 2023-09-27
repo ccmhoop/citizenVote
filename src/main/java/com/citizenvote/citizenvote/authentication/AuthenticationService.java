@@ -4,6 +4,7 @@ import com.citizenvote.citizenvote.config.JwtService;
 import com.citizenvote.citizenvote.user.Role;
 import com.citizenvote.citizenvote.user.User;
 import com.citizenvote.citizenvote.user.UserRepository;
+import com.citizenvote.citizenvote.user.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -70,8 +71,25 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .name(user.getUsername())
                 .role(user.getRole())
+                .id(user.getId())
+                .points(user.getPoints())
                 .build();
     }
 
 
+    public UserResponse getUser(String token) {
+        String username = jwtService.extractUserName(token);
+        User user = userRepository.findByUsername(username).get();
+        return UserResponse.builder()
+                .adress(user.getAdress())
+                .email(user.getEmail())
+                .firstname(user.getFirstname())
+                .lastname(user.getLastname())
+                .role(user.getRole())
+                .phoneNumber(user.getPhoneNumber())
+                .id(user.getId())
+                .points(user.getPoints())
+                .username(username)
+                .build();
+    }
 }
