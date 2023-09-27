@@ -1,10 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import uploadFileData from "../js/uploadFileData";
-import { useAuthUser, useSignOut } from "react-auth-kit";
+import { useAuthUser } from "react-auth-kit";
+import axios from "axios";
+import { getToken } from "../js/getToken";
 
 function ProposeProjectMenu() {
   const auth = useAuthUser();
   const apiUrl = "http://localhost:8080/api/v1/project/image";
+  const apiUrlWithoutImages = "http://localhost:8080/api/v1/project";
   const [files, setFiles] = useState([null, null, null, null]);
   const [projectImage, setProjectImage] = useState();
   const defaultProgress = auth()?.role === "CITIZEN" ? "PROPOSED" : "APPROVED";
@@ -47,12 +50,27 @@ function ProposeProjectMenu() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Controleer of er minstens één afbeelding is geselecteerd
+    const hasImages = files.some((file) => file !== null);
+    console.log(hasImages);
     try {
-      await uploadFileData(formData, files, apiUrl, "project");
-      resetForm();
+      if (hasImages) {
+        // Als er afbeeldingen zijn, gebruik de standaard API-URL
+        await uploadFileData(formData, files, apiUrl, "project");
+      } else {
+        const response = await axios.post(apiUrlWithoutImages, formData, {
+          headers: {
+            Authorization: `Bearer ${getToken().token}`,
+          },
+        });
+        return response.data;
+      }
+      // Reset het formulier als het verzenden succesvol is
     } catch (error) {
       console.log(error);
     }
+    resetForm();
   };
 
   const resetForm = () => {

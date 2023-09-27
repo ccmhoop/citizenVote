@@ -35,9 +35,9 @@ public class ProjectController {
                 .body(status);
     }
     @PostMapping("/project")
-    public ResponseEntity<Project> createProject(@RequestBody Project project) {
-        Project savedProject = projectRepository.save(project);
-        return ResponseEntity.ok(savedProject);
+    public void createProject(@RequestBody Project project) {
+    projectRepository.save(project);
+//        return ResponseEntity.ok(savedProject);
     }
 
       @GetMapping ("/project/all/{progress}")
