@@ -7,6 +7,7 @@ function ProposeProjectMenu() {
   const apiUrl = "http://localhost:8080/api/v1/project/image";
   const [files, setFiles] = useState([null, null, null, null]);
   const [projectImage, setProjectImage] = useState();
+  const defaultProgress = auth()?.role === "CITIZEN" ? "PROPOSED" : "APPROVED";
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -14,7 +15,7 @@ function ProposeProjectMenu() {
     amountVotes: 0,
     startDate: "",
     endDate: "",
-    progress: "PROPOSED",
+    progress: defaultProgress,
     category: "EMPTY",
   });
 
