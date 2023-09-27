@@ -51,12 +51,9 @@ function ProposeProjectMenu() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Controleer of er minstens één afbeelding is geselecteerd
     const hasImages = files.some((file) => file !== null);
-    console.log(hasImages);
     try {
       if (hasImages) {
-        // Als er afbeeldingen zijn, gebruik de standaard API-URL
         await uploadFileData(formData, files, apiUrl, "project");
       } else {
         const response = await axios.post(apiUrlWithoutImages, formData, {
@@ -66,7 +63,6 @@ function ProposeProjectMenu() {
         });
         return response.data;
       }
-      // Reset het formulier als het verzenden succesvol is
     } catch (error) {
       console.log(error);
     }
