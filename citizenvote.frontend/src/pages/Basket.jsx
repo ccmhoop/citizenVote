@@ -1,62 +1,21 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import ListBasket from "../components/ListBasket";
-import axios from "axios";
-import { getToken } from "../js/getToken";
-import { cart, displayTotalCost, fetchTotalCost } from "../js/shoppingSession";
-import completeOrder from "../js/completeOrder";
+import { cart, displayTotalCost } from "../js/shoppingSession";
+import { Link } from "react-router-dom";
 
 export default function Basket() {
-  const totalPoints = displayTotalCost();
-  const [products, setProducts] = useState([
-    {
-      id: "",
-      labelImage: "",
-      name: "",
-      points: ""
-    }
-  ]);
-  const [all, setAll] = useState(0);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await completeOrder();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // const getTotal = async (e) => {
-  //   e.preventDefault();
-  //   const tot = await fetchTotalCost();
-  //   console.log(tot);
-  //   console.log(products);
-  //   setAll(tot);
-  // };
-
-  useEffect(() => {
-    console.log(cart);
-    async function getStoreData() {
-      const response = await axios.post(
-        "http://localhost:8080/api/v1/auth/auth/product/cart/cart",
-        cart,
-        {
-          headers: {
-            Authorization: `Bearer ${getToken().token}`
-          }
-        }
-      );
-      setProducts(response.data);
-    }
-    getStoreData();
-  }, []);
+  const [totalPoints,setTotalPoints] = useState(displayTotalCost());
+  
+const updateTotal =()=>{
+  setTotalPoints(displayTotalCost());
+  console.log(totalPoints)
+}
 
   return (
     <div className="w-[100%] min-h-[88vh] flex justify-center items-start p-4 flex-wrap bg-gradient-to-br from-indigo-800 to-rose-600">
       <div className=" min-w-[35vw] max-w-[100vw]  h-[88vh] flex flex-col justify-start items-start rounded-xl bg-white/80  p-2">
         <div className="flex justify-start flex-col w-full  h-fit overflow-y-scroll  gap-y-1 mb-1 ">
-          {" "}
-          <ListBasket product={products} />
+          {cart.map((item)=>(console.log("log",item),<ListBasket key={item.id} product={item} updateTotal={updateTotal} />))}  
         </div>
         <div className="flex justify-start items-start flex-col rounded-xl font-bold w-full h-48 bg-white text-slate-900 ml-auto mt-auto">
           <div className="flex justify-center items-start flex-col w-full h-fit">
@@ -86,15 +45,15 @@ export default function Basket() {
           <div className="flex justify-center items-center flex-row w-full h-16 mt-4 bg-amber-400">
             <div className="flex justify-between items-center w-60 ">
               <div className="flex justify-center items-center font-bold w-28 h-9 bg-white rounded-md">
-                {" "}
-                {totalPoints} points{" "}
+                {totalPoints}
               </div>{" "}
-              <button
-                onClick={handleSubmit}
+              <Link to="/checkout"><button
+            
                 className="flex justify-center text-center items-center text-lg font-extrabold text-white rounded-lg w-28  h-9 bg-slate-800"
               >
                 Checkout
               </button>
+              </Link>
             </div>
           </div>
         </div>

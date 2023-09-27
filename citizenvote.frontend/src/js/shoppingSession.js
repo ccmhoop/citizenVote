@@ -93,8 +93,12 @@ function returnIndex(id) {
 }
 
 async function fetchTotalCost() {
+  const postBody = [{
+    token:getToken(),
+    cart:[cart]
+  }]
   const response = await axios
-    .post("http://localhost:8080/shop/basket/checkout",cart,{
+    .post("http://localhost:8080/shop/basket/checkout",postBody,{
     headers:{
     Authorization: `Bearer ${getToken().token}`,
     }})

@@ -2,12 +2,13 @@ import axios from "axios";
 import { getToken } from "./getToken";
 import { cart, fetchTotalCost } from "./shoppingSession";
 
-const completeOrder = async () => {
+const completeOrder = async (apiUrl) => {
   // eslint-disable-next-line no-useless-catch
   try {
     const details = [{
       total: 20000,
       userId: getToken().token,
+      token: getToken().token,
       orderItems: []
     }];
 
@@ -18,7 +19,7 @@ const completeOrder = async () => {
       };
       details[0].orderItems.push(item);
     }
-    const response = await axios.post("http://localhost:8080/shop/basket/checkout/complete",details,{
+    const response = await axios.post(`${apiUrl}`,details,{
         headers:{
         Authorization: `Bearer ${getToken().token}`,
         }})
