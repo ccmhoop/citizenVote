@@ -11,13 +11,14 @@ function ProposeProjectMenu() {
   const [files, setFiles] = useState([null, null, null, null]);
   const [projectImage, setProjectImage] = useState();
   const defaultProgress = auth()?.role === "CITIZEN" ? "PROPOSED" : "APPROVED";
+  const isManicipality = auth()?.role === "MANICIPALITY" ? true : false;
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     requiredVotes: "",
     amountVotes: 0,
-    startDate: "",
-    endDate: "",
+    startDate: "2021-09-02",
+    endDate: "2022-09-02",
     progress: defaultProgress,
     category: "EMPTY",
   });
@@ -47,21 +48,31 @@ function ProposeProjectMenu() {
       setProjectImage(null);
     }
   };
-
+  //hij reset het formulier niet meer:(
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const { title, description } = formData;
+    const { startDate, endDate } = formData;
     const hasImages = files.some((file) => file !== null);
     try {
+      if (!title || !description) {
+        alert(
+          "Complete both the title and description before proposing the project."
+        );
+        return;
+      }
+      if (startDate >= endDate) {
+        alert("The end date must come after the start date");
+        return;
+      }
       if (hasImages) {
         await uploadFileData(formData, files, apiUrl, "project");
       } else {
-        const response = await axios.post(apiUrlWithoutImages, formData, {
+        await axios.post(apiUrlWithoutImages, formData, {
           headers: {
             Authorization: `Bearer ${getToken().token}`,
           },
         });
-        return response.data;
       }
     } catch (error) {
       console.log(error);
@@ -81,8 +92,8 @@ function ProposeProjectMenu() {
       description: "",
       requiredVotes: "",
       amountVotes: 0,
-      startDate: "",
-      endDate: "",
+      startDate: "2021-09-02",
+      endDate: "2022-09-02",
       progress: "PROPOSED",
       category: "EMPTY",
     });
