@@ -8,14 +8,16 @@ import { getToken } from "../js/getToken";
 function ProjectOverview(props) {
 
     const [project, setProject] = useState([]);
+    const [bool, forceReload] = useState(true);
     const location = useLocation();
     const auth = useAuthUser();
     const token = getToken();
     console.log(location)
 
     useEffect(() => {
+        console.log("Reloading...")
         getProject(location.state?.id)
-    }, [])
+    }, [bool])
 
     async function getProject(id) {
         console.log(getToken().cfg)
@@ -36,11 +38,12 @@ function ProjectOverview(props) {
         console.log(`user: ${auth().username} , project: ${location.state?.id}`)
         console.log(getToken())
         await axios.post('http://localhost:8080/api/v1/vote', {
-            username: auth().username,
+            token: token.token,
             projectId: location.state?.id,
             voteType: vote
         }, token.cfg).then(response => {
             console.log(response)
+            forceReload(!bool);
         }).catch(err => console.log(err))
     }
 
@@ -74,23 +77,25 @@ function ProjectOverview(props) {
                         <div className="flex flex-col w-64">
                             <div>starts at: {project.startDate}</div>
                             <div>ends at: {project.endDate}</div>
+                            <div>stage: {project.progress}</div>
                         </div>
                     </div>
                     <div className=" border-2 border-gray-600 rounded mt-2"/>
                     <div className=" max-w-xl">{project.description}</div>
                     <div className=" border-2 border-gray-600 rounded mt-2"/>
                     <div className="flex justify-between">
-                        {project.voteType == "YES" && 
-                        <button onClick={() => onVote("YES")} className="w-48 h-9 rounded-md bg-green-700 shadow-lg shadow-green-500">Vote Yes</button>
-                        }
-                         {project.voteType !== "YES" && 
+                        
+                        {auth().role == "CITIZEN" && project.voteType == "YES" && 
                         <button onClick={() => onVote("YES")} className="w-48 h-9 rounded-md bg-green-700 ">Vote Yes</button>
                         }
-                         {project.voteType == "NO" && 
-                        <button onClick={() => onVote("YES")} className="w-48 h-9 rounded-md bg-red-700 shadow-lg shadow-red-500">Vote Yes</button>
+                         {auth().role == "CITIZEN" && project.voteType !== "YES" && 
+                        <button onClick={() => onVote("YES")} className="w-48 h-9 rounded-md bg-gray-600 ">Vote Yes</button>
                         }
-                         {project.voteType !== "NO" && 
-                        <button onClick={() => onVote("YES")} className="w-48 h-9 rounded-md bg-red-700 ">Vote No</button>
+                         {auth().role == "CITIZEN" && project.voteType == "NO" && 
+                        <button onClick={() => onVote("NO")} className="w-48 h-9 rounded-md bg-red-700 ">Vote Yes</button>
+                        }
+                         {auth().role == "CITIZEN" && project.voteType !== "NO" && 
+                        <button onClick={() => onVote("NO")} className="w-48 h-9 rounded-md bg-gray-600 ">Vote No</button>
                         }
 
                         

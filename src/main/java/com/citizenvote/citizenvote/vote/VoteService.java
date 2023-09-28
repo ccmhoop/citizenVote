@@ -1,9 +1,12 @@
 package com.citizenvote.citizenvote.vote;
 
+import com.citizenvote.citizenvote.authentication.AuthenticationService;
+import com.citizenvote.citizenvote.config.JwtService;
 import com.citizenvote.citizenvote.project.Project;
 import com.citizenvote.citizenvote.project.ProjectRepository;
 import com.citizenvote.citizenvote.user.User;
 import com.citizenvote.citizenvote.user.UserRepository;
+import com.citizenvote.citizenvote.user.UserResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,14 +21,17 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class VoteService {
 
-    private final UserRepository userRepository;
+
     private final ProjectRepository projectRepository;
     private final VoteRepository voteRepository;
+    private final UserRepository userRepository;
+    private final JwtService jwtService;
 
     public void onVoting(OnVoteRequest request) {
-        User user = userRepository.findByUsername(request.getUsername()).get();
+        User user = userRepository.findByUsername(jwtService.extractUserName(request.getToken())).get();
         Project project = projectRepository.findById(request.getProjectId()).get();
         System.out.println("Test 1");
+        System.out.println(request.getVoteType());
         Optional<Vote> repos_vote = voteRepository.findByUserAndProject(user,project);
         Vote vote;
         if(repos_vote.isPresent()){
@@ -47,6 +53,7 @@ public class VoteService {
         }
         else{
             System.out.println("Test 2b");
+            user.setPoints(user.getPoints() + 5);
             vote = Vote.builder()
                     .project(project)
                     .user(user)
