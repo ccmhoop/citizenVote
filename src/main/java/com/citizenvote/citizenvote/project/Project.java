@@ -5,6 +5,7 @@ import com.citizenvote.citizenvote.imageData.ProjectImageData;
 import com.citizenvote.citizenvote.user.User;
 import com.citizenvote.citizenvote.vote.Vote;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.*;
@@ -67,6 +68,5 @@ public class Project {
     @Nullable
     @Enumerated(EnumType.STRING)
     private ProjectCategory category;
-
 
 }

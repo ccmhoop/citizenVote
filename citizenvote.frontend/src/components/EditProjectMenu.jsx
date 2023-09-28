@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import uploadFileData from "../js/uploadFileData";
 import { useAuthUser } from "react-auth-kit";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 import { getToken } from "../js/getToken";
 
-function ProposeProjectMenu() {
+function EditProjectMenu() {
   const auth = useAuthUser();
+  const location = useLocation();
   const apiUrl = "http://localhost:8080/api/v1/project/image";
   const apiUrlWithoutImages = "http://localhost:8080/api/v1/project";
   const [files, setFiles] = useState([null, null, null, null]);
   const [projectImage, setProjectImage] = useState();
-  const defaultProgress = auth()?.role === "CITIZEN" ? "SUGGESTED" : "ACCEPTED";
+  const defaultProgress = auth()?.role === "CITIZEN" ? "PROPOSED" : "APPROVED";
 
   const [formData, setFormData] = useState({
     title: "",
@@ -21,7 +23,29 @@ function ProposeProjectMenu() {
     endDate: "2022-09-02",
     progress: defaultProgress,
     category: "EMPTY",
+    id: location.state?.id,
   });
+
+  useEffect(() => {
+    async function getProject() {
+      axios
+        .post(
+          `http://localhost:8080/api/v1/project/id`,
+          {
+            id: location.state?.id,
+            token: getToken().token,
+          },
+          getToken().cfg
+        )
+        .then((response) => {
+          console.log(response);
+
+          setFormData(response.data);
+        });
+    }
+    getProject();
+    console.log(files);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -94,15 +118,16 @@ function ProposeProjectMenu() {
       amountVotes: 0,
       startDate: "2021-09-02",
       endDate: "2022-09-02",
-      progress: "SUGGESTED",
+      progress: "PROPOSED",
       category: "EMPTY",
+      edit: true,
     });
   };
 
   return (
     <div className="max-w-md mx-auto mt-8 mb-8 p-4 border rounded-lg shadow-lg bg-slate-900">
       <h2 className="text-2xl font-semibold mb-4  text-gray-200">
-        New project
+        Edit project
       </h2>
       <img
         className="flex justify-center items-center overflow-hidden object-contain rounded-lg w-32 h-36 bg-transparent"
@@ -252,6 +277,21 @@ function ProposeProjectMenu() {
                 <option value="EMPTY">none of these</option>
               </select>
             </div>
+
+            <div className="mb-4 mt-1 p-2 rounded-md border w-full  text-gray-200">
+              <label htmlFor="progress">Status:</label>
+              <select
+                id="progress"
+                name="progress"
+                value={formData.progress}
+                onChange={handleChange}
+                className="bg-slate-100 rounded-md border mx-12 text-gray-700"
+              >
+                <option value="ACCEPTED">Accepted</option>
+                <option value="FAILED">Failed</option>
+              </select>
+            </div>
+
             <div className="mb-4 mt-1 p-2 rounded-md border w-full  text-gray-200">
               <label htmlFor="requiredVotes">Required votes:</label>
               <input
@@ -276,4 +316,4 @@ function ProposeProjectMenu() {
   );
 }
 
-export default ProposeProjectMenu;
+export default EditProjectMenu;
