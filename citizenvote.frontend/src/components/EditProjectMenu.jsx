@@ -288,7 +288,7 @@ function EditProjectMenu() {
                 onChange={handleChange}
                 className="bg-slate-100 rounded-md border mx-12 text-gray-700"
               >
-                <option value="APROVED">Aproved</option>
+                <option value="ACCEPTED">Accepted</option>
                 <option value="FAILED">Failed</option>
               </select>
             </div>

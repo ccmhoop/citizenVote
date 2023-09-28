@@ -16,8 +16,7 @@ function ProjectList() {
   async function getProjects(progress) {
     await axios
       .get(
-        // `http://localhost:8080/api/v1/project/progress/${progress}`,
-        `http://localhost:8080/api/v1/project/progress/all`,
+        `http://localhost:8080/api/v1/project/progress/${progress}`,
         getToken().cfg
       )
       .then((response) => {

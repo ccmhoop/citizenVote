@@ -10,8 +10,8 @@ function ProposeProjectMenu() {
   const apiUrlWithoutImages = "http://localhost:8080/api/v1/project";
   const [files, setFiles] = useState([null, null, null, null]);
   const [projectImage, setProjectImage] = useState();
-  const defaultProgress = auth()?.role === "CITIZEN" ? "PROPOSED" : "APPROVED";
-  const isManicipality = auth()?.role === "MANICIPALITY" ? true : false;
+  const defaultProgress = auth()?.role === "CITIZEN" ? "SUGGESTED" : "ACCEPTED";
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -94,7 +94,7 @@ function ProposeProjectMenu() {
       amountVotes: 0,
       startDate: "2021-09-02",
       endDate: "2022-09-02",
-      progress: "PROPOSED",
+      progress: "SUGGESTED",
       category: "EMPTY",
     });
   };
