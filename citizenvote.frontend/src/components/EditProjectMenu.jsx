@@ -13,7 +13,6 @@ function EditProjectMenu() {
   const [files, setFiles] = useState([null, null, null, null]);
   const [projectImage, setProjectImage] = useState();
   const defaultProgress = auth()?.role === "CITIZEN" ? "PROPOSED" : "APPROVED";
-  const isManicipality = auth()?.role === "MANICIPALITY" ? true : false;
 
   const [formData, setFormData] = useState({
     title: "",
@@ -73,7 +72,7 @@ function EditProjectMenu() {
       setProjectImage(null);
     }
   };
-  //hij reset het formulier niet meer:(
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { title, description } = formData;
@@ -128,7 +127,7 @@ function EditProjectMenu() {
   return (
     <div className="max-w-md mx-auto mt-8 mb-8 p-4 border rounded-lg shadow-lg bg-slate-900">
       <h2 className="text-2xl font-semibold mb-4  text-gray-200">
-        New project
+        Edit project
       </h2>
       <img
         className="flex justify-center items-center overflow-hidden object-contain rounded-lg w-32 h-36 bg-transparent"

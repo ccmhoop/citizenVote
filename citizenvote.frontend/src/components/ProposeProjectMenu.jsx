@@ -48,7 +48,7 @@ function ProposeProjectMenu() {
       setProjectImage(null);
     }
   };
-  //hij reset het formulier niet meer:(
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { title, description } = formData;
@@ -207,31 +207,6 @@ function ProposeProjectMenu() {
               </div>
             </div>
           </div>
-          {/* <label
-            htmlFor="image"
-            className="block text-sm font-medium text-gray-200"
-          >
-            Image:
-          </label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            className="mt-1 p-2 rounded-md border w-full  text-gray-200"
-          />
-
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            className="mt-1 p-2 rounded-md border w-full  text-gray-200"
-          />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            className="mt-1 p-2 rounded-md border w-full  text-gray-200"
-          /> */}
         </div>
         {auth()?.role === "MANICIPALITY" && (
           <div>
