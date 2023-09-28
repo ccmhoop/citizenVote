@@ -14,8 +14,10 @@ import java.util.ArrayList;
 @Builder
 public class ProductResponse {
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String id;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String name;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -24,6 +26,7 @@ public class ProductResponse {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String category;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String points;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)

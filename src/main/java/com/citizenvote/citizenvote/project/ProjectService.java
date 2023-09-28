@@ -3,8 +3,9 @@ package com.citizenvote.citizenvote.project;
 import com.citizenvote.citizenvote.config.JwtService;
 import com.citizenvote.citizenvote.imageData.ImageDataRepository;
 import com.citizenvote.citizenvote.imageData.ProjectImageData;
-import com.citizenvote.citizenvote.user.User;
+import com.citizenvote.citizenvote.user.Role;
 import com.citizenvote.citizenvote.user.UserRepository;
+import com.citizenvote.citizenvote.user.UserResponse;
 import com.citizenvote.citizenvote.vote.Vote;
 import com.citizenvote.citizenvote.vote.VoteType;
 import jakarta.transaction.Transactional;
@@ -15,7 +16,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -71,18 +71,20 @@ public class ProjectService {
         return response;
     }
 
-
-    public Set<ProjectResponse> getProjectByProgress(String progress) {
-
+    public Set<ProjectResponse> getProjectByProgress(ProjectListRequest request, UserResponse user) {
         Set<ProjectResponse> response = new HashSet<>();
         List<Project> projects = new ArrayList<>();
-
-        if(progress.equals("ALL")){
+        if(request.getProgress().equals("ALL")){
             projects = projectRepository.findAll();
         }
         else{
-            projects = projectRepository.findByProgress(ProjectProgress.valueOf(progress));
+            projects = projectRepository.findByProgress(ProjectProgress.valueOf(request.getProgress()));
         }
+            if(!request.getByRole().equals("ALL")){
+                projects = filterProjectsByRole(Role.valueOf(request.getByRole()), projects);
+            }
+
+            projects = filterProjectByForAuthority(user.getRole(), projects);
 
         for (Project project : projects){
             response.add(ProjectResponse.builder()
@@ -90,10 +92,44 @@ public class ProjectService {
                     .title(project.getTitle())
                     .labelImage(projectRepository.findById(project.getId()).get().getProjectImageData().get(0).getUrl())
                     .requiredVotes(project.getRequiredVotes())
-                    .amountVotes(project.getAmountVotes())
+                    .progress(project.getProgress())
+                    .amountVotes(project.getAmountVotes() + project.getVotes().size())
                     .build());
         }
         return response;
+    }
+
+    /**
+     * this function is used to filter the role of the proposer
+     * */
+    public List<Project> filterProjectsByRole(Role role, List<Project> projects){
+        List<Project> filteredProjects = new ArrayList<>();
+
+        projects.forEach(project -> {
+            if(project.getUser().getRole() == role){
+                filteredProjects.add(project);
+            }
+        });
+        return filteredProjects;
+    }
+
+    /**
+     * this function is used to filter what users may get by their authority level
+     * */
+    public List<Project> filterProjectByForAuthority(Role role, List<Project> projects) {
+
+        List<Project> filteredProjects = new ArrayList<>();
+
+        projects.forEach(project -> {
+            if(project.getProgress() == ProjectProgress.ACCEPTED){
+                filteredProjects.add(project);
+            }
+            else if(role == Role.MANICIPALITY || role == Role.ADMIN){
+                filteredProjects.add(project);
+            }
+        });
+
+        return filteredProjects;
     }
 
     public ProjectResponse getProjectOverviewDetails(Long projectID, String token){
@@ -113,13 +149,15 @@ public class ProjectService {
                 .description(project.getDescription())
                 .category(project.getCategory())
                 .requiredVotes(project.getRequiredVotes())
-                .amountVotes(project.getAmountVotes())
+                .amountVotes(project.getAmountVotes() + project.getVotes().size())
                 .startDate(project.getStartDate())
                 .endDate(project.getEndDate())
                 .voteType(voteType)
+                .progress(project.getProgress())
                 .labelImage(projectRepository.findById(project.getId()).get().getProjectImageData().get(0).getUrl())
                 .build();
     }
+
 
 }
 

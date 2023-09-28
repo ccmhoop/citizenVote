@@ -1,7 +1,12 @@
 package com.citizenvote.citizenvote.project;
 
+import com.citizenvote.citizenvote.authentication.AuthenticationService;
 import com.citizenvote.citizenvote.imageData.ImageDataService;
+import com.citizenvote.citizenvote.user.Role;
+import com.citizenvote.citizenvote.user.User;
+import com.citizenvote.citizenvote.user.UserResponse;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,6 +35,9 @@ public class ProjectController {
     @Autowired
     private final ProjectRepository projectRepository;
 
+    @Autowired
+    private final AuthenticationService authenticationService;
+
     @PostMapping(value = "/project/image", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> postProject(@RequestPart("project") Project project, @RequestPart("image") MultipartFile[] file) throws IOException {
         projectRepository.save(project);
@@ -37,10 +45,16 @@ public class ProjectController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(status);
     }
+
+
+
+
     @PostMapping("/project")
-    public ResponseEntity<Project> createProject(@RequestBody Project project) {
-        Project savedProject = projectRepository.save(project);
-        return ResponseEntity.ok(savedProject);
+    public ResponseEntity createProject(@RequestBody Project project) {
+    projectRepository.save(project);
+      return ResponseEntity.status(HttpStatus.OK)
+              .body(HttpStatus.OK)
+              ;
     }
 
       @GetMapping ("/project/all/{progress}")
@@ -66,9 +80,11 @@ public class ProjectController {
     }
 
 
-    @GetMapping("/project/progress/{progress}")
-    public ResponseEntity<Set<ProjectResponse>> getProjectByProgress(@PathVariable(name = "progress") String progress){
-        return ResponseEntity.ok(projectService.getProjectByProgress(progress));
+    @PostMapping("/project/progress/list")
+    public ResponseEntity<Set<ProjectResponse>> getProjectByProgress(@RequestBody ProjectListRequest request){
+        System.out.println(request.getProgress() + " : " + request.getByRole() + " : " + request.getToken());
+        UserResponse user = authenticationService.getUser(request.getToken());
+        return ResponseEntity.ok(projectService.getProjectByProgress(request, user));
     }
 
 
