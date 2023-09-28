@@ -44,4 +44,5 @@ public class ProjectResponse {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private VoteType voteType;
 
+
 }
