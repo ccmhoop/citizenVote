@@ -1,26 +1,20 @@
-
-function ProgressBar(props){
-
-    return (
-
-            <div className="flex w-full h-14 justify-start items-center ">
-                <div className="h-12 w-12">
-                    <div className="ml-1 w-12 h-12 rounded-full bg-slate-800 flex justify-center items-center">
-                        <div className="w-9 h-9 rounded-full bg-slate-400 flex justify-center items-center text-sm">
-                            {props.percentage + "%"}
-                        </div>
-                        {/* <div className="absolute w-6 h-12 rounded-tl-full rounded-bl-full bg-green-500 flex justify-center items-center"
-                        style={{ transform: [ "rotate(70deg)", "translate(12px, 50%)"], background: "yellow"}}>
-                            
-                        </div>      */}
-                    </div>   
-                </div>  
-                {/* <div className="relative w-[60%] h-[60%] rounded-full bg-slate-300 flex justify-center items-center text-xs">
-                        50%
-                </div> */}
-            </div>
-
-    )
+function ProgressBar(props) {
+  const properties = props;
+  return (
+    <div className=" flex justify-center items-center flex-row h-16 w-full pt-5  ">
+      <div className="flex justify-center items-center w-full h-9 rounded-2xl bg-slate-800 px-2 mb-4 ml-5">
+        <div className="flex justify-start items-center w-full overflow-hidden h-6 rounded-xl bg-white border-2 border-amber-400 ">
+          <div
+            className={`flex items-center justify-center h-full w-[${properties.percentage}%] bg-gradient-to-br from-indigo-800 to-rose-600`}
+          >
+            {" "}
+          </div>
+        </div>
+      </div> 
+      <p className="relative right-[46%] font-bold mb-4  mx-auto">{properties.percentage}%</p>
+    </div>
+    
+  );
 }
 
 export default ProgressBar;

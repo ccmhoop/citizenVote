@@ -49,11 +49,20 @@ public class OrderDetailsService {
                         .build());
     }
 
-    public boolean completeOrderCheck(OrderDetailsResponse items, User user) {
+    public int calculateTotal(OrderDetailsResponse items){
         int total = 0;
         for (OrderItems product : items.getOrderItems()) {
             total += Integer.parseInt(productRepository.findById(product.getId()).get().getPoints()) * product.getQuantity();
         }
+        return total;
+    }
+
+
+    public boolean completeOrderCheck(OrderDetailsResponse items, User user) {
+        int total = calculateTotal(items);
+//        for (OrderItems product : items.getOrderItems()) {
+//            total += Integer.parseInt(productRepository.findById(product.getId()).get().getPoints()) * product.getQuantity();
+//        }
         if (user.getPoints() - total < 0){
             return true ;
         }

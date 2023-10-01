@@ -2,7 +2,7 @@ import { useState } from "react";
 import ButtonDesign from "../components/ButtonDesign";
 import ProductToShop from "../components/ProductToShop";
 
-export default function ShopManagment() {
+export default function ShopManagement() {
   const [selected, setSelected] = useState(false);
 
   function handleSelected() {

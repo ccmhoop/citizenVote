@@ -1,4 +1,6 @@
 import { getToken } from "../js/getToken";
+import { Axios } from "axios";
+import { useEffect } from "react";
 
 export async function getUser(){
     const token = getToken().token;

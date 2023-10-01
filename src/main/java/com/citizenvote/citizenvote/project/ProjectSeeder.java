@@ -38,7 +38,7 @@ public class ProjectSeeder implements CommandLineRunner {
                     .amountVotes(0)
                     .startDate(LocalDate.of(2023, 9, 12))
                     .endDate(LocalDate.of(2023, 9, 12).plusMonths(1))
-                    .progress(ProjectProgress.SUGGESTED)
+                    .progress(ProjectProgress.ACCEPTED)
                     .category(ProjectCategory.SPORTS)
 //                    .user();
                     .build();
@@ -72,7 +72,7 @@ public class ProjectSeeder implements CommandLineRunner {
                     .amountVotes(50)
                     .startDate(LocalDate.of(2023, 7, 3))
                     .endDate(LocalDate.of(2023, 7, 3).plusMonths(1))
-                    .progress(ProjectProgress.FAILED)
+                    .progress(ProjectProgress.ACCEPTED)
                     .category(ProjectCategory.EDUCATION)
 //                    .user();
                     .build();

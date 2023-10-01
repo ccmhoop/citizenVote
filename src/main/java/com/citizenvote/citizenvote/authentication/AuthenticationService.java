@@ -6,6 +6,7 @@ import com.citizenvote.citizenvote.user.User;
 import com.citizenvote.citizenvote.user.UserRepository;
 import com.citizenvote.citizenvote.user.UserResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -92,4 +93,38 @@ public class AuthenticationService {
                 .username(username)
                 .build();
     }
+
+
+    public UserResponse authRole(String token) {
+        String username = jwtService.extractUserName(token);
+        User user = userRepository.findByUsername(username).get();
+        return UserResponse.builder()
+                .role(user.getRole())
+                .build();
+    }
+
+    protected boolean autherizeUrl(String role,String url){
+
+        if(role.equals("MANICIPALITY")){
+            return switch (url){
+                case ("http://localhost:5173/mmenu"),
+                        ("http://localhost:5173/editproject"),
+                        ("http://localhost:5173/shopmanagement"),
+                        ("http://localhost:5173/addproduct") -> true;
+                default -> false;
+            };
+        }
+        if(role.equals("CITIZEN")){
+            return switch (url){
+                case ("http://localhost:5173/shop"),
+                        ("http://localhost:5173/basket"),
+                        ("http://localhost:5173/checkout"),
+                        ("http://localhost:5173")-> true;
+                default -> false;
+            };
+        }
+    return false;
+    }
+
+
 }

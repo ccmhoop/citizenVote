@@ -14,8 +14,8 @@ public class AuthenticationResponse {
     private String name;
     private Long id;
     private Integer points;
-
     private Role role;
+    private String currentUrl;
 
     //private MultipartFile avatar;
 }
