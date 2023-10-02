@@ -26,7 +26,7 @@ public class ProductService {
             imgLink.add(pro.getUrl());
         }
         return ProductResponse.builder()
-                .id(productId.toString())
+                .id(productId)
                 .name(productRepository.findById(productId).get().getName())
                 .category(productRepository.findById(productId).get().getCategory())
                 .points(productRepository.findById(productId).get().getPoints())
@@ -35,17 +35,34 @@ public class ProductService {
                 .build();
     }
 
+    public List<ProductResponse> removeProductPackage(Boolean edit) {
+        List<ProductResponse> response = new ArrayList<>();
+        for (Product pro : productRepository.findAll()) {
+                response.add(ProductResponse.builder()
+                        .id(pro.getId())
+                        .description(pro.getDescription())
+                        .labelImage(productRepository.findById(pro.getId()).get().getProductImageData().get(0).getUrl())
+                        .points(pro.getPoints())
+                        .name(pro.getName())
+                        .softDelete(pro.getSoftDelete())
+                        .build());
+        }
+        return response;
+    }
+
     public List<ProductResponse> productPackage() {
         List<ProductResponse> response = new ArrayList<>();
         for (Product pro : productRepository.findAll()) {
-            response.add(ProductResponse.builder()
-                    .id(pro.getId().toString())
-                    .description(pro.getDescription())
-                    .labelImage(productRepository.findById(pro.getId()).get().getProductImageData().get(0).getUrl())
-                    .points(pro.getPoints())
-                    .category(pro.getCategory())
-                    .name(pro.getName())
-                    .build());
+            if (!pro.getSoftDelete()) {
+                response.add(ProductResponse.builder()
+                        .id(pro.getId())
+                        .description(pro.getDescription())
+                        .labelImage(productRepository.findById(pro.getId()).get().getProductImageData().get(0).getUrl())
+                        .points(pro.getPoints())
+                        .category(pro.getCategory())
+                        .name(pro.getName())
+                        .build());
+            }
         }
         return response;
     }
@@ -55,7 +72,7 @@ public class ProductService {
         for (OrderDetailsResponse items : cart) {
             Optional<Product> pro = productRepository.findById(items.getId());
             response.add(ProductResponse.builder()
-                    .id(pro.get().getId().toString())
+                    .id(pro.get().getId())
                     .labelImage(pro.get().getProductImageData().get(0).getUrl())
                     .name(pro.get().getName())
                     .points(pro.get().getPoints())

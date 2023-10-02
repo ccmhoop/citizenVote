@@ -10,7 +10,8 @@ export default function ProductToShop() {
     name: "",
     description: "",
     category: "",
-    points: ""
+    points: "",
+    softDelete: false
   });
 
   const handleChange = (e) => {

@@ -2,6 +2,7 @@ package com.citizenvote.citizenvote.product;
 
 import com.citizenvote.citizenvote.imageData.ImageDataService;
 import com.citizenvote.citizenvote.orderDetails.OrderDetailsResponse;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+//Needs to be rerouted through security
 @RestController
 @CrossOrigin
 @RequestMapping("/api/v1/auth/auth")
@@ -44,6 +46,25 @@ public class ProductController {
     @PostMapping ("/product/cart/cart")
     public List<ProductResponse> fetchShoppingCart(@RequestBody OrderDetailsResponse[] cart){
         return productService.shoppingCartResponse(cart);
+    }
+
+    @PostMapping ("/product/delete/item")
+    @Transactional
+    public String safeDeleteItem(@RequestBody ProductResponse item){
+        var pro = productRepository.getById(item.getId());
+        productRepository.save(Product.builder()
+                        .id(pro.getId())
+                        .softDelete(item.getSoftDelete())
+                        .name(pro.getName())
+                        .points(pro.getPoints())
+                        .category(pro.getCategory())
+                        .description(pro.getDescription())
+                .build());
+        return "responded";
+    }
+    @GetMapping ("/shop/softdelete")
+    public List<ProductResponse> softdelete() {
+        return productService.removeProductPackage(true);
     }
 
     @GetMapping ("/shop/all")

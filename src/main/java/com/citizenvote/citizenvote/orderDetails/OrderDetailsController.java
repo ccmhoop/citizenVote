@@ -58,6 +58,7 @@ public class OrderDetailsController {
         String username = jwtService.extractUserName(orderDetails[0].getUserId());
         User user = userRepository.findByUsername(username).get();
         int total = service.calculateTotal(orderDetails[0]);
+
         if (user.getPoints() - total > 0 && orderDetails[0].getOrderItems().size() > 0) {
             user.setPoints(user.getPoints() - total);
             var order = OrderDetails.builder()
@@ -69,6 +70,7 @@ public class OrderDetailsController {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(HttpStatus.OK);
         }
+
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(HttpStatus.CONFLICT);
     }

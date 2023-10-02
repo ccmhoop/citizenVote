@@ -5,6 +5,7 @@ import { cart, fetchTotalCost } from "./shoppingSession";
 const completeOrder = async (apiUrl) => {
   // eslint-disable-next-line no-useless-catch
   try {
+    //Delete total
     const details = [{
       total: 20000,
       userId: getToken().token,
