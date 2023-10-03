@@ -17,8 +17,8 @@ function ProposeProjectMenu() {
     description: "",
     requiredVotes: "",
     amountVotes: 0,
-    startDate: "2021-09-02",
-    endDate: "2022-09-02",
+    startDate: "2023-10-04",
+    endDate: "2023-12-04",
     progress: defaultProgress,
     category: "EMPTY",
   });
@@ -93,8 +93,8 @@ function ProposeProjectMenu() {
       description: "",
       requiredVotes: "",
       amountVotes: 0,
-      startDate: "2021-09-02",
-      endDate: "2022-09-02",
+      startDate: "2023-10-04",
+      endDate: "2023-12-04",
       progress: "SUGGESTED",
       category: "EMPTY",
     });
