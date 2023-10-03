@@ -5,6 +5,7 @@ import com.citizenvote.citizenvote.user.Role;
 import com.citizenvote.citizenvote.user.User;
 import com.citizenvote.citizenvote.user.UserRepository;
 import com.citizenvote.citizenvote.user.UserResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,9 +13,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AuthenticationService {
 
     private final UserRepository userRepository;
@@ -91,5 +94,9 @@ public class AuthenticationService {
                 .points(user.getPoints())
                 .username(username)
                 .build();
+    }
+
+    public Optional<User> findUserByName(String name){
+        return userRepository.findByUsername(name);
     }
 }

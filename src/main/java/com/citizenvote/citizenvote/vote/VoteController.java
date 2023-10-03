@@ -18,9 +18,12 @@ public class VoteController {
 
     @PostMapping("/vote")
     private ResponseEntity<String> onVoting(@RequestBody OnVoteRequest request){
-            System.out.println("test");
-            voteService.onVoting(request);
-            return ResponseEntity.ok("Voted");
+
+        String result = voteService.onVoting(request);
+        if(result.equals("X")){
+            return ResponseEntity.status(403).build();
+        }
+        return ResponseEntity.ok("Voted");
 
     }
 
