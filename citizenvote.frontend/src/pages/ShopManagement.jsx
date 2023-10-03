@@ -3,10 +3,9 @@ import ButtonDesign from "../components/ButtonDesign";
 import ProductToShop from "../components/ProductToShop";
 import axios from "axios";
 import DeleteProduct from "../components/DeleteProduct";
-import roleAuth from "../js/roleAuth";
+import RoleAuth from "../js/roleAuth";
 
 export default function ShopManagement() {
-  const [statusCode, setStatusCode] = useState(null);
   const [selected, setSelected] = useState(false);
   const [task, setTask] = useState(false);
   const [products, setProducts] = useState([]);
@@ -24,29 +23,27 @@ export default function ShopManagement() {
 
 
   useEffect(() => {
-    
-    async function userRole() {
-      const status = await roleAuth();
-        setStatusCode(status)
-      }
-     userRole();
-
     async function getStoreData() {
       await axios
         .get("http://localhost:8080/api/v1/auth/auth/product/management")
         .then((res) => {
           setProducts(res.data);
-          console.log(res.data);
         });
     }
     getStoreData();
   }, []);
 
 
-if(statusCode){
+if(RoleAuth()){
   return (
-    <div className="w-[100%] min-h-[88vh] flex justify-center items-start flex-wrap gap-2 bg-gradient-to-br from-indigo-800 to-rose-600">
-      <div className="  min-w-[40vw] max-w-[95vw]  h-[88vh] flex flex-col justify-start items-center rounded-xl bg-white/80 overflow-y-scroll overflow-x-hidden  my-2 p-2">
+    <div className="w-[100%] min-h-[88vh] flex justify-center items-center flex-wrap gap-2 bg-gradient-to-br from-indigo-800 to-rose-600">
+      <div className="  min-w-[40vw] max-w-[95vw]  h-[80vh] flex flex-col justify-start items-center rounded-xl bg-white/80 overflow-y-scroll overflow-x-hidden  ">
+      <div className="flex justify-center rounded-t-lg items-center h-fit w-full  bg-amber-400 font-bold px-2 py-2 ">
+            <p className="flex justify-center items-center rounded-md w-52 px-2  h-10  bg-white text-xl text-slate-800">
+              Manage Shop
+            </p>
+          </div>
+        
         {selected ? (
           task ? (
             <div className="flex justify-center items-center flex-col my-auto">

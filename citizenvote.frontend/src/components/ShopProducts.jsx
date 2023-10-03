@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAuthUser } from "react-auth-kit";
 import {
   cart,
   addItem,
@@ -8,6 +9,7 @@ import {
 
 export function ShopProducts(product) {
   const item = product.product;
+  const auth = useAuthUser();
 
   console.log(item)
 
@@ -24,9 +26,9 @@ export function ShopProducts(product) {
   }
 
   return (
-    <div className="flex justify-start items-center overflow-hidden rounded-xl w-96 bg-white my-1  ">
+    <div className="flex justify-start items-center overflow-hidden rounded-xl  bg-white my-1  ">
       <img
-        className="flex justify-center items-center overflow-hidden object-contain rounded-lg w-52 h-40 bg-transparent px-4    "
+        className="flex justify-center items-center overflow-hidden object-contain rounded-lg w-52 h-40 bg-transparent px-4"
         src={item.labelImage}
         alt="logo"
       />
@@ -45,6 +47,7 @@ export function ShopProducts(product) {
             {" "}
             points
           </p>
+          {auth() && auth().role === "CITIZEN" && (
           <div className="flex w-20 h-8 justify-center items-center rounded-lg ml-1 text-slate-800  bg-amber-400">
             <button
               onClick={() => handleRemove(item.id)}
@@ -64,6 +67,7 @@ export function ShopProducts(product) {
               +
             </button>
           </div>
+          )}
         </div>
       </div>
     </div>

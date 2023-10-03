@@ -3,6 +3,7 @@ import completeOrder from "../js/completeOrder";
 import ButtonDesign from "../components/ButtonDesign";
 import { useNavigate, Link } from "react-router-dom";
 import { cart } from "../js/shoppingSession";
+import RoleAuth from "../js/roleAuth";
 
 export default function CheckOut() {
   const navigate = useNavigate();
@@ -43,6 +44,7 @@ export default function CheckOut() {
     }
   };
 
+  if(RoleAuth()){
   return (
     <div className="w-[100%] min-h-[88vh] flex justify-center items-start p-4 flex-wrap bg-gradient-to-br from-indigo-800 to-rose-600">
       <div className=" w-96 min-w-[35vw] max-w-[100vw] h-full flex flex-col  justify-start items-start rounded-xl bg-white/80  p-2">
@@ -170,4 +172,5 @@ export default function CheckOut() {
       </div>
     </div>
   );
+}
 }

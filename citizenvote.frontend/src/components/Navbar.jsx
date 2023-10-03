@@ -22,14 +22,14 @@ export default function Navbar() {
             />
           </div>       
         </div>  
-          {auth() !== null || auth.role === "CITIZEN" ? 
+          {auth() && auth().role === "CITIZEN" &&(
           <> <div className="flex justify-center items-center text-lg font-bold ml-auto mr-2 w-24 h-8 border-amber-400   bg-slate-800 rounded-md  "> {auth().points} </div>
           <Link
           className="flex justify-center items-center bg-blue-300 h-11 w-11 rounded-[100%]  text-xl font-bold  pb-2 mr-4"
           to="/basket"
         >cart</Link> 
            </>
-           :<></>}
+           )}
 
       </div>  
     </nav>

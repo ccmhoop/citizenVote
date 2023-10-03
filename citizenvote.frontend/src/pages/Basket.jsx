@@ -4,6 +4,7 @@ import { cart, displayTotalCost } from "../js/shoppingSession";
 import { Link } from "react-router-dom";
 import { useAuthUser } from "react-auth-kit";
 import ButtonDesign from "../components/ButtonDesign";
+import RoleAuth from "../js/roleAuth";
 
 export default function Basket() {
   const auth = useAuthUser();
@@ -15,12 +16,13 @@ export default function Basket() {
     console.log(totalPoints);
   };
 
+if(RoleAuth())
   return (
     <div className="w-[100%] min-h-[88vh] flex justify-center items-start p-4 flex-wrap bg-gradient-to-br from-indigo-800 to-rose-600">
       <div className=" w-96 min-w-[35vw] max-w-[100vw]  h-[88vh] flex flex-col justify-start items-start rounded-xl bg-white/80  ">
         <div className="flex justify-center rounded-t-lg items-center h-fit w-full  bg-amber-400 font-bold px-2 py-2 ">
           <p className="flex justify-center items-center rounded-md w-52 px-2  h-10  bg-white text-xl text-slate-800">
-            Shoppin Cart
+            Shopping Cart
           </p>
         </div>
         <div className="flex justify-center  items-center h-fit w-full  bg-white font-bold px-2 py-2 mb-2 gap-x-2 ">

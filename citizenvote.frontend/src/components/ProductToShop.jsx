@@ -1,6 +1,7 @@
 import { useState } from "react";
 import uploadFileData from "../js/uploadFileData";
 import ButtonDesign from "./ButtonDesign";
+import { Link } from "react-router-dom";
 
 export default function ProductToShop() {
   const apiUrl = "http://localhost:8080/api/v1/auth/auth/product/image";
@@ -56,6 +57,14 @@ export default function ProductToShop() {
       alert("Oops Something went Wrong")
     }
     alert("Product Posted")
+    setFiles([null,null,null,null])
+    setFormData({
+      name: "",
+      description: "",
+      category: "",
+      points: "",
+      softDelete: false
+    })
     return
   }
   alert("Fields Empty")
@@ -220,9 +229,9 @@ export default function ProductToShop() {
           </div>
         </div>
         <div className="flex w-full flex-row justify-between items-start">
-          <button className="">
+          <Link to="/shop_management">
             <ButtonDesign
-              title="reset"
+              title="back"
               width="40"
               height="16"
               labelWidth="32"
@@ -231,7 +240,7 @@ export default function ProductToShop() {
               my="0"
               mx="0"
             />
-          </button>
+          </Link>
           <button onClick={handleSubmit} className="" type="submit">
             <ButtonDesign
               title="accept"

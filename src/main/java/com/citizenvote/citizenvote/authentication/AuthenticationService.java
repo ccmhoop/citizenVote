@@ -112,13 +112,16 @@ public class AuthenticationService {
     protected boolean autherizeUrl(String role,String url){
 
 
-
         if(role.equals("MANICIPALITY")){
             return switch (url){
-                case ("http://localhost:5173/mmenu"),
+                case ("http://localhost:5173/manicipality_menu"),
+                        ("http://localhost:5173/shop"),
                         ("http://localhost:5173/editproject"),
                         ("http://localhost:5173/shop_management"),
-                        ("http://localhost:5173/project_overview") -> true;
+                        ("http://localhost:5173/project_overview"),
+                        ("http://localhost:5173/project_list"),
+                        ("http://localhost:5173/propose_project")
+                        -> true;
                 default -> false;
             };
         }
@@ -127,13 +130,12 @@ public class AuthenticationService {
                 case ("http://localhost:5173/shop"),
                         ("http://localhost:5173/basket"),
                         ("http://localhost:5173/checkout"),
+                        ("http://localhost:5173/project_list"),
+                        ("http://localhost:5173/propose_project"),
                         ("http://localhost:5173/project_overview")-> true;
                 default -> false;
             };
         }
-
-
-
     return false;
     }
 
