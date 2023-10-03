@@ -12,7 +12,6 @@ import Register from "./pages/Register";
 import { RequireAuth } from "react-auth-kit";
 import Shop from "./pages/Shop";
 import Basket from "./pages/Basket";
-import Projects from "./pages/Projects";
 import ProposeProject from "./pages/ProposeProject";
 import ProjectList from "./pages/ProjectList";
 import ProjectOverview from "./pages/ProjectOverview";
@@ -60,7 +59,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
            <Route path="/{beveiligde path}" element={<RequireAuth loginPath="/login"><Pagina/></RequireAuth>}></Route> */}
           <Route path="/shop" element={<Shop />} />
           <Route path="/basket" element={<Basket />} />
-          <Route path="/checkout" element={<CheckOut/>} />
+          <Route path="/checkout" element={<CheckOut />} />
           <Route path="/ShopManagement" element={<ShopManagement />} />
           <Route path="/mmenu" element={<Manicipality />} />
           <Route path="/project_overview" element={<ProjectOverview />} />
