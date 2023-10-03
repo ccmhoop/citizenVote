@@ -7,6 +7,7 @@ import com.citizenvote.citizenvote.user.Role;
 import com.citizenvote.citizenvote.user.User;
 import com.citizenvote.citizenvote.user.UserRepository;
 import com.citizenvote.citizenvote.user.UserResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,9 +120,11 @@ public class ProjectController {
     }
 
 
+    @Transactional
     @PostMapping("/project/progress/list")
     public ResponseEntity<Set<ProjectResponse>> getProjectByProgress(@RequestBody ProjectListRequest request){
         System.out.println(request.getProgress() + " : " + request.getByRole() + " : " + request.getToken());
+        System.out.println("test 0");
         UserResponse user = authenticationService.getUser(request.getToken());
         return ResponseEntity.ok(projectService.getProjectByProgress(request, user));
     }

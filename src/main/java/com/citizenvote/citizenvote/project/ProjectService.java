@@ -13,10 +13,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional
@@ -75,17 +72,19 @@ public class ProjectService {
     public Set<ProjectResponse> getProjectByProgress(ProjectListRequest request, UserResponse user) {
         Set<ProjectResponse> response = new HashSet<>();
         List<Project> projects = new ArrayList<>();
+        System.out.println("test 1");
         if(request.getProgress().equals("ALL")){
             projects = projectRepository.findAll();
         }
         else{
             projects = projectRepository.findByProgress(ProjectProgress.valueOf(request.getProgress()));
         }
+            System.out.println("test 2");
             if(!request.getByRole().equals("ALL")){
                 projects = filterProjectsByRole(Role.valueOf(request.getByRole()), projects);
             }
-
-            projects = filterProjectByForAuthority(user.getRole(), projects);
+            System.out.println("test 3");
+            projects = filterProjectByForAuthority(user, projects);
 
         for (Project project : projects){
             int yesVotes = project.getAmountVotes() + project.getVotes().stream()
@@ -93,7 +92,7 @@ public class ProjectService {
 
             int noVotes = project.getVotes().stream()
                     .filter(vote -> vote.getVoteType() == VoteType.NO).toList().size();
-
+            System.out.println("test 4");
             response.add(ProjectResponse.builder()
                     .id(project.getId().toString())
                     .title(project.getTitle())
@@ -125,7 +124,7 @@ public class ProjectService {
     /**
      * this function is used to filter what users may get by their authority level
      * */
-    public List<Project> filterProjectByForAuthority(Role role, List<Project> projects) {
+    public List<Project> filterProjectByForAuthority(UserResponse user, List<Project> projects) {
 
         List<Project> filteredProjects = new ArrayList<>();
 
@@ -133,7 +132,9 @@ public class ProjectService {
             if(project.getProgress() == ProjectProgress.ACCEPTED){
                 filteredProjects.add(project);
             }
-            else if(role == Role.MANICIPALITY || role == Role.ADMIN){
+            else if(user.getRole() == Role.MANICIPALITY || user.getRole() == Role.ADMIN){
+                filteredProjects.add(project);
+            } else if (Objects.equals(user.getId(), project.getUser().getId())) {
                 filteredProjects.add(project);
             }
         });

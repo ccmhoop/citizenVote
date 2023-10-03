@@ -92,16 +92,16 @@ function ProjectOverview(props) {
                         {auth().role == "MANICIPALITY" && 
                             <button onClick={() => onNavigate()} className="w-48 h-9 rounded-md bg-yellow-600 ">Edit</button> 
                         }
-                        {auth().role == "CITIZEN" && project.voteType == "YES" && 
+                        {auth().role == "CITIZEN" && project.progress == "ACCEPTED" && project.voteType == "YES" && 
                             <button onClick={() => onVote("YES")} className="w-48 h-9 rounded-md bg-green-700 ">Vote Yes</button>
                         }
-                         {auth().role == "CITIZEN" && project.voteType !== "YES" && 
+                         {auth().role == "CITIZEN" && project.progress == "ACCEPTED" && project.voteType !== "YES" && 
                             <button onClick={() => onVote("YES")} className="w-48 h-9 rounded-md bg-gray-600 ">Vote Yes</button>
                         }
-                         {auth().role == "CITIZEN" && project.voteType == "NO" && 
+                         {auth().role == "CITIZEN" && project.progress == "ACCEPTED" && project.voteType == "NO" && 
                             <button onClick={() => onVote("NO")} className="w-48 h-9 rounded-md bg-red-700 ">Vote Yes</button>
                         }
-                         {auth().role == "CITIZEN" && project.voteType !== "NO" && 
+                         {auth().role == "CITIZEN" && project.progress == "ACCEPTED" && project.voteType !== "NO" && 
                             <button onClick={() => onVote("NO")} className="w-48 h-9 rounded-md bg-gray-600 ">Vote No</button>
                         }
 
