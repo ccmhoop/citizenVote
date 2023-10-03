@@ -4,6 +4,7 @@ import com.citizenvote.citizenvote.imageData.ImageDataService;
 import com.citizenvote.citizenvote.orderDetails.OrderDetailsResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -50,21 +51,18 @@ public class ProductController {
 
     @PostMapping ("/product/delete/item")
     @Transactional
-    public String safeDeleteItem(@RequestBody ProductResponse item){
-        var pro = productRepository.getById(item.getId());
-        productRepository.save(Product.builder()
-                        .id(pro.getId())
-                        .softDelete(item.getSoftDelete())
-                        .name(pro.getName())
-                        .points(pro.getPoints())
-                        .category(pro.getCategory())
-                        .description(pro.getDescription())
-                .build());
-        return "responded";
+    public HttpStatus safeDeleteItem(@RequestBody ProductResponse item){
+        var product = productRepository.getById(item.getId());
+        product.setSoftDelete(item.getSoftDelete());
+        productRepository.save(product);
+        if(productRepository.getById(item.getId()).getSoftDelete() == item.getSoftDelete()){
+            return HttpStatus.OK;
+        }
+        return HttpStatus.CONFLICT;
     }
-    @GetMapping ("/shop/softdelete")
-    public List<ProductResponse> softdelete() {
-        return productService.removeProductPackage(true);
+    @GetMapping ("/product/management")
+    public List<ProductResponse> productManagementPackage() {
+        return productService.manageShopPackage();
     }
 
     @GetMapping ("/shop/all")

@@ -35,7 +35,7 @@ public class ProductService {
                 .build();
     }
 
-    public List<ProductResponse> removeProductPackage(Boolean edit) {
+    public List<ProductResponse> manageShopPackage() {
         List<ProductResponse> response = new ArrayList<>();
         for (Product pro : productRepository.findAll()) {
                 response.add(ProductResponse.builder()
@@ -53,7 +53,7 @@ public class ProductService {
     public List<ProductResponse> productPackage() {
         List<ProductResponse> response = new ArrayList<>();
         for (Product pro : productRepository.findAll()) {
-            if (!pro.getSoftDelete()) {
+            if (pro.getSoftDelete()) {
                 response.add(ProductResponse.builder()
                         .id(pro.getId())
                         .description(pro.getDescription())

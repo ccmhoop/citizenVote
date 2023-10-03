@@ -84,8 +84,6 @@ public class ProjectSeeder implements CommandLineRunner {
             projectRepository.save(project3);
             service.uploadImage(image, project3, "project");
 
-
-
             // Voeg de projecten toe aan de database.
 
         }

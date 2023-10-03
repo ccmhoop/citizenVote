@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import Home from "./pages/Home";
 import Footer from "./components/Footer";
@@ -60,7 +59,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/shop" element={<Shop />} />
           <Route path="/basket" element={<Basket />} />
           <Route path="/checkout" element={<CheckOut />} />
-          <Route path="/ShopManagement" element={<ShopManagement />} />
+          <Route path="/shop_Management" element={<ShopManagement />} />
           <Route path="/mmenu" element={<Manicipality />} />
           <Route path="/project_overview" element={<ProjectOverview />} />
           <Route path="/project_list" element={<ProjectList />} />

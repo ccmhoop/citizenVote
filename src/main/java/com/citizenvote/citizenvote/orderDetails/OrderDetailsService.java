@@ -26,9 +26,7 @@ public class OrderDetailsService {
     public ResponseEntity<?> fetchTotal(OrderDetailsResponse items, UserResponse userDetails) {
         int userPoints = userDetails.getPoints();
         int total = 0;
-
         List<ProductResponse> response = new ArrayList<>();
-
         for (OrderItems product : items.getOrderItems()) {
             total += Integer.parseInt(productRepository.findById(product.getId()).get().getPoints()) * product.getQuantity();
             var item = ProductResponse.builder()
@@ -36,7 +34,6 @@ public class OrderDetailsService {
                     .build();
             response.add(item);
         }
-
         return ResponseEntity.status(HttpStatus.OK)
                 .body(OrderDetailsResponse.builder()
                         .total(total)

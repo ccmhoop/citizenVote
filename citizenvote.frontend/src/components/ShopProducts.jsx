@@ -9,6 +9,8 @@ import {
 export function ShopProducts(product) {
   const item = product.product;
 
+  console.log(item)
+
   const [quantity, setQuantity] = useState(cart);
 
   function handleAdd(id, points, labelImage, name) {
@@ -22,7 +24,7 @@ export function ShopProducts(product) {
   }
 
   return (
-    <div className="flex justify-start items-center overflow-hidden rounded-xl  h-44 bg-white  my-1 mx-2 ">
+    <div className="flex justify-start items-center overflow-hidden rounded-xl w-96 bg-white my-1  ">
       <img
         className="flex justify-center items-center overflow-hidden object-contain rounded-lg w-52 h-40 bg-transparent px-4    "
         src={item.labelImage}

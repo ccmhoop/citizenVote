@@ -159,7 +159,7 @@ function ProposeProjectMenu() {
                     type="file"
                     accept="image/*"
                     onChange={handleProjectImage}
-                    className="file:hidden bg-slate-100 max-w-[35vw] w-96 flex-auto rounded border border-solid border-neutral-300  bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
+                    className="file:hidden bg-slate-100 max-w-[35vw] w-96 flex-auto rounded border border-solid border-neutral-300  bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-black dark:focus:border-primary"
                   />
                 </div>
                 <div className="flex justify-start items-center  w-full h-14 border-none bg-transparent gap-x-2 px-2">
@@ -174,7 +174,7 @@ function ProposeProjectMenu() {
                     type="file"
                     accept="image/*"
                     onChange={handleFileChange}
-                    className="file:hidden bg-slate-100 max-w-[35vw] w-96 flex-auto rounded border border-solid border-neutral-300  bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
+                    className="file:hidden bg-slate-100 max-w-[35vw] w-96 flex-auto rounded border border-solid border-neutral-300  bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-black dark:focus:border-primary"
                   />
                 </div>
                 <div className="flex justify-start items-center w-full h-14 border-none bg-transparent gap-x-2 px-2">
@@ -189,7 +189,7 @@ function ProposeProjectMenu() {
                     type="file"
                     accept="image/*"
                     onChange={handleFileChange}
-                    className="file:hidden bg-slate-100 max-w-[35vw] w-96 flex-auto rounded border border-solid border-neutral-300  bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
+                    className="file:hidden bg-slate-100 max-w-[35vw] w-96 flex-auto rounded border border-solid border-neutral-300  bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-black dark:focus:border-primary"
                   />
                 </div>
                 <div className="flex justify-start items-center  w-full h-14 border-none bg-transparent gap-x-2 px-2">
@@ -204,7 +204,7 @@ function ProposeProjectMenu() {
                     type="file"
                     accept="image/*"
                     onChange={handleFileChange}
-                    className="file:hidden bg-slate-100 max-w-[35vw] w-96 flex-auto rounded border border-solid border-neutral-300  bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
+                    className="file:hidden bg-slate-100 max-w-[35vw] w-96 flex-auto rounded border border-solid border-neutral-300  bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-black dark:focus:border-primary"
                   />
                 </div>
               </div>

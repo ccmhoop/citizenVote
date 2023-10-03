@@ -26,15 +26,4 @@ public class OrderItemsService {
     }
 
 
-//    public Double fetchTotal(s){
-//        Double Total;
-//        for(OrderItems calculate : items){
-//            items.
-//
-//        }
-//
-//        return
-//    }
-
-
 }

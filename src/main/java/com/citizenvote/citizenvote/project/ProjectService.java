@@ -191,7 +191,20 @@ public class ProjectService {
 
     public Project stageProject(ProjectRequest request){
         User user = userRepository.findByUsername(request.getUser().getUsername()).get();
-        Project project = projectRepository.findById(request.getId()).get();
+        Project project = Project.builder()
+                .id(request.getId())
+                .amountVotes(request.getAmountVotes())
+                .category(request.getCategory())
+                .description(request.getDescription())
+                .progress(request.getProgress())
+                .startDate(request.getStartDate())
+                .endDate(request.getEndDate())
+                .requiredVotes(request.getRequiredVotes())
+                .votes(request.getVotes())
+                .user(user)
+                .title(request.getTitle())
+                .build();
+                projectRepository.findById(request.getId()).get();
         ProjectProgress newProgress = ProjectProgress.valueOf(request.getNewProgress());
 
         System.out.println("name: " + project.getTitle());

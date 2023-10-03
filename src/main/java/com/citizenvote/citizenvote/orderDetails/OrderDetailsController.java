@@ -55,11 +55,11 @@ public class OrderDetailsController {
 
     @PostMapping(value = "/checkout/complete")
     ResponseEntity<?> completeOrder(@RequestBody OrderDetailsResponse[] orderDetails) throws IOException {
-        String username = jwtService.extractUserName(orderDetails[0].getUserId());
+        String username = jwtService.extractUserName(orderDetails[0].getToken());
         User user = userRepository.findByUsername(username).get();
         int total = service.calculateTotal(orderDetails[0]);
 
-        if (user.getPoints() - total > 0 && orderDetails[0].getOrderItems().size() > 0) {
+        if (user.getPoints() - total > 0 && orderDetails[0].getOrderItems().size() > 0 ) {
             user.setPoints(user.getPoints() - total);
             var order = OrderDetails.builder()
                     .total(total)

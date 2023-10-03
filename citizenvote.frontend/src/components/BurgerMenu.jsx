@@ -1,7 +1,5 @@
-import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthUser, useSignOut } from "react-auth-kit";
-// import { useToken } from "../js/Hooks";
 
 export default function BurgerMenu() {
   const auth = useAuthUser();

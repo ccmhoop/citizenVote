@@ -111,12 +111,14 @@ public class AuthenticationService {
 
     protected boolean autherizeUrl(String role,String url){
 
+
+
         if(role.equals("MANICIPALITY")){
             return switch (url){
                 case ("http://localhost:5173/mmenu"),
                         ("http://localhost:5173/editproject"),
-                        ("http://localhost:5173/shopmanagement"),
-                        ("http://localhost:5173/addproduct") -> true;
+                        ("http://localhost:5173/shop_management"),
+                        ("http://localhost:5173/project_overview") -> true;
                 default -> false;
             };
         }
@@ -125,10 +127,13 @@ public class AuthenticationService {
                 case ("http://localhost:5173/shop"),
                         ("http://localhost:5173/basket"),
                         ("http://localhost:5173/checkout"),
-                        ("http://localhost:5173")-> true;
+                        ("http://localhost:5173/project_overview")-> true;
                 default -> false;
             };
         }
+
+
+
     return false;
     }
 

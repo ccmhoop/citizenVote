@@ -16,7 +16,9 @@ function saveCartToSessionStorage() {
 
 // Function to add an item to the cart
 function addItem(id, points, labelImage, name) {
-  if (typeof id !== "string" || isNaN(points) || points <= 0) {
+  console.log("id ", id);
+  if (typeof id !== "number" || isNaN(points) || points <= 0) {
+    console.log("Invalid item information. Please provide a valid ID and points.");
     return;
   }
   const itemExist = cart.find(item => item.id === id);
@@ -34,6 +36,7 @@ function addItem(id, points, labelImage, name) {
     cart.push(item);
   }
   saveCartToSessionStorage();
+  console.log(`${id} added to the cart.`);
 }
 
 // Function to remove an item from the cart
@@ -52,12 +55,12 @@ function removeItem(id) {
 }
 
 // Function to display the current cart contents
-// function displayCart() {
-//   console.log("Current Cart:");
-//   cart.forEach(item => {
-//     console.log(`${item.id} - Points : ${item.points} x ${item.quantity}`);
-//   });
-// }
+function displayCart() {
+  console.log("Current Cart:");
+  cart.forEach(item => {
+    console.log(`${item.id} - Points : ${item.points} x ${item.quantity}`);
+  });
+}
 
 // Function to calculate and display the total cost of items in the cart
 function displayTotalCost() {
@@ -105,7 +108,7 @@ export {
   cart,
   addItem,
   removeItem,
-  // displayCart,
+  displayCart,
   displayTotalCost,
   displayQuantity,
   returnIndex,

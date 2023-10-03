@@ -1,14 +1,11 @@
 import axios from "axios";
 import { getToken } from "./getToken";
-import { cart, fetchTotalCost } from "./shoppingSession";
+import { cart } from "./shoppingSession";
 
 const completeOrder = async (apiUrl) => {
   // eslint-disable-next-line no-useless-catch
   try {
-    //Delete total
     const details = [{
-      total: 20000,
-      userId: getToken().token,
       token: getToken().token,
       orderItems: []
     }];
