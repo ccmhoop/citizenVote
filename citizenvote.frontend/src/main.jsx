@@ -63,7 +63,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/ShopManagement" element={<ShopManagement />} />
           <Route path="/mmenu" element={<Manicipality />} />
           <Route path="/project_overview" element={<ProjectOverview />} />
-          <Route path="/projects" element={<Projects />} />
+          <Route path="/project_list" element={<ProjectList />} />
           <Route path="/propose_project" element={<ProposeProject />} />
           <Route path="/editproject" element={<Editproject />} />
         </Routes>

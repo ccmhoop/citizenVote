@@ -54,7 +54,7 @@ function ProposeProjectMenu() {
     const { title, description } = formData;
     const { startDate, endDate } = formData;
     const hasImages = files.some((file) => file !== null);
-    Object.assign(formData, {token: getToken().token})
+    Object.assign(formData, { token: getToken().token });
     try {
       if (!title || !description) {
         alert(
@@ -101,13 +101,13 @@ function ProposeProjectMenu() {
   };
 
   return (
-    <div className="h-fit w-screen bg-gradient-to-br from-indigo-800 to-rose-600 min-h-[calc(100vh-152px)] items-center flex justify-center">
+    <div className="h-fit w-screen bg-gradient-to-br from-indigo-800 to-rose-600 min-h-[calc(100vh-152px)] items-center flex justify-center text-black">
       <div className=" max-w-md mx-auto mt-8 mb-8 p-4 border rounded-lg shadow-lg bg-slate-900">
         <h2 className="text-2xl font-semibold mb-4  text-gray-200">
           New project
         </h2>
         <img
-          className="flex justify-center items-center overflow-hidden object-contain rounded-lg w-32 h-36 bg-transparent"
+          className="flex justify-center items-center overflow-hidden object-contain rounded-lg w-32 h-36"
           src={projectImage}
           alt="select image"
         />
@@ -125,7 +125,7 @@ function ProposeProjectMenu() {
               name="title"
               value={formData.title}
               onChange={handleChange}
-              className="mb-4 mt-1 p-2 rounded-md border w-full  text-gray-200"
+              className="mb-4 mt-1 p-2 rounded-md border w-full  text-black"
             />
           </div>
           <div className="mb-4">
@@ -140,7 +140,7 @@ function ProposeProjectMenu() {
               name="description"
               value={formData.description}
               onChange={handleChange}
-              className="mb-4 mt-1 p-2 rounded-md border w-full  text-gray-200"
+              className="mb-4 mt-1 p-2 rounded-md border w-full  text-black"
             />
           </div>
           <div className="mb-4">
