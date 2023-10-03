@@ -2,18 +2,19 @@ import { useState, useEffect } from "react";
 import uploadFileData from "../js/uploadFileData";
 import { useAuthUser } from "react-auth-kit";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getToken } from "../js/getToken";
 
 function EditProjectMenu() {
   const auth = useAuthUser();
   const location = useLocation();
-  const apiUrl = "http://localhost:8080/api/v1/project/image";
-  const apiUrlWithoutImages = "http://localhost:8080/api/v1/project";
+  const apiUrl = "http://localhost:8080/api/v1/project/image/edit";
+  const apiUrlWithoutImages = "http://localhost:8080/api/v1/project/edit";
   const [files, setFiles] = useState([null, null, null, null]);
   const [projectImage, setProjectImage] = useState();
   const defaultProgress = auth()?.role === "CITIZEN" ? "PROPOSED" : "APPROVED";
-
+  const [projectProgress, setProjectProgress] = useState([]);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -24,6 +25,7 @@ function EditProjectMenu() {
     progress: defaultProgress,
     category: "EMPTY",
     id: location.state?.id,
+    user: "",
   });
 
   useEffect(() => {
@@ -41,6 +43,7 @@ function EditProjectMenu() {
           console.log(response);
 
           setFormData(response.data);
+          setProjectProgress(response.data.progress);
         });
     }
     getProject();
@@ -89,14 +92,40 @@ function EditProjectMenu() {
         alert("The end date must come after the start date");
         return;
       }
+
+      const sendData = {
+        amountVotes: formData.amountVotes,
+        category: formData.category,
+        description: formData.description,
+        endDate: formData.endDate,
+        id: formData.id,
+        labelImage: formData.labelImage,
+        progress: projectProgress,
+        requiredVotes: formData.requiredVotes,
+        startDate: formData.startDate,
+        title: formData.title,
+        user: formData.userResponse,
+        voteType: formData.voteType,
+        token: getToken().token,
+        newProgress: formData.progress,
+      };
+
       if (hasImages) {
-        await uploadFileData(formData, files, apiUrl, "project");
+        await uploadFileData(sendData, files, apiUrl, "project").then(
+          (response) => {
+            navigate(`/project_overview`, { state: { id: sendData.id } });
+          }
+        );
       } else {
-        await axios.post(apiUrlWithoutImages, formData, {
-          headers: {
-            Authorization: `Bearer ${getToken().token}`,
-          },
-        });
+        await axios
+          .post(apiUrlWithoutImages, sendData, {
+            headers: {
+              Authorization: `Bearer ${getToken().token}`,
+            },
+          })
+          .then((response) => {
+            navigate(`/project_overview`, { state: { id: sendData.id } });
+          });
       }
     } catch (error) {
       console.log(error);
@@ -125,193 +154,137 @@ function EditProjectMenu() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-8 mb-8 p-4 border rounded-lg shadow-lg bg-slate-900">
-      <h2 className="text-2xl font-semibold mb-4  text-gray-200">
-        Edit project
-      </h2>
-      <img
-        className="flex justify-center items-center overflow-hidden object-contain rounded-lg w-32 h-36 bg-transparent"
-        src={projectImage}
-        alt="select image"
-      />
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label
-            htmlFor="title"
-            className="block text-sm font-medium text-gray-200"
-          >
-            Title:
-          </label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
-            className="bg-slate-100 max-w-[35vw] w-96 flex-auto rounded border border-solid border-neutral-300  bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="description"
-            className="block text-sm font-medium text-gray-200 "
-          >
-            Description:
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            className="bg-slate-100 max-w-[35vw] w-96 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
-          />
-        </div>
-        <div className="mb-4">
-          <div className="flex justify-center items-start flex-col w-full mb-2 ">
-            Images:
-            <div className="flex justify-center items-start w-full flex-col bg-white rounded-2xl">
-              <div className="flex justify-start items-center  w-full h-14 border-none bg-transparent gap-x-2 px-2">
-                <label
-                  htmlFor="projectImage0"
-                  className="flex justify-center items-center h-9 w-48 rounded-2xl bg-slate-800 file:text-white font-bold shadow-md shadow-black/50 hover:opacity-50 "
-                >
-                  Project Image
-                </label>
-                <input
-                  id="projectImage0"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleProjectImage}
-                  className="file:hidden flex flex-row h-9 w-full pl-2 overflow-y-scroll text-left border-4 border-amber-400 rounded-xl bg-transparent text-slate-800 font-bold "
-                />
-              </div>
-              <div className="flex justify-start items-center  w-full h-14 border-none bg-transparent gap-x-2 px-2">
-                <label
-                  htmlFor="ExtraImage1"
-                  className="flex justify-center items-center h-9 w-48 rounded-2xl bg-slate-800 file:text-white font-bold shadow-md shadow-black/50 hover:opacity-50 "
-                >
-                  Extra Image
-                </label>
-                <input
-                  id="ExtraImage1"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className="file:hidden flex flex-row h-9 w-full pl-2 overflow-y-scroll text-left border-4 border-amber-400 rounded-xl bg-transparent text-slate-800 font-bold "
-                />
-              </div>
-              <div className="flex justify-start items-center w-full h-14 border-none bg-transparent gap-x-2 px-2">
-                <label
-                  htmlFor="ExtraImage2"
-                  className="flex justify-center items-center h-9 w-48 rounded-2xl bg-slate-800 file:text-white font-bold shadow-md shadow-black/50 hover:opacity-50 "
-                >
-                  Extra Image
-                </label>
-                <input
-                  id="ExtraImage2"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className="file:hidden flex flex-row h-9 w-full pl-2 overflow-y-scroll text-left border-4 border-amber-400 rounded-xl bg-transparent text-slate-800 font-bold "
-                />
-              </div>
-              <div className="flex justify-start items-center  w-full h-14 border-none bg-transparent gap-x-2 px-2">
-                <label
-                  htmlFor="ExtraImage3"
-                  className="flex justify-center items-center h-9 w-48 rounded-2xl bg-slate-800 file:text-white font-bold shadow-md shadow-black/50 hover:opacity-50 "
-                >
-                  Extra Image
-                </label>
-                <input
-                  id="ExtraImage3"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className="file:hidden flex flex-row h-9 w-full pl-2 overflow-y-scroll text-left border-4 border-amber-400 rounded-xl bg-transparent text-slate-800 font-bold "
-                />
-              </div>
-            </div>
+    <div className="h-fit w-screen bg-gradient-to-br from-indigo-800 to-rose-600 min-h-[calc(100vh-152px)] items-center flex justify-center">
+      <div className="max-w-md mx-auto mt-8 mb-8 p-4 border rounded-lg shadow-lg bg-slate-900">
+        <h2 className="text-2xl font-semibold mb-4  text-gray-200">
+          Edit project
+        </h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label
+              htmlFor="title"
+              className="block text-sm font-medium text-gray-200"
+            >
+              Title:
+            </label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              className="bg-slate-100 max-w-[35vw] w-96 flex-auto rounded border border-solid border-neutral-300  bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
+            />
           </div>
-        </div>
-        {auth()?.role === "MANICIPALITY" && (
-          <div>
-            <div className="mb-4 mt-1 p-2 rounded-md border w-full  text-gray-200">
-              <label htmlFor="startDate">Start date project:</label>
-              <input
-                type="date"
-                id="startDate"
-                name="startDate"
-                value={formData.startDate}
-                onChange={handleChange}
-                className="rounded-md border mx-12 text-gray-700"
-              />
-            </div>
-            <div className="mb-4 mt-1 p-2 rounded-md border w-full  text-gray-200">
-              <label htmlFor="endDate">End date project:</label>
-              <input
-                type="date"
-                id="endDate"
-                name="endDate"
-                value={formData.endDate}
-                onChange={handleChange}
-                className="rounded-md border mx-14 text-gray-700"
-              />
-            </div>
-            <div className="mb-4 mt-1 p-2 rounded-md border w-full  text-gray-200">
-              <label htmlFor="category">Category:</label>
-              <select
-                id="category"
-                name="category"
-                value={formData.category}
-                onChange={handleChange}
-                className="bg-slate-100 rounded-md border mx-12 text-gray-700"
-              >
-                <option value="">Selecteer een categorie</option>
-                <option value="CULTURE">culture</option>
-                <option value="SPORTS">sports</option>
-                <option value="INFRASTRUCTURE">infrastructure</option>
-                <option value="LIVING_ENVIRONMENT">living environment</option>
-                <option value="EDUCATION">education</option>
-                <option value="SUSTAINABILITY">sustainability</option>
-                <option value="ART">art</option>
-                <option value="EMPTY">none of these</option>
-              </select>
-            </div>
-
-            <div className="mb-4 mt-1 p-2 rounded-md border w-full  text-gray-200">
-              <label htmlFor="progress">Status:</label>
-              <select
-                id="progress"
-                name="progress"
-                value={formData.progress}
-                onChange={handleChange}
-                className="bg-slate-100 rounded-md border mx-12 text-gray-700"
-              >
-                <option value="ACCEPTED">Accepted</option>
-                <option value="FAILED">Failed</option>
-              </select>
-            </div>
-
-            <div className="mb-4 mt-1 p-2 rounded-md border w-full  text-gray-200">
-              <label htmlFor="requiredVotes">Required votes:</label>
-              <input
-                type="number"
-                id="requiredVotes"
-                name="requiredVotes"
-                value={formData.requiredVotes}
-                onChange={handleChange}
-                className="bg-slate-100 rounded-md border mx-2 text-gray-700"
-              />
-            </div>
+          <div className="mb-4">
+            <label
+              htmlFor="description"
+              className="block text-sm font-medium text-gray-200 "
+            >
+              Description:
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              className="bg-slate-100 max-w-[35vw] w-96 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
+            />
           </div>
-        )}
-        <button
-          type="submit"
-          className="w-16 max-w-[10vw] h-9 flex items-center justify-center rounded bg-blue-300  text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
-        >
-          Propose
-        </button>
-      </form>
+          <div className="mb-4"></div>
+          {auth()?.role === "MANICIPALITY" && (
+            <div>
+              <div className="mb-4 mt-1 p-2 rounded-md border w-full  text-gray-200">
+                <label htmlFor="startDate">Start date project:</label>
+                <input
+                  type="date"
+                  id="startDate"
+                  name="startDate"
+                  value={formData.startDate}
+                  onChange={handleChange}
+                  className="rounded-md border mx-12 text-gray-700"
+                />
+              </div>
+              <div className="mb-4 mt-1 p-2 rounded-md border w-full  text-gray-200">
+                <label htmlFor="endDate">End date project:</label>
+                <input
+                  type="date"
+                  id="endDate"
+                  name="endDate"
+                  value={formData.endDate}
+                  onChange={handleChange}
+                  className="rounded-md border mx-14 text-gray-700"
+                />
+              </div>
+              <div className="mb-4 mt-1 p-2 rounded-md border w-full  text-gray-200">
+                <label htmlFor="category">Category:</label>
+                <select
+                  id="category"
+                  name="category"
+                  value={formData.category}
+                  onChange={handleChange}
+                  className="bg-slate-100 rounded-md border mx-12 text-gray-700"
+                >
+                  <option value="">Selecteer een categorie</option>
+                  <option value="CULTURE">culture</option>
+                  <option value="SPORTS">sports</option>
+                  <option value="INFRASTRUCTURE">infrastructure</option>
+                  <option value="LIVING_ENVIRONMENT">living environment</option>
+                  <option value="EDUCATION">education</option>
+                  <option value="SUSTAINABILITY">sustainability</option>
+                  <option value="ART">art</option>
+                  <option value="EMPTY">none of these</option>
+                </select>
+              </div>
+
+              <div className="mb-4 mt-1 mx p-2 rounded-md border w-full  text-gray-200">
+                <label htmlFor="progress">Status: </label>
+                <select
+                  id="progress"
+                  name="progress"
+                  value={formData.progress}
+                  onChange={handleChange}
+                  className="bg-slate-100 rounded-md border mx-16 text-gray-700"
+                >
+                  {console.log(projectProgress)}
+                  {projectProgress == "SUGGESTED" && (
+                    <>
+                      <option value="SUGGESTED">Suggested</option>
+                      <option value="ACCEPTED">Accepted</option>
+                      <option value="DECLINED">Declined</option>
+                    </>
+                  )}
+                  {projectProgress == "PASSED" && (
+                    <>
+                      <option value="PASSED">Passed</option>
+                      <option value="APPROVED">Approved</option>
+                      <option value="DISCARDED">Discarded</option>
+                    </>
+                  )}
+                </select>
+              </div>
+
+              <div className="mb-4 mt-1 p-2 rounded-md border w-full  text-gray-200">
+                <label htmlFor="requiredVotes">Required votes:</label>
+                <input
+                  type="number"
+                  id="requiredVotes"
+                  name="requiredVotes"
+                  value={formData.requiredVotes}
+                  onChange={handleChange}
+                  className="bg-slate-100 rounded-md border mx-2 text-gray-700"
+                />
+              </div>
+            </div>
+          )}
+          <button
+            type="submit"
+            className="w-16 max-w-[10vw] h-9 flex items-center justify-center rounded bg-blue-300  text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
+          >
+            Propose
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

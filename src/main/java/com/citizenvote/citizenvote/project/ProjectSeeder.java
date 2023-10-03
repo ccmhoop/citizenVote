@@ -1,6 +1,7 @@
 package com.citizenvote.citizenvote.project;
 
 import com.citizenvote.citizenvote.imageData.ImageDataService;
+import com.citizenvote.citizenvote.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ public class ProjectSeeder implements CommandLineRunner {
 
     private final ProjectRepository projectRepository;
     private final ImageDataService service;
+    private final UserRepository userRepository;
 
 //    public ProjectSeeder(ProjectRepository projectRepository) {
 //        this.projectRepository = projectRepository;
@@ -40,7 +42,7 @@ public class ProjectSeeder implements CommandLineRunner {
                     .endDate(LocalDate.of(2023, 9, 12).plusMonths(1))
                     .progress(ProjectProgress.ACCEPTED)
                     .category(ProjectCategory.SPORTS)
-//                    .user();
+//                    .user(userRepository.findByUsername("gordijnmans77").get())
                     .build();
             image = new MultipartFile[]{
                    service.seedImage("src\\main\\resources\\ProjectImages\\project1\\sport.jpg")
@@ -57,7 +59,7 @@ public class ProjectSeeder implements CommandLineRunner {
                     .endDate(LocalDate.of(2023, 10, 20).plusMonths(2))
                     .progress(ProjectProgress.ACCEPTED)
                     .category(ProjectCategory.SUSTAINABILITY)
-//                    .user();
+ //                  .user(userRepository.findByUsername("willem.wasknijper").get())
                     .build();
             image = new MultipartFile[]{
                     service.seedImage("src\\main\\resources\\ProjectImages\\project2\\sustainability.jpg")
@@ -74,13 +76,15 @@ public class ProjectSeeder implements CommandLineRunner {
                     .endDate(LocalDate.of(2023, 7, 3).plusMonths(1))
                     .progress(ProjectProgress.ACCEPTED)
                     .category(ProjectCategory.EDUCATION)
-//                    .user();
+ //                   .user(userRepository.findByUsername("gordijnmans77").get())
                     .build();
             image = new MultipartFile[]{
                     service.seedImage("src\\main\\resources\\ProjectImages\\project3\\education.jpg")
             };
             projectRepository.save(project3);
             service.uploadImage(image, project3, "project");
+
+
 
             // Voeg de projecten toe aan de database.
 

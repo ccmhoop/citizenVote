@@ -1,20 +1,35 @@
-function ProgressBar(props) {
-  const properties = props;
-  return (
-    <div className=" flex justify-center items-center flex-row h-16 w-full pt-5  ">
-      <div className="flex justify-center items-center w-full h-9 rounded-2xl bg-slate-800 px-2 mb-4 ml-5">
-        <div className="flex justify-start items-center w-full overflow-hidden h-6 rounded-xl bg-white border-2 border-amber-400 ">
-          <div
-            className={`flex items-center justify-center h-full w-[${properties.percentage}%] bg-gradient-to-br from-indigo-800 to-rose-600`}
-          >
-            {" "}
-          </div>
-        </div>
-      </div> 
-      <p className="relative right-[46%] font-bold mb-4  mx-auto">{properties.percentage}%</p>
-    </div>
-    
-  );
+
+function ProgressBar(props){
+
+    let yesd = 0
+    let nod = 0
+    if(props.requiredVotes > props.yesVotes + props.noVotes){
+        yesd = props.yesVotes / props.requiredVotes * 100
+        nod = props.noVotes / props.requiredVotes * 100
+    }
+    else {
+        yesd = props.yesVotes / (props.yesVotes + props.noVotes) * 100
+        nod = props.noVotes / (props.yesVotes + props.noVotes) * 100
+    }
+
+
+    return (
+
+            <div className="relative flex w-full h-4 top-20 justify-start items-center">
+                {props.progress === "SUGGESTED" && <div className="border-black border-[3px] w-4 h-4 bg-white"></div>}
+                {props.progress === "ACCEPTED" && <div className="border-[3px] border-black w-4 h-4 bg-cyan-300"></div>}
+                {props.progress === "DECLINED" && <div className="border-[3px] border-black w-4 h-4 bg-black"></div>}
+                {props.progress === "FAILED" && <div className="border-[3px] border-black w-4 h-4 bg-red-600"></div>}
+                {props.progress === "PASSED" && <div className="border-[3px] border-black w-4 h-4 bg-green-600"></div>}
+                {props.progress === "APPROVED" && <div className="border-[3px] border-black w-4 h-4 bg-blue-800"></div>}
+                {props.progress === "DISCARDED" && <div className="border-[3px] border-black w-4 h-4 bg-orange-600"></div>}
+               <div className="border border-black w-[110px] h-4 rounded-r-lg bg-gray-600 bg-opacity-50 flex">
+                <div className="bg-green-600" style={{width: `${yesd}%`}}></div>
+                <div className="bg-red-600" style={{width: `${nod}%`}}></div>
+               </div>
+            </div>
+
+    )
 }
 
 export default ProgressBar;

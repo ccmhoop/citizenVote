@@ -52,7 +52,6 @@ export default function BurgerMenu() {
           {auth() && auth().role === "CITIZEN" && (
             <>
               <Link to="/shop">Shop</Link>
-              <Link to="/projects">test Project</Link>
               <Link to="/project_list">projects</Link>
               <Link to="/propose_project">propose project</Link>
             </>
@@ -60,7 +59,6 @@ export default function BurgerMenu() {
           {auth() && auth().role === "MANICIPALITY" && (
             <>
               <Link to="/shop">Shop</Link>
-              <Link to="/projects">test Project</Link>
               <Link to="/project_list">projects</Link>
               <Link to="/propose_project">propose project</Link>
             </>

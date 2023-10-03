@@ -1,14 +1,13 @@
+import banner from "../assets/amersfoort.jpg";
 import ProgressBar from '../components/ProgressBar';
 
 function ProjectItem(props){
-    const properties = props;
     return (
-      <>    
-        <div className='w-[95%] h-[95%] border-2 border-amber-400 flex justify-center items-start flex-col rounded-xl overflow-hidden mb-1' style={{backgroundImage: `url(${properties.url})`, backgroundSize: "cover",backgroundPosition:"center"}}>  
+        <div className='border h-32 w-32 border-black' style={{backgroundImage: `url(${props.url})`, backgroundSize: "contain"}}>
+             {/* <img className="top-10 h-32 w-32 object-none bg-slate-600" src={banner}alt=""/> */}
+             <ProgressBar yesVotes={props.yesVotes}  noVotes={props.noVotes} requiredVotes={props.requiredVotes} progress={props.progress}/>
+             <div className="relative bg-slate-600 bg-opacity-80 h-8 w-full top-20 flex justify-center items-center">{props.title}</div>
         </div>
-        <div className=" text-center font-bold text-slate-900 w-[95%] h-12 border-y-2">{properties.title}</div>
-    <ProgressBar percentage={properties.percentage}/>
-     </>
     )
 }
 

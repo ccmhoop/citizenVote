@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ProgressBar from "../components/ProgressBar";
 import { useAuthUser } from "react-auth-kit";
@@ -12,6 +12,7 @@ function ProjectOverview(props) {
     const location = useLocation();
     const auth = useAuthUser();
     const token = getToken();
+    const navigate = useNavigate();
     console.log(location)
 
     useEffect(() => {
@@ -45,6 +46,9 @@ function ProjectOverview(props) {
             console.log(response)
             forceReload(!bool);
         }).catch(err => console.log(err))
+    }
+    function onNavigate(){
+        navigate("/editproject", {state: { id: location.state?.id }});
     }
 
     return (
@@ -83,19 +87,22 @@ function ProjectOverview(props) {
                     <div className=" border-2 border-gray-600 rounded mt-2"/>
                     <div className=" max-w-xl">{project.description}</div>
                     <div className=" border-2 border-gray-600 rounded mt-2"/>
-                    <div className="flex justify-between">
+                    <div className="flex justify-evenly">
                         
-                        {auth().role == "CITIZEN" && project.voteType == "YES" && 
-                        <button onClick={() => onVote("YES")} className="w-48 h-9 rounded-md bg-green-700 ">Vote Yes</button>
+                        {auth().role == "MANICIPALITY" && 
+                            <button onClick={() => onNavigate()} className="w-48 h-9 rounded-md bg-yellow-600 ">Edit</button> 
                         }
-                         {auth().role == "CITIZEN" && project.voteType !== "YES" && 
-                        <button onClick={() => onVote("YES")} className="w-48 h-9 rounded-md bg-gray-600 ">Vote Yes</button>
+                        {auth().role == "CITIZEN" && project.progress == "ACCEPTED" && project.voteType == "YES" && 
+                            <button onClick={() => onVote("YES")} className="w-48 h-9 rounded-md bg-green-700 ">Vote Yes</button>
                         }
-                         {auth().role == "CITIZEN" && project.voteType == "NO" && 
-                        <button onClick={() => onVote("NO")} className="w-48 h-9 rounded-md bg-red-700 ">Vote Yes</button>
+                         {auth().role == "CITIZEN" && project.progress == "ACCEPTED" && project.voteType !== "YES" && 
+                            <button onClick={() => onVote("YES")} className="w-48 h-9 rounded-md bg-gray-600 ">Vote Yes</button>
                         }
-                         {auth().role == "CITIZEN" && project.voteType !== "NO" && 
-                        <button onClick={() => onVote("NO")} className="w-48 h-9 rounded-md bg-gray-600 ">Vote No</button>
+                         {auth().role == "CITIZEN" && project.progress == "ACCEPTED" && project.voteType == "NO" && 
+                            <button onClick={() => onVote("NO")} className="w-48 h-9 rounded-md bg-red-700 ">Vote Yes</button>
+                        }
+                         {auth().role == "CITIZEN" && project.progress == "ACCEPTED" && project.voteType !== "NO" && 
+                            <button onClick={() => onVote("NO")} className="w-48 h-9 rounded-md bg-gray-600 ">Vote No</button>
                         }
 
                         
