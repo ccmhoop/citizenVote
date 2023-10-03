@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class ProductResponse {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String id;
+    private Long id;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String name;
@@ -34,4 +34,7 @@ public class ProductResponse {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String labelImage;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Boolean softDelete;
 }

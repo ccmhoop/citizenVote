@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import Home from "./pages/Home";
 import Footer from "./components/Footer";
@@ -12,11 +11,10 @@ import Register from "./pages/Register";
 import { RequireAuth } from "react-auth-kit";
 import Shop from "./pages/Shop";
 import Basket from "./pages/Basket";
-import Projects from "./pages/Projects";
 import ProposeProject from "./pages/ProposeProject";
 import ProjectList from "./pages/ProjectList";
 import ProjectOverview from "./pages/ProjectOverview";
-import ShopManagment from "./pages/ShopManagment";
+import ShopManagement from "./pages/ShopManagement";
 import CheckOut from "./pages/Checkout";
 import Manicipality from "./pages/Manicipality";
 import Editproject from "./pages/EditProject";
@@ -60,11 +58,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
            <Route path="/{beveiligde path}" element={<RequireAuth loginPath="/login"><Pagina/></RequireAuth>}></Route> */}
           <Route path="/shop" element={<Shop />} />
           <Route path="/basket" element={<Basket />} />
-          <Route path="/checkout" element={<CheckOut/>} />
-          <Route path="/ShopManagement" element={<ShopManagement />} />
+          <Route path="/checkout" element={<CheckOut />} />
+          <Route path="/shop_Management" element={<ShopManagement />} />
           <Route path="/mmenu" element={<Manicipality />} />
           <Route path="/project_overview" element={<ProjectOverview />} />
-          <Route path="/projects" element={<Projects />} />
+          <Route path="/project_list" element={<ProjectList />} />
           <Route path="/propose_project" element={<ProposeProject />} />
           <Route path="/editproject" element={<Editproject />} />
         </Routes>

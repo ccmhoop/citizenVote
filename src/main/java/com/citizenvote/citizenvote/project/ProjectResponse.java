@@ -3,6 +3,7 @@ package com.citizenvote.citizenvote.project;
 
 import com.citizenvote.citizenvote.imageData.ProjectImageData;
 import com.citizenvote.citizenvote.user.User;
+import com.citizenvote.citizenvote.user.UserResponse;
 import com.citizenvote.citizenvote.vote.VoteType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
@@ -20,6 +21,8 @@ public class ProjectResponse {
     private String id;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private User user;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private UserResponse userResponse;
     private String title;
     private String description;
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -43,6 +46,10 @@ public class ProjectResponse {
     private ProjectCategory category;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private VoteType voteType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Integer yesVotes;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Integer noVotes;
 
 
 }

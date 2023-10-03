@@ -1,17 +1,29 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ProgressBar from "../components/ProgressBar";
 import { useAuthUser } from "react-auth-kit";
 import { getToken } from "../js/getToken";
+import roleAuth from "../js/roleAuth";
 
 function ProjectOverview(props) {
+
+    const [statusCode, setStatusCode] = useState(null);
+
+    useEffect(() => {
+      async function userRole() {
+      const status = await roleAuth();
+        setStatusCode(status)
+      }
+     userRole();
+    }, []);
 
     const [project, setProject] = useState([]);
     const [bool, forceReload] = useState(true);
     const location = useLocation();
     const auth = useAuthUser();
     const token = getToken();
+    const navigate = useNavigate();
     console.log(location)
 
     useEffect(() => {
@@ -46,7 +58,10 @@ function ProjectOverview(props) {
             forceReload(!bool);
         }).catch(err => console.log(err))
     }
-
+    function onNavigate(){
+        navigate("/editproject", {state: { id: location.state?.id }});
+    }
+    if(statusCode){
     return (
         // <>
         //     <div className="h-fit w-screen bg-gradient-to-br from-indigo-800 to-rose-600 min-h-[calc(100vh-152px)] items-center flex justify-center">
@@ -83,19 +98,22 @@ function ProjectOverview(props) {
                     <div className=" border-2 border-gray-600 rounded mt-2"/>
                     <div className=" max-w-xl">{project.description}</div>
                     <div className=" border-2 border-gray-600 rounded mt-2"/>
-                    <div className="flex justify-between">
+                    <div className="flex justify-evenly">
                         
-                        {auth().role == "CITIZEN" && project.voteType == "YES" && 
-                        <button onClick={() => onVote("YES")} className="w-48 h-9 rounded-md bg-green-700 ">Vote Yes</button>
+                        {auth().role == "MANICIPALITY" && 
+                            <button onClick={() => onNavigate()} className="w-48 h-9 rounded-md bg-yellow-600 ">Edit</button> 
                         }
-                         {auth().role == "CITIZEN" && project.voteType !== "YES" && 
-                        <button onClick={() => onVote("YES")} className="w-48 h-9 rounded-md bg-gray-600 ">Vote Yes</button>
+                        {auth().role == "CITIZEN" && project.progress == "ACCEPTED" && project.voteType == "YES" && 
+                            <button onClick={() => onVote("YES")} className="w-48 h-9 rounded-md bg-green-700 ">Vote Yes</button>
                         }
-                         {auth().role == "CITIZEN" && project.voteType == "NO" && 
-                        <button onClick={() => onVote("NO")} className="w-48 h-9 rounded-md bg-red-700 ">Vote Yes</button>
+                         {auth().role == "CITIZEN" && project.progress == "ACCEPTED" && project.voteType !== "YES" && 
+                            <button onClick={() => onVote("YES")} className="w-48 h-9 rounded-md bg-gray-600 ">Vote Yes</button>
                         }
-                         {auth().role == "CITIZEN" && project.voteType !== "NO" && 
-                        <button onClick={() => onVote("NO")} className="w-48 h-9 rounded-md bg-gray-600 ">Vote No</button>
+                         {auth().role == "CITIZEN" && project.progress == "ACCEPTED" && project.voteType == "NO" && 
+                            <button onClick={() => onVote("NO")} className="w-48 h-9 rounded-md bg-red-700 ">Vote Yes</button>
+                        }
+                         {auth().role == "CITIZEN" && project.progress == "ACCEPTED" && project.voteType !== "NO" && 
+                            <button onClick={() => onVote("NO")} className="w-48 h-9 rounded-md bg-gray-600 ">Vote No</button>
                         }
 
                         
@@ -107,5 +125,5 @@ function ProjectOverview(props) {
     )
 
 }
-
+}
 export default ProjectOverview;

@@ -26,9 +26,7 @@ public class OrderDetailsService {
     public ResponseEntity<?> fetchTotal(OrderDetailsResponse items, UserResponse userDetails) {
         int userPoints = userDetails.getPoints();
         int total = 0;
-
         List<ProductResponse> response = new ArrayList<>();
-
         for (OrderItems product : items.getOrderItems()) {
             total += Integer.parseInt(productRepository.findById(product.getId()).get().getPoints()) * product.getQuantity();
             var item = ProductResponse.builder()
@@ -36,10 +34,6 @@ public class OrderDetailsService {
                     .build();
             response.add(item);
         }
-//        if (userPoints - total < 0) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-//                    .body(HttpStatus.BAD_REQUEST);
-//        }
         return ResponseEntity.status(HttpStatus.OK)
                 .body(OrderDetailsResponse.builder()
                         .total(total)
@@ -49,15 +43,12 @@ public class OrderDetailsService {
                         .build());
     }
 
-    public boolean completeOrderCheck(OrderDetailsResponse items, User user) {
+    public int calculateTotal(OrderDetailsResponse items){
         int total = 0;
         for (OrderItems product : items.getOrderItems()) {
             total += Integer.parseInt(productRepository.findById(product.getId()).get().getPoints()) * product.getQuantity();
         }
-        if (user.getPoints() - total < 0){
-            return true ;
-        }
-        user.setPoints(user.getPoints() - total);
-        return false ;
+        return total;
     }
+
 }

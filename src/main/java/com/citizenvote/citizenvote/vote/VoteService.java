@@ -3,6 +3,7 @@ package com.citizenvote.citizenvote.vote;
 import com.citizenvote.citizenvote.authentication.AuthenticationService;
 import com.citizenvote.citizenvote.config.JwtService;
 import com.citizenvote.citizenvote.project.Project;
+import com.citizenvote.citizenvote.project.ProjectProgress;
 import com.citizenvote.citizenvote.project.ProjectRepository;
 import com.citizenvote.citizenvote.user.User;
 import com.citizenvote.citizenvote.user.UserRepository;
@@ -27,10 +28,13 @@ public class VoteService {
     private final UserRepository userRepository;
     private final JwtService jwtService;
 
-    public void onVoting(OnVoteRequest request) {
+    public String onVoting(OnVoteRequest request) {
         User user = userRepository.findByUsername(jwtService.extractUserName(request.getToken())).get();
         Project project = projectRepository.findById(request.getProjectId()).get();
         System.out.println("Test 1");
+        if(project.getProgress() != ProjectProgress.ACCEPTED){
+            return "X";
+        }
         System.out.println(request.getVoteType());
         Optional<Vote> repos_vote = voteRepository.findByUserAndProject(user,project);
         Vote vote;
@@ -70,6 +74,7 @@ public class VoteService {
         userRepository.save(user);
         projectRepository.save(project);
 
+        return "OK";
     }
 
 }

@@ -24,22 +24,6 @@ public class ImageDataService {
     @Autowired
     private ProductRepository productRepository;
 
-
-//    public String uploadImage(MultipartFile[] files, Object object) throws IOException {
-//        Long objectId = object instanceof Product ? ((Product) object).getId() : ((Project) object).getId();
-//        for (MultipartFile image : files) {
-//            ImageData imageData = object instanceof Project ? new ProjectImageData() : new ProductImageData();
-//            imageData.setName(image.getOriginalFilename());
-//            imageData.setType(image.getContentType());
-//            imageData.setImageData(ImageDataUtils.compressImage(image.getBytes()));
-//            imageData.setUrl("http://localhost:8080/api/v1/auth/auth/image/" + objectId);
-//            imageData.setLink(object);
-//            imageDataRepository.save(imageData);
-//        }
-//        return "Saved";
-//    }
-
-
     public ImageData setImageData(Object object){
         if (object instanceof Product){
             return new ProductImageData();

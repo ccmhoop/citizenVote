@@ -10,7 +10,8 @@ export default function ProductToShop() {
     name: "",
     description: "",
     category: "",
-    points: ""
+    points: "",
+    softDelete: false
   });
 
   const handleChange = (e) => {
@@ -43,12 +44,22 @@ export default function ProductToShop() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(files[0]!==null &&
+    (formData.name&&
+    formData.description&&
+    formData.category&&
+    formData.points !=="")
+    ){
     try {
       await uploadFileData(formData, files, apiUrl, "product");
     } catch (error) {
-      console.log(error);
+      alert("Oops Something went Wrong")
     }
-  };
+    alert("Product Posted")
+    return
+  }
+  alert("Fields Empty")
+};
 
   return (
     <div className="flex justify-center items-center flex-col w-96 max-w-[90vw] h-full p-4 text-white rounded-2xl my-auto object-scale-down  bg-slate-900">

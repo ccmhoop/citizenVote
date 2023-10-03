@@ -1,7 +1,5 @@
-import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthUser, useSignOut } from "react-auth-kit";
-// import { useToken } from "../js/Hooks";
 
 export default function BurgerMenu() {
   const auth = useAuthUser();
@@ -52,7 +50,6 @@ export default function BurgerMenu() {
           {auth() && auth().role === "CITIZEN" && (
             <>
               <Link to="/shop">Shop</Link>
-              <Link to="/projects">test Project</Link>
               <Link to="/project_list">projects</Link>
               <Link to="/propose_project">propose project</Link>
             </>
@@ -60,7 +57,6 @@ export default function BurgerMenu() {
           {auth() && auth().role === "MANICIPALITY" && (
             <>
               <Link to="/shop">Shop</Link>
-              <Link to="/projects">test Project</Link>
               <Link to="/project_list">projects</Link>
               <Link to="/propose_project">propose project</Link>
             </>

@@ -5,6 +5,7 @@ import com.citizenvote.citizenvote.user.Role;
 import com.citizenvote.citizenvote.user.User;
 import com.citizenvote.citizenvote.user.UserRepository;
 import com.citizenvote.citizenvote.user.UserResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,9 +13,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AuthenticationService {
 
     private final UserRepository userRepository;
@@ -92,4 +95,47 @@ public class AuthenticationService {
                 .username(username)
                 .build();
     }
+
+    public Optional<User> findUserByName(String name){
+        return userRepository.findByUsername(name);
+    }
+
+
+    public UserResponse authRole(String token) {
+        String username = jwtService.extractUserName(token);
+        User user = userRepository.findByUsername(username).get();
+        return UserResponse.builder()
+                .role(user.getRole())
+                .build();
+    }
+
+    protected boolean autherizeUrl(String role,String url){
+
+
+
+        if(role.equals("MANICIPALITY")){
+            return switch (url){
+                case ("http://localhost:5173/mmenu"),
+                        ("http://localhost:5173/editproject"),
+                        ("http://localhost:5173/shop_management"),
+                        ("http://localhost:5173/project_overview") -> true;
+                default -> false;
+            };
+        }
+        if(role.equals("CITIZEN")){
+            return switch (url){
+                case ("http://localhost:5173/shop"),
+                        ("http://localhost:5173/basket"),
+                        ("http://localhost:5173/checkout"),
+                        ("http://localhost:5173/project_overview")-> true;
+                default -> false;
+            };
+        }
+
+
+
+    return false;
+    }
+
+
 }

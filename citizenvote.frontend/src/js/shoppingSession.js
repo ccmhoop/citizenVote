@@ -17,10 +17,8 @@ function saveCartToSessionStorage() {
 // Function to add an item to the cart
 function addItem(id, points, labelImage, name) {
   console.log("id ", id);
-  if (typeof id !== "string" || isNaN(points) || points <= 0) {
-    console.log(
-      "Invalid item information. Please provide a valid name and price."
-    );
+  if (typeof id !== "number" || isNaN(points) || points <= 0) {
+    console.log("Invalid item information. Please provide a valid ID and points.");
     return;
   }
   const itemExist = cart.find(item => item.id === id);

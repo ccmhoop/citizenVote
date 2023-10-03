@@ -30,6 +30,7 @@ public class ProductSeeder implements CommandLineRunner {
                     .description("rug ru ")
                     .points("20")
                     .category("testSeeder")
+                    .softDelete(true)
                     .build();
             image = new MultipartFile[]{
                     service.seedImage("src\\main\\resources\\shopImages\\playRug\\amersfoortRoadRug.jpg")
@@ -42,6 +43,7 @@ public class ProductSeeder implements CommandLineRunner {
                     .description("Represent your hood with this fancy white T")
                     .points("15")
                     .category("shirt")
+                    .softDelete(false)
                     .build();
             image = new MultipartFile[]{
                     service.seedImage("src\\main\\resources\\shopImages\\t-shirt\\shirt.png"),
