@@ -2,18 +2,19 @@ import { useState, useEffect } from "react";
 import uploadFileData from "../js/uploadFileData";
 import { useAuthUser } from "react-auth-kit";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getToken } from "../js/getToken";
 
 function EditProjectMenu() {
   const auth = useAuthUser();
   const location = useLocation();
-  const apiUrl = "http://localhost:8080/api/v1/project/image";
-  const apiUrlWithoutImages = "http://localhost:8080/api/v1/project";
+  const apiUrl = "http://localhost:8080/api/v1/project/image/edit";
+  const apiUrlWithoutImages = "http://localhost:8080/api/v1/project/edit";
   const [files, setFiles] = useState([null, null, null, null]);
   const [projectImage, setProjectImage] = useState();
   const defaultProgress = auth()?.role === "CITIZEN" ? "PROPOSED" : "APPROVED";
-
+  const [projectProgress, setProjectProgress] = useState([])
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -41,6 +42,7 @@ function EditProjectMenu() {
           console.log(response);
 
           setFormData(response.data);
+          setProjectProgress(response.data.progress);
         });
     }
     getProject();
@@ -89,13 +91,35 @@ function EditProjectMenu() {
         alert("The end date must come after the start date");
         return;
       }
+
+      const sendData = {
+        amountVotes: formData.amountVotes,
+        category: formData.category,
+        description: formData.description,
+        endDate: formData.endDate,
+        id: formData.id,
+        labelImage: formData.labelImage,
+        progress: projectProgress,
+        requiredVotes: formData.requiredVotes,
+        startDate: formData.startDate,
+        title: formData.title,
+        user: formData.userResponse,
+        voteType: formData.voteType,
+        token: getToken().token,
+        newProgress: formData.progress  
+      }
+
       if (hasImages) {
-        await uploadFileData(formData, files, apiUrl, "project");
+        await uploadFileData(sendData, files, apiUrl, "project").then(response => {
+          navigate(`/project_overview` , {state: {id: sendData.id}})
+        });
       } else {
-        await axios.post(apiUrlWithoutImages, formData, {
+        await axios.post(apiUrlWithoutImages, sendData, {
           headers: {
             Authorization: `Bearer ${getToken().token}`,
           },
+        }).then(response => {
+          navigate(`/project_overview` , {state: {id: sendData.id}})
         });
       }
     } catch (error) {
@@ -287,8 +311,20 @@ function EditProjectMenu() {
                 onChange={handleChange}
                 className="bg-slate-100 rounded-md border mx-12 text-gray-700"
               >
-                <option value="ACCEPTED">Accepted</option>
-                <option value="FAILED">Failed</option>
+                {console.log(projectProgress)}
+                {projectProgress == "SUGGESTED" && <>
+                  <option value="SUGGESTED">Suggested</option>
+                  <option value="ACCEPTED">Accepted</option>
+                  <option value="DECLINED">Declined</option>
+                </>
+                }
+                {projectProgress == "PASSED" && <>
+                  <option value="PASSED">Passed</option>
+                  <option value="APPROVED">Approved</option>
+                  <option value="DISCARDED">Discarded</option>
+                </>
+                }
+
               </select>
             </div>
 

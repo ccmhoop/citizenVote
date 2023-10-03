@@ -1,6 +1,7 @@
 package com.citizenvote.citizenvote.config;
 
 import com.citizenvote.citizenvote.user.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @RequiredArgsConstructor
+@Transactional
 public class AuthenticationConfig {
 
     @Autowired

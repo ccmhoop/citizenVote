@@ -16,7 +16,7 @@ import Projects from "./pages/Projects";
 import ProposeProject from "./pages/ProposeProject";
 import ProjectList from "./pages/ProjectList";
 import ProjectOverview from "./pages/ProjectOverview";
-import ShopManagment from "./pages/ShopManagment";
+import ShopManagement from "./pages/ShopManagment";
 import CheckOut from "./pages/Checkout";
 import Manicipality from "./pages/Manicipality";
 import Editproject from "./pages/EditProject";

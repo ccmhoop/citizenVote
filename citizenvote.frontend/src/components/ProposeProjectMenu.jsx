@@ -54,6 +54,7 @@ function ProposeProjectMenu() {
     const { title, description } = formData;
     const { startDate, endDate } = formData;
     const hasImages = files.some((file) => file !== null);
+    Object.assign(formData, {token: getToken().token})
     try {
       if (!title || !description) {
         alert(

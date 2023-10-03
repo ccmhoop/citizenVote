@@ -42,9 +42,9 @@ function ProjectList(){
                 {/* Kolom (sticky) */}<div className='border border-black h-12 w-full flex '>
 
                         <button onClick={() => getProjects("ALL")} className='border border-black bg-slate-500'>All</button>
-                        <button onClick={() => getProjects("SUGGESTED")} className='border border-black bg-slate-500'>Suggested</button>
+                        <button onClick={() => getProjects("ACCEPTED")} className='border border-black bg-slate-500'>Accepted</button>
                         {(user().role == "MANICIPALITY" || user().role == "ADMIN" ) && <>
-                            <button onClick={() => getProjects("ACCEPTED")} className='border border-black bg-slate-500'>Accepted</button>
+                            <button onClick={() => getProjects("SUGGESTED")} className='border border-black bg-slate-500'>Suggested</button>
                             <button onClick={() => getProjects("DECLINED")} className='border border-black bg-slate-500'>Declined</button>
                             <button onClick={() => getProjects("FAILED")} className='border border-black bg-slate-500'>Failed</button>
                             <button onClick={() => getProjects("PASSED")} className='border border-black bg-slate-500'>Passed</button>
@@ -63,7 +63,7 @@ function ProjectList(){
                 </select>
 
                 {/* project inventory */}<div className='border border-black min-h-[500px] w-full flex flex-row '>
-                    {projectList.map((obj) => <div onClick={() => onClickItem(obj.id)}><ProjectItem title={obj.title} url={obj.labelImage} progress={obj.progress} percentage={(obj.amountVotes/obj.requiredVotes)*100}/></div>)}
+                    {projectList.map((obj) => <div onClick={() => onClickItem(obj.id)}><ProjectItem title={obj.title} url={obj.labelImage} progress={obj.progress} yesVotes={obj.yesVotes}  noVotes={obj.noVotes} requiredVotes={obj.requiredVotes}/></div>)}
                 </div>
             </div>
         </div>

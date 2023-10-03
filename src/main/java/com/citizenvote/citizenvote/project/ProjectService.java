@@ -4,6 +4,7 @@ import com.citizenvote.citizenvote.config.JwtService;
 import com.citizenvote.citizenvote.imageData.ImageDataRepository;
 import com.citizenvote.citizenvote.imageData.ProjectImageData;
 import com.citizenvote.citizenvote.user.Role;
+import com.citizenvote.citizenvote.user.User;
 import com.citizenvote.citizenvote.user.UserRepository;
 import com.citizenvote.citizenvote.user.UserResponse;
 import com.citizenvote.citizenvote.vote.Vote;
@@ -87,12 +88,20 @@ public class ProjectService {
             projects = filterProjectByForAuthority(user.getRole(), projects);
 
         for (Project project : projects){
+            int yesVotes = project.getAmountVotes() + project.getVotes().stream()
+                    .filter(vote -> vote.getVoteType() == VoteType.YES).toList().size();
+
+            int noVotes = project.getVotes().stream()
+                    .filter(vote -> vote.getVoteType() == VoteType.NO).toList().size();
+
             response.add(ProjectResponse.builder()
                     .id(project.getId().toString())
                     .title(project.getTitle())
                     .labelImage(projectRepository.findById(project.getId()).get().getProjectImageData().get(0).getUrl())
                     .requiredVotes(project.getRequiredVotes())
                     .progress(project.getProgress())
+                    .yesVotes(yesVotes)
+                    .noVotes(noVotes)
                     .amountVotes(project.getAmountVotes() + project.getVotes().size())
                     .build());
         }
@@ -132,6 +141,23 @@ public class ProjectService {
         return filteredProjects;
     }
 
+    public Project requestToProject(ProjectRequest request){
+        User user = userRepository.findByUsername(jwtService.extractUserName(request.getToken())).get();
+
+        return Project.builder()
+                .user(user)
+                .title(request.getTitle())
+                .description(request.getDescription())
+                .ProjectImageData(request.getProjectImageData())
+                .requiredVotes(request.getRequiredVotes())
+                .amountVotes(request.getAmountVotes())
+                .startDate(request.getStartDate())
+                .endDate(request.getEndDate())
+                .progress(request.getProgress())
+                .category(request.getCategory())
+                .build();
+    }
+
     public ProjectResponse getProjectOverviewDetails(Long projectID, String token){
         Project project = projectRepository.findById(projectID).get();
         VoteType voteType = VoteType.NONE;
@@ -153,9 +179,44 @@ public class ProjectService {
                 .startDate(project.getStartDate())
                 .endDate(project.getEndDate())
                 .voteType(voteType)
+                .userResponse(UserResponse.builder()
+                        .id(project.getUser().getId())
+                        .username(project.getUser().getUsername())
+                        .build())
                 .progress(project.getProgress())
                 .labelImage(projectRepository.findById(project.getId()).get().getProjectImageData().get(0).getUrl())
                 .build();
+    }
+
+    public Project stageProject(ProjectRequest request){
+        User user = userRepository.findByUsername(request.getUser().getUsername()).get();
+        Project project = projectRepository.findById(request.getId()).get();
+        ProjectProgress newProgress = ProjectProgress.valueOf(request.getNewProgress());
+
+        System.out.println("name: " + project.getTitle());
+        System.out.println("new Progress: " + newProgress);
+        System.out.println("old Progress: " + project.getProgress());
+
+        if(project.getProgress() == ProjectProgress.SUGGESTED){
+            if(newProgress == ProjectProgress.ACCEPTED){
+                project.setProgress(ProjectProgress.ACCEPTED);
+                user.setPoints(user.getPoints() + 20);
+                userRepository.save(user);
+            }
+            if(newProgress == ProjectProgress.DECLINED){
+                project.setProgress(ProjectProgress.DECLINED);
+            }
+        }
+        if(project.getProgress() == ProjectProgress.PASSED){
+            if(newProgress == ProjectProgress.APPROVED){
+                project.setProgress(ProjectProgress.APPROVED);
+            }
+            if(newProgress == ProjectProgress.DISCARDED){
+                project.setProgress(ProjectProgress.DISCARDED);
+            }
+        }
+
+        return project;
     }
 
 
