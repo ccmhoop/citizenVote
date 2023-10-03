@@ -24,6 +24,7 @@ function EditProjectMenu() {
     progress: defaultProgress,
     category: "EMPTY",
     id: location.state?.id,
+    user: "",
   });
 
   useEffect(() => {
