@@ -37,26 +37,25 @@ export default function ShopManagement() {
 if(RoleAuth()){
   return (
     <div className="w-[100%] min-h-[88vh] flex justify-center items-center flex-wrap gap-2 bg-gradient-to-br from-indigo-800 to-rose-600">
-      <div className="  min-w-[40vw] max-w-[95vw]  h-[80vh] flex flex-col justify-start items-center rounded-xl bg-white/80 overflow-y-scroll overflow-x-hidden  ">
-      <div className="flex justify-center rounded-t-lg items-center h-fit w-full  bg-amber-400 font-bold px-2 py-2 ">
-            <p className="flex justify-center items-center rounded-md w-52 px-2  h-10  bg-white text-xl text-slate-800">
-              Manage Shop
-            </p>
-          </div>
+      <div className="  min-w-[25vw] max-w-[95vw]  h-[80vh] flex flex-col justify-start items-center rounded-xl bg-white/80 overflow-y-scroll overflow-x-hidden  ">
+      <div className="flex justify-center text-center items-center text-lg font-extrabold text-white w-full h-20 bg-amber-400 mx-auto rounded-t-xl border-b-2">
+          <p className="flex justify-center text-center items-center text-lg font-extrabold text-white w-full h-9 bg-slate-800 mx-auto border-y-2 py-2">
+            Shop Management
+          </p>
+        </div>
         
         {selected ? (
           task ? (
             <div className="flex justify-center items-center flex-col my-auto">
               <ProductToShop />
-              <div className="flex justify-start items-start "></div>
             </div>
-          ) : (
-            products.map((product) => (
+          ) : (  <div className="flex w-full justify-start items-start flex-col mt-2 gap-y-1 px-2 overflow-y-scroll">
+            {products.map((product) => (
               <DeleteProduct key={product.id} product={product} />
-            ))
-          )
+            ))}
+          </div>)
         ) : (
-          <div className="flex flex-col gap-y-2">
+          <div className="flex flex-col gap-y-2 my-auto px-4">
             <button onClick={() => handleSelected("add")}>
               <ButtonDesign
                 title="Add Product to shop"

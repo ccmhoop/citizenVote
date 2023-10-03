@@ -26,8 +26,8 @@ export default function CheckOut() {
 
   useEffect(() => {
     async function getOrderInformation() {
-      const tot = await completeOrder(apiUrl);
-      setOrderInformation(tot.body);
+      const checkInformation = await completeOrder(apiUrl);
+      setOrderInformation(checkInformation.body);
     }
     getOrderInformation();
   }, []);
@@ -47,7 +47,7 @@ export default function CheckOut() {
   if(RoleAuth()){
   return (
     <div className="w-[100%] min-h-[88vh] flex justify-center items-start p-4 flex-wrap bg-gradient-to-br from-indigo-800 to-rose-600">
-      <div className=" w-96 min-w-[35vw] max-w-[100vw] h-full flex flex-col  justify-start items-start rounded-xl bg-white/80  p-2">
+      <div className=" w-96 min-w-[60vw] max-w-[100vw] h-full flex flex-col  justify-start items-start rounded-xl bg-white/80  p-2">
         <div className="flex justify-center text-center items-center text-lg font-extrabold text-white w-full h-20 bg-amber-400 mx-auto rounded-t-xl border-b-2">
           <p className="flex justify-center text-center items-center text-lg font-extrabold text-white w-full h-9 bg-slate-800 mx-auto border-y-2 py-2">
             Order Details
@@ -143,7 +143,7 @@ export default function CheckOut() {
             <div className="flex justify-center items-center w-full  gap-x-4 px-4 ">
               <Link to="/basket">
                 <ButtonDesign
-                  title="Retur to Cart"
+                  title="Return to Cart"
                   width="40"
                   height="20"
                   labelWidth="full"

@@ -38,11 +38,11 @@ function ProjectList(){
         <div className="w-[100%] min-h-[88vh] flex justify-center items-start gap-2 bg-gradient-to-br from-indigo-800 to-rose-600">
 
             <div className="  min-w-[65vw] max-w-[95vw]  h-[88vh] flex flex-col justify-start items-start rounded-xl bg-white/80 my-4 overflow-hidden">
-            <div className="flex justify-center rounded-t-lg items-center h-fit w-full  bg-amber-400 font-bold px-2 py-2 ">
-            <p className="flex justify-center items-center rounded-md w-52 px-2  h-10  bg-white text-xl text-slate-800">
-              Project List
-            </p>
-          </div>
+            <div className="flex justify-center text-center items-center text-lg font-extrabold text-white w-full h-20 bg-amber-400 mx-auto rounded-t-xl border-b-2">
+          <p className="flex justify-center text-center items-center text-lg font-extrabold text-white w-full h-9 bg-slate-800 mx-auto border-y-2 py-2">
+            Project List
+          </p>
+        </div>
                <div className='flex justify-center rounded-t-lg items-center h-fill w-full flex-wrap bg-white text-xs font-bold px-2 py-2 gap-1 '>
 
                         <button onClick={() => getProjects("ALL")} className='rounded-md  w-20 px-2 h-10  bg-slate-800 text-white'>All</button>
