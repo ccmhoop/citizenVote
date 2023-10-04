@@ -4,19 +4,13 @@ import axios from "axios";
 import ProgressBar from "../components/ProgressBar";
 import { useAuthUser } from "react-auth-kit";
 import { getToken } from "../js/getToken";
-import roleAuth from "../js/roleAuth";
+import RoleAuth from "../js/roleAuth";
+import PageRequest from "../components/PageRequest";
 
 function ProjectOverview(props) {
 
-    const [statusCode, setStatusCode] = useState(null);
 
-    useEffect(() => {
-      async function userRole() {
-      const status = await roleAuth();
-        setStatusCode(status)
-      }
-     userRole();
-    }, []);
+
 
     const [project, setProject] = useState([]);
     const [bool, forceReload] = useState(true);
@@ -61,7 +55,7 @@ function ProjectOverview(props) {
     function onNavigate(){
         navigate("/editproject", {state: { id: location.state?.id }});
     }
-    if(statusCode){
+    if(RoleAuth()){
     return (
         // <>
         //     <div className="h-fit w-screen bg-gradient-to-br from-indigo-800 to-rose-600 min-h-[calc(100vh-152px)] items-center flex justify-center">
@@ -115,9 +109,6 @@ function ProjectOverview(props) {
                          {auth().role == "CITIZEN" && project.progress == "ACCEPTED" && project.voteType !== "NO" && 
                             <button onClick={() => onVote("NO")} className="w-48 h-9 rounded-md bg-gray-600 ">Vote No</button>
                         }
-
-                        
-                        
                     </div>
                 </div>
             </div>}
@@ -125,5 +116,8 @@ function ProjectOverview(props) {
     )
 
 }
+else{
+    return(<PageRequest/>)
+  }
 }
 export default ProjectOverview;

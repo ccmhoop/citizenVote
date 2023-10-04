@@ -1,4 +1,3 @@
-import React from "react";
 import banner from "../assets/amersfoort.jpg";
 
 export default function Home() {

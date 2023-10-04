@@ -3,20 +3,12 @@ import axios from "axios";
 
 let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
 
-// const shopSession = {
-//   user_id: "",
-//   total: "",
-//   created_at: Date.now(),
-//   modified_at: Date.now(),
-// };
-
 function saveCartToSessionStorage() {
   sessionStorage.setItem("cart", JSON.stringify(cart));
 }
 
 // Function to add an item to the cart
 function addItem(id, points, labelImage, name) {
-  console.log("id ", id);
   if (typeof id !== "number" || isNaN(points) || points <= 0) {
     console.log("Invalid item information. Please provide a valid ID and points.");
     return;
@@ -36,7 +28,6 @@ function addItem(id, points, labelImage, name) {
     cart.push(item);
   }
   saveCartToSessionStorage();
-  console.log(`${id} added to the cart.`);
 }
 
 // Function to remove an item from the cart
@@ -54,13 +45,6 @@ function removeItem(id) {
   }
 }
 
-// Function to display the current cart contents
-function displayCart() {
-  console.log("Current Cart:");
-  cart.forEach(item => {
-    console.log(`${item.id} - Points : ${item.points} x ${item.quantity}`);
-  });
-}
 
 // Function to calculate and display the total cost of items in the cart
 function displayTotalCost() {
@@ -68,7 +52,6 @@ function displayTotalCost() {
     (total, item) => total + item.points * item.quantity,
     0
   );
-  console.log(`Total Cost: $${totalCost.toFixed(2)}`);
   return totalCost;
 }
 
@@ -108,7 +91,6 @@ export {
   cart,
   addItem,
   removeItem,
-  displayCart,
   displayTotalCost,
   displayQuantity,
   returnIndex,

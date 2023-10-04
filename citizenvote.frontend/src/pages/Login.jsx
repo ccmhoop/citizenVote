@@ -72,7 +72,7 @@ function Login() {
                 <div className="flex justify-center text-2xl font-serif"><label>Login</label></div>
                 <div className="border-2 border-white rounded mt-1"></div>
                 <label>Username: <p id="username_error" className=" text-red-600 font-normal"></p></label>
-                <input id="username" className="sm:w-96 border border-solid border-neutral-300 bg-transparent  bg-clip-padding px-3 text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"/>
+                <input id="username" className="sm:w-96 border border-solid border-neutral-300 bg-transparent  bg-clip-padding px-3 text-base font-normal leading-[1.6] text-white dark:focus:border-primary"/>
                 <label>Password: <p id="password_error" className=" text-red-600 font-normal"></p></label>
                 <input type="password" id="password" className="border border-solid border-neutral-300 bg-transparent  bg-clip-padding px-3 text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"/>
                 <div className="flex flex-col sm:flex-row gap-1 justify-evenly font-normal ">

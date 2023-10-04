@@ -49,16 +49,20 @@ export default function BurgerMenu() {
           <div className=" border-2 border-white rounded mt-2"></div>
           {auth() && auth().role === "CITIZEN" && (
             <>
+              <Link to="/propose_project">Suggest project</Link>
+              <Link to="/project_list">Project List</Link>
+              <div className=" border-2 border-white rounded mt-2"></div>
               <Link to="/shop">Shop</Link>
-              <Link to="/project_list">projects</Link>
-              <Link to="/propose_project">propose project</Link>
+              <Link to="/basket">Cart</Link>
             </>
           )}
           {auth() && auth().role === "MANICIPALITY" && (
             <>
+              <Link to="/propose_project">Suggest project</Link>
+              <Link to="/project_list">Project List</Link>
+              <div className=" border-2 border-white rounded mt-2"></div>
               <Link to="/shop">Shop</Link>
-              <Link to="/project_list">projects</Link>
-              <Link to="/propose_project">propose project</Link>
+              <Link to="/shop_management">Manage shop</Link>
             </>
           )}
 
@@ -69,10 +73,10 @@ export default function BurgerMenu() {
               <Link to="/propose_project">propose project</Link>
             </>
           )}
-
           {auth() && (
             <>
-              <a onClick={() => onLogout()} className=" hover:underline">
+              <div className=" border-2 border-white rounded mt-2"></div>
+              <a onClick={() => onLogout()} className="hover:underline">
                 Logout
               </a>
             </>
