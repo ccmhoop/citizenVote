@@ -75,7 +75,12 @@ function ProjectOverview(props) {
                     <div className=" border-2 border-gray-600 rounded mt-2"/>
                     <img src={project.labelImage || ""} alt="afbeelding project"/>
                     <div className=" border-2 border-gray-600 rounded mt-2"/>
-                    <ProgressBar percentage={(project.amountVotes/project.requiredVotes)*100}/>
+                    <ProgressBar
+                        yesVotes={project.yesVotes}
+                        noVotes={project.noVotes}
+                        requiredVotes={project.requiredVotes}
+                        progress={project.progress}
+                    />
                     <div className="flex flex-row justify-evenly">
                         
                         <div className="flex flex-col w-64">

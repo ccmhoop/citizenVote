@@ -140,6 +140,21 @@ public class UserSeeder implements CommandLineRunner {
                     .build();
             userRepository.save(u6);
 
+            for (int i = 0; i < 50; i++) {
+                User us = User.builder()
+                    .firstname("user")
+                    .lastname("autouser")
+                    .email("user" + i + "@botmail.com")
+                    .phoneNumber("0699581" + (800 + i))
+                    .role(Role.CITIZEN)
+                    .adress("botlaan " + (i*2))
+                    .username("user" + i)
+                    .points(0)
+                    .postPrivilege(false)
+                    .password(passwordEncoder.encode("user" + i))
+                    .build();
+            }
+
 
         }
     }

@@ -13,7 +13,7 @@ function ProjectList(){
     const navigate = useNavigate();
     const user = useAuthUser();
     useEffect(() => {
-        getProjects("ACCEPTED")
+        getProjects("ALL")
     }, [])
 
     async function getProjects(progress){
