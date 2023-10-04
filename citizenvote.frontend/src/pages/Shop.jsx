@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import RoleAuth from "../js/roleAuth";
 import { useAuthUser } from "react-auth-kit";
+import PageRequest from "../components/PageRequest";
 
 export default function Shop() {
   const auth = useAuthUser();
@@ -59,5 +60,8 @@ export default function Shop() {
         </div>
       </div>
     );
+  }
+  else{
+    return(<PageRequest/>)
   }
 }

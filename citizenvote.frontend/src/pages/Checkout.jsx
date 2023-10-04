@@ -4,6 +4,7 @@ import ButtonDesign from "../components/ButtonDesign";
 import { useNavigate, Link } from "react-router-dom";
 import { cart } from "../js/shoppingSession";
 import RoleAuth from "../js/roleAuth";
+import PageRequest from "../components/PageRequest";
 
 export default function CheckOut() {
   const navigate = useNavigate();
@@ -172,5 +173,8 @@ export default function CheckOut() {
       </div>
     </div>
   );
+}
+else{
+  return(<PageRequest/>)
 }
 }

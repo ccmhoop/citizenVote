@@ -4,6 +4,7 @@ import ProductToShop from "../components/ProductToShop";
 import axios from "axios";
 import DeleteProduct from "../components/DeleteProduct";
 import RoleAuth from "../js/roleAuth";
+import PageRequest from "../components/PageRequest";
 
 export default function ShopManagement() {
   const [selected, setSelected] = useState(false);
@@ -85,5 +86,8 @@ if(RoleAuth()){
       </div>
     </div>
   );
+}
+else{
+  return(<PageRequest/>)
 }
 }

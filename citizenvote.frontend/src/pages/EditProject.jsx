@@ -1,4 +1,5 @@
 import EditProjectMenu from "../components/EditProjectMenu";
+import PageRequest from "../components/PageRequest";
 import RoleAuth from "../js/roleAuth";
 
 export default function Editproject() {
@@ -8,5 +9,8 @@ export default function Editproject() {
       <EditProjectMenu />
     </div>
   );
+}
+else{
+  return(<PageRequest/>)
 }
 }

@@ -5,8 +5,12 @@ import ProgressBar from "../components/ProgressBar";
 import { useAuthUser } from "react-auth-kit";
 import { getToken } from "../js/getToken";
 import RoleAuth from "../js/roleAuth";
+import PageRequest from "../components/PageRequest";
 
 function ProjectOverview(props) {
+
+
+
 
     const [project, setProject] = useState([]);
     const [bool, forceReload] = useState(true);
@@ -112,5 +116,8 @@ function ProjectOverview(props) {
     )
 
 }
+else{
+    return(<PageRequest/>)
+  }
 }
 export default ProjectOverview;

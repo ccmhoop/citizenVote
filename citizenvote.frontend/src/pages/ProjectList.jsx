@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useAuthUser } from 'react-auth-kit';
 import RoleAuth from '../js/roleAuth';
+import PageRequest from '../components/PageRequest';
 
 function ProjectList(){
 
@@ -72,5 +73,9 @@ function ProjectList(){
         </div>
     )
 }
+else{
+    return(<PageRequest/>)
+  }
 }
+
 export default ProjectList;

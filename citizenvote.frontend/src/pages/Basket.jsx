@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useAuthUser } from "react-auth-kit";
 import ButtonDesign from "../components/ButtonDesign";
 import RoleAuth from "../js/roleAuth";
+import PageRequest from "../components/PageRequest";
 
 export default function Basket() {
   const auth = useAuthUser();
@@ -115,4 +116,7 @@ if(RoleAuth())
       </div>
     </div>
   );
+  else{
+    return(<PageRequest/>)
+  }
 }
