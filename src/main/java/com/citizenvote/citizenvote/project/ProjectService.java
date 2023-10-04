@@ -169,6 +169,11 @@ public class ProjectService {
                 voteType = l.get(0).getVoteType();
             }
         }
+        int yesVotes = project.getAmountVotes() + project.getVotes().stream()
+                .filter(vote -> vote.getVoteType() == VoteType.YES).toList().size();
+
+        int noVotes = project.getVotes().stream()
+                .filter(vote -> vote.getVoteType() == VoteType.NO).toList().size();
 
         return ProjectResponse.builder()
                 .id(project.getId().toString())
@@ -180,6 +185,8 @@ public class ProjectService {
                 .startDate(project.getStartDate())
                 .endDate(project.getEndDate())
                 .voteType(voteType)
+                .yesVotes(yesVotes)
+                .noVotes(noVotes)
                 .userResponse(UserResponse.builder()
                         .id(project.getUser().getId())
                         .username(project.getUser().getUsername())

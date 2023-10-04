@@ -17,7 +17,7 @@ function ProjectList(){
     }, [])
 
     async function getProjects(progress){
-        const byRole = document.getElementById("suggestorRole").value
+        const byRole = document.getElementById("suggestorRole")?.value ? document.getElementById("suggestorRole").value : "ALL"
         await axios.post(`http://localhost:8080/api/v1/project/progress/list`, {
             progress,
             byRole,

@@ -153,6 +153,8 @@ public class UserSeeder implements CommandLineRunner {
                     .postPrivilege(false)
                     .password(passwordEncoder.encode("user" + i))
                     .build();
+                userRepository.save(us);
+
             }
 
 
